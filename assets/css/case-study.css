@@ -1515,3 +1515,146 @@
     max-width: 100%;
   }
 }
+
+
+/* ============================================================
+   15. PROJECT 01 — Recruiter-first 增补（最低成本）
+   复用既有 token，不引入新设计系统。
+   ============================================================ */
+
+/* --- Case Overview（Hero 后叙事） --- */
+.case-overview {
+  padding-block: var(--space-xl);
+  border-top: var(--border-subtle);
+}
+
+.case-overview__title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.35;
+  max-width: 20em;
+  color: var(--c-ink);
+}
+
+.case-overview__body {
+  max-width: 46em;
+  margin-top: var(--space-md);
+  font-size: 1rem;
+  line-height: 1.95;
+  color: var(--c-secondary);
+}
+
+/* --- Why it matters（每 Beat 收尾） --- */
+.why-matters {
+  max-width: 46em;
+  margin-top: var(--space-md);
+  padding: 0.85rem 1.3rem;
+  background: rgba(91, 116, 128, 0.05);
+  border: var(--border-subtle);
+  border-left: 3px solid var(--c-accent);
+  border-radius: 0 var(--r-card-sm) var(--r-card-sm) 0;
+}
+
+.why-matters__label {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  margin-bottom: 0.4rem;
+}
+
+.why-matters p {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: var(--c-ink);
+  margin: 0;
+}
+
+/* --- Timeline 降权变体（Iteration Trace） --- */
+.case-timeline--minor {
+  padding-block: var(--space-sm) 0;
+}
+
+.case-timeline--minor .case-timeline__inner {
+  opacity: 0.82;
+  font-size: 0.78rem;
+}
+
+.case-timeline__head {
+  margin-bottom: 0.6rem;
+}
+
+.case-timeline__title {
+  font-family: var(--font-en);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.case-timeline__sub {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--c-secondary);
+}
+
+/* --- Full Evidence Trail（末尾辅助证据） --- */
+.ev-trail {
+  padding-block: var(--space-2xl);
+  border-top: var(--border-subtle);
+  scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
+
+.ev-trail__title {
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--c-ink);
+}
+
+.ev-trail__intro {
+  max-width: 46em;
+  margin-top: var(--space-sm);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--c-secondary);
+}
+
+.ev-trail__group {
+  margin-top: var(--space-xl);
+}
+
+.ev-trail__group-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  padding-bottom: 0.5rem;
+  border-bottom: var(--border-subtle);
+}
+
+.ev-trail__group-note {
+  margin-top: 0.5rem;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--c-muted);
+}
+
+/* Full Evidence Trail 内 Status Panel 取消粘附：
+   原 sticky 设计用于 Beat 05 的 .queue-panel 右列（短高度），
+   移入长单列 .ev-trail__group 后会在滚动时覆盖后续辅助证据，造成重叠。
+   选择器限定在 .ev-trail__group 内，不影响 Project 03 的 .queue-panel。 */
+.ev-trail__group .spanel {
+  position: static;
+  top: auto;
+  max-width: 24rem;
+}
+
+@media (max-width: 860px) {
+  .case-overview__body {
+    font-size: 0.96rem;
+  }
+}
