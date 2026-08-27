@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case 03 · 青砚多 AI 协作工作台 | QingYan Studio</title>
+  <meta name="description" content="QingYan Multi-AI Collaboration Workspace — 从真实故障出发，把多 AI 协作收缩为有 Ground Truth、任务契约、独立审核和有限授权的最小 Runtime。Evidence-Backed Case Study。">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/v2.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand reveal reveal--fade" href="../index.html" aria-label="QingYan Studio 首页">
+        <span class="nav__brand-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">QingYan Studio</span>
+        <span class="nav__brand-sep" aria-hidden="true">·</span>
+        <span class="nav__brand-person">朱青</span>
+      </a>
+
+      <nav class="nav__links" aria-label="本页导航">
+        <a class="nav__link" href="#scope">Scope</a>
+        <a class="nav__link" href="#problem">Problem</a>
+        <a class="nav__link" href="#workflow">Workflow</a>
+        <a class="nav__link" href="#review">Review</a>
+        <a class="nav__link" href="#takeaways">Takeaways</a>
+      </nav>
+
+      <a class="nav__cta" href="../index.html#contact">Contact</a>
+
+      <button class="nav__toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="#scope">Scope <small>先做减法</small></a>
+    <a href="#problem">Problem <small>Ground Truth</small></a>
+    <a href="#workflow">Workflow <small>有边界流程</small></a>
+    <a href="#review">Review <small>最后没有 PASS</small></a>
+    <a href="#takeaways">Takeaways <small>能力总结</small></a>
+    <a href="../index.html#projects">返回首页 <small>Selected Projects</small></a>
+  </div>
+
+  <main>
+
+    <!-- ================================================================
+         CASE HERO
+         ================================================================ -->
+    <section class="case-hero">
+      <div class="container">
+        <span class="case-hero__label">PROJECT 03 · AI WORKFLOW / AGENT GOVERNANCE</span>
+        <h1 class="case-hero__title">
+          青砚多 AI 协作工作台
+          <span class="case-hero__title-en">QingYan Multi-AI Collaboration Workspace</span>
+        </h1>
+
+        <div class="case-hero__meta">
+          <span class="case-hero__status">Runtime v0.1 · In Validation</span>
+          <span class="case-hero__status">Evidence-Backed Case Study</span>
+        </div>
+
+        <p class="case-hero__lede">
+          我想解决的不是“怎么接更多 AI”，而是“怎么让多个 AI 真正可靠地一起工作”。
+        </p>
+
+        <p class="case-hero__intro">
+          最初，我尝试让 ChatGPT 负责规划、WorkBuddy 负责审核、Codex 负责执行。真正运行以后，我发现问题并不在模型能力，而在协作本身：不同 AI 可能读到不同状态、理解不同范围，甚至 Reviewer 也可能基于错误信息做出 PASS。因此，我没有继续增加 Agent，而是把系统收缩成一个最小可验证 Runtime，并在真实项目中持续验证和修正。
+        </p>
+
+        <div class="case-hero__tags">
+          <span class="tag">Multi-AI Workflow</span>
+          <span class="tag">Agent Governance</span>
+          <span class="tag">Runtime MVP</span>
+          <span class="tag">Evidence-driven Iteration</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CAPABILITY SUMMARY — 能力摘要（3 卡）
+         ================================================================ -->
+    <section class="cap-summary" id="cap-summary">
+      <div class="container">
+        <div class="cap-cards">
+
+          <div class="cap-card reveal">
+            <span class="cap-card__label">Problem Framing</span>
+            <p class="cap-card__desc">从“多个 AI 怎么协作”，定位到状态、边界、审核依据和交接失真。</p>
+          </div>
+
+          <div class="cap-card reveal">
+            <span class="cap-card__label">Scope Control</span>
+            <p class="cap-card__desc">主动砍掉尚未验证的复杂 Blueprint，先验证最小 Runtime。</p>
+          </div>
+
+          <div class="cap-card reveal">
+            <span class="cap-card__label">Evidence-driven Iteration</span>
+            <p class="cap-card__desc">让日志、原始文件和后续 Review 可以继续推翻前面的 PASS。</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 01 — SCOPE CONTROL
+         ================================================================ -->
+    <section class="beat" id="scope">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">01</span>
+          <span class="beat-head__role">Scope Control</span>
+          <h2 class="beat-head__title">
+            我先砍掉了一个“看起来很完整”的系统。
+            <small>01 · SCOPE CONTROL</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">
+          第一版 AI OS 已经包含 Registry、Router、Dashboard、Lifecycle 等大量模块。独立架构审查指出：核心协作链还没有被验证，系统却已经提前进入复杂治理。我选择暂停继续扩展，把长期 Blueprint 和当前真正能验证的 Runtime 拆开。只保留当前最关键的问题：<strong>怎样让规划、审核和执行三个 AI 完成一次真实、可控的协作？</strong>这一步让我确认：好的系统设计不只是会加功能，也要知道什么时候做减法。
+        </p>
+
+        <div class="ev-grid ev-grid--2 reveal">
+          <!-- E01 — Primary -->
+          <div class="ev-col ev-col--primary">
+            <div class="ev-col__head">
+              <span class="ev-col__role">E01 · Blueprint Review</span>
+              <span class="ev-col__path">青砚_AI_OS_架构审查报告.md</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project03/E01_Blueprint_Review.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project03/E01_Blueprint_Review.png" alt="独立架构审查：复杂度远超实际需求；过于先进导致无法落地；执行与审核分离值得保留" loading="lazy">
+              </a>
+            </div>
+          </div>
+
+          <!-- E02 — Supporting -->
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">E02 · Blueprint → Runtime</span>
+              <span class="ev-col__path">策略迁移记录.md / 青砚_AI工作闭环_v0.1.md</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project03/E02_Blueprint_to_Runtime.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project03/E02_Blueprint_to_Runtime.png" alt="Blueprint 收缩为 Runtime：Registry/Router/Dashboard/Lifecycle/APS 留在 Blueprint，Runtime 为实验性最小闭环" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 02 — PROBLEM FRAMING / GROUND TRUTH
+         ================================================================ -->
+    <section class="beat" id="problem">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">02</span>
+          <span class="beat-head__role">Problem Framing</span>
+          <h2 class="beat-head__title">
+            一次真实故障，让我重新理解了“多 AI 协作”。
+            <small>02 · PROBLEM FRAMING</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">
+          Runtime 开始运行后发生了 Directory Drift：执行资产进入了错误位置。更重要的是，我后来发现：独立 Reviewer 本身也不是天然可靠的。如果 Reviewer 读到的不是正确状态，它依然可能认真地得出错误判断。于是我把问题重新定义成：<strong>不是“谁来审核谁”，而是“所有 AI 是否基于同一份真实状态工作”。</strong>
+        </p>
+
+        <ul class="open-questions__list reveal">
+          <li>唯一 Project Root</li>
+          <li>PROJECT.md 作为项目状态入口</li>
+          <li>AI 执行前读取当前状态</li>
+          <li>找不到关键资产时停止</li>
+          <li>明确跨 AI 交接规则</li>
+        </ul>
+
+        <blockquote class="beat-conclusion reveal">
+          <p>Ground Truth before more Agents.</p>
+        </blockquote>
+
+        <!-- E03 — Primary Evidence（更大） -->
+        <div class="ev-wide reveal">
+          <div class="ev-col ev-col--primary">
+            <div class="ev-col__head">
+              <span class="ev-col__role">E03 · Directory Drift &amp; Governance</span>
+              <span class="ev-col__path">Project_Root_Migration_Log.md / PROJECT.md</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project03/E03_Directory_Drift_Governance.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project03/E03_Directory_Drift_Governance.png" alt="左：Observed Drift；右：Later Governance Rule。PROJECT.md 为 2026-08-27 后期治理状态" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ev-note ev-note--small reveal">
+          “Reviewer 错误 PASS”属于后续历史重建结论，不由 E03 单图直接证明。
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 03 — WORKFLOW DESIGN
+         ================================================================ -->
+    <section class="beat" id="workflow">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">03</span>
+          <span class="beat-head__role">AI Workflow</span>
+          <h2 class="beat-head__title">
+            我把“聊天协作”变成了有边界的执行流程。
+            <small>03 · WORKFLOW DESIGN</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">把模糊意图、独立审核、执行权限与日志变成一套可运行、可停止、可复核的流程：</p>
+
+        <div class="wf-panel reveal">
+          <span class="flow-step">Task Brief</span>
+          <span class="flow-arrow">↓</span>
+          <span class="flow-step">Independent Review</span>
+          <span class="flow-arrow">↓</span>
+          <span class="flow-step">Controlled Execution</span>
+          <span class="flow-arrow">↓</span>
+          <span class="flow-step">Execution Log</span>
+        </div>
+
+        <div class="mech-grid reveal">
+          <div class="mech">
+            <h4 class="mech__title">Task Brief</h4>
+            <p class="mech__desc">把聊天中的需求转成明确任务：目标、范围、路径、资产和下一步都写清楚。</p>
+          </div>
+          <div class="mech">
+            <h4 class="mech__title">Independent Review</h4>
+            <p class="mech__desc">方案不能直接执行，必须先被另一个 AI 质疑。</p>
+          </div>
+          <div class="mech">
+            <h4 class="mech__title">Controlled Execution</h4>
+            <p class="mech__desc">PASS 不代表“接着往下做”，只代表允许执行被批准的范围。</p>
+          </div>
+          <div class="mech">
+            <h4 class="mech__title">Execution Log</h4>
+            <p class="mech__desc">不接受一句“做完了”，而是留下可以被下一位 Reviewer 检查的证据。</p>
+          </div>
+        </div>
+
+        <blockquote class="beat-conclusion reveal">
+          <p>让每一个 AI 都知道：现在该做什么、不能做什么、做到哪里必须停。</p>
+        </blockquote>
+
+        <!-- E04 — Supporting -->
+        <div class="ev-support reveal">
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">E04 · Task Brief Contract</span>
+              <span class="ev-col__path">00_V0.1_Task_Brief.md</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project03/E04_Task_Brief_Contract.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project03/E04_Task_Brief_Contract.png" alt="Task Brief：Human Intent → 结构化任务契约（目标/范围/路径/资产/下一步）" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- E05 — Primary -->
+        <div class="ev-wide reveal">
+          <div class="ev-col ev-col--primary">
+            <div class="ev-col__head">
+              <span class="ev-col__role">E05 · Review Gate</span>
+              <span class="ev-col__path">WorkBuddy_v0.2_PreExecution_Review.md / _R2</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project03/E05_Review_Gate.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project03/E05_Review_Gate.png" alt="Review Gate：REVISE → R2 PASS。顺序由内容与文件命名支持，两文件修改时间相同，时间戳本身不能独立证明先后" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- E06 — Primary（更大） -->
+        <div class="ev-wide-lg reveal">
+          <div class="ev-col ev-col--primary">
+            <div class="ev-col__head">
+              <span class="ev-col__role">E06 · Bounded Execution</span>
+              <span class="ev-col__path">v0.2_execution_log.md</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project03/E06_Bounded_Execution.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project03/E06_Bounded_Execution.png" alt="Bounded Execution：Step 1–7 完成，Step 8 未执行，v0.3 / READY FOR POST-EXECUTION REVIEW。PASS ≠ KEEP GOING" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- E07 — Supporting -->
+        <div class="ev-support reveal">
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">E07 · Execution Traceability</span>
+              <span class="ev-col__path">v0.2_execution_log.md</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project03/E07_Execution_Traceability.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project03/E07_Execution_Traceability.png" alt="Execution Traceability：Raw Transcript / SHA-256 / model / API / output time / anomaly — “Done” 变为可复核证据" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 04 — FAILURE REVIEW
+         ================================================================ -->
+    <section class="beat" id="review">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">04</span>
+          <span class="beat-head__role">Failure Review</span>
+          <h2 class="beat-head__title">
+            真正让我确认这个机制有价值的，是它最后没有 PASS。
+            <small>04 · FAILURE REVIEW</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">
+          这套流程随后进入一个真实内部项目运行。执行前：<strong>REVISE → 修正 → PASS</strong>。执行过程中：Codex 只完成被批准的 Step 1–7，并在下一道 Gate 前停止。但最终 Post-Execution Review 继续检查结果后，仍然给出了：<strong>REVISE</strong>。
+        </p>
+
+        <div class="ev-note reveal">
+          终审发现两处实质性的人工内容重写，说明首次 LLM 输出仍然需要人工改写才能达到要求。
+        </div>
+
+        <blockquote class="beat-conclusion reveal">
+          <p>Review Gate 的价值不是保证系统正确，而是让后面的证据依然有机会否定前面的判断。</p>
+        </blockquote>
+
+        <p class="beat-lede reveal">
+          我更关注的不是“这一次有没有漂亮地全部 PASS”，而是系统有没有能力发现自己其实还没做好。
+        </p>
+
+        <!-- E08A — Hero Evidence（最大） -->
+        <div class="ev-hero reveal">
+          <div class="ev-col ev-col--primary">
+            <div class="ev-col__head">
+              <span class="ev-col__role ev-col__role--bad">E08A · Final Gate</span>
+              <span class="ev-col__path">WorkBuddy_v0.2_PostExecution_Review.md</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project03/E08A_Final_Gate_REVISE.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project03/E08A_Final_Gate_REVISE.png" alt="Final Gate：只读独立复核 → 结论 REVISE → 两处实质性内容重写 → 不宣告 VALIDATED" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- E08B — Detailed Evidence（更小，低视觉权重） -->
+        <div class="ev-detail-cap reveal">
+          <span class="ev-detail-cap__label">Detailed Evidence · View detailed evidence</span>
+        </div>
+        <div class="ev-support reveal">
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">E08B · Rewrite Evidence</span>
+              <span class="ev-col__path">WorkBuddy_v0.2_PostExecution_Review.md</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project03/E08B_Rewrite_Evidence.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project03/E08B_Rewrite_Evidence.png" alt="Rewrite Evidence：修正 1 + 修正 2，原始 LLM → 正式笔记，性质为实质性内容重写" loading="lazy">
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         SECTION 05 — CAPABILITY TAKEAWAYS
+         ================================================================ -->
+    <section class="beat" id="takeaways">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">05</span>
+          <span class="beat-head__role">Capability</span>
+          <h2 class="beat-head__title">
+            这个项目最终训练了我什么能力。
+            <small>05 · CAPABILITY TAKEAWAYS</small>
+          </h2>
+        </header>
+
+        <div class="take-grid">
+
+          <div class="take reveal">
+            <span class="take__num">01</span>
+            <h4 class="take__title">Problem Framing</h4>
+            <p class="take__desc">从表面问题找到真正的系统约束：最初是“多个 AI 怎么协作”，最后定位到状态、任务边界、审核依据和执行权限。</p>
+          </div>
+
+          <div class="take reveal">
+            <span class="take__num">02</span>
+            <h4 class="take__title">MVP &amp; Scope Control</h4>
+            <p class="take__desc">面对完整但尚未验证的 Blueprint，我选择先做减法，把范围收缩到真正可以验证的 Runtime。</p>
+          </div>
+
+          <div class="take reveal">
+            <span class="take__num">03</span>
+            <h4 class="take__title">AI Workflow Design</h4>
+            <p class="take__desc">把模糊意图、独立审核、执行权限与日志变成一套可运行、可停止、可复核的流程。</p>
+          </div>
+
+          <div class="take reveal">
+            <span class="take__num">04</span>
+            <h4 class="take__title">Evidence-driven Decision Making</h4>
+            <p class="take__desc">不接受模型自评作为结论，而是回到原始文件、时间戳、日志和执行产物判断真实发生了什么。</p>
+          </div>
+
+          <div class="take reveal">
+            <span class="take__num">05</span>
+            <h4 class="take__title">Boundary Awareness</h4>
+            <p class="take__desc">严格区分“设计过、运行过、验证过和尚未证明”，不把 Blueprint、内部验证或人工补偿包装成成熟能力。</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         WHAT CHANGED — Before / After
+         ================================================================ -->
+    <section class="beat" id="what-changed">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__role">What Changed</span>
+          <h2 class="beat-head__title">
+            从“完整蓝图”到“验证闭环”的关键转变。
+            <small>关键转变 · BEFORE / AFTER</small>
+          </h2>
+        </header>
+
+        <div class="ba-grid reveal">
+          <div class="ba-col ba-col--before">
+            <span class="ba-col__title">Before</span>
+            <div class="ba-list">
+              <div class="ba-item">先设计完整 AI OS</div>
+              <div class="ba-item">多 AI 依赖聊天上下文</div>
+              <div class="ba-item">聊完直接执行</div>
+              <div class="ba-item">Reviewer 默认被视为可靠</div>
+              <div class="ba-item">PASS = 可以继续</div>
+              <div class="ba-item">“已完成”作为结果</div>
+              <div class="ba-item">只关注成功</div>
+            </div>
+          </div>
+          <div class="ba-col ba-col--after">
+            <span class="ba-col__title">After</span>
+            <div class="ba-list">
+              <div class="ba-item">先验证最小 Runtime</div>
+              <div class="ba-item">共享明确项目状态</div>
+              <div class="ba-item">Task Brief</div>
+              <div class="ba-item">Reviewer 也需要正确证据</div>
+              <div class="ba-item">PASS = 有限范围授权</div>
+              <div class="ba-item">Execution Log 支持复核</div>
+              <div class="ba-item">保留失败继续迭代</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CURRENT STATE — 低视觉权重
+         ================================================================ -->
+    <section class="beat" id="current-state">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__role">Current State</span>
+          <h2 class="beat-head__title">
+            当前状态：实验性闭环，不是成熟平台。
+            <small>当前状态 · LOW VISUAL WEIGHT</small>
+          </h2>
+        </header>
+
+        <div class="state-grid reveal">
+          <div class="state-card">
+            <h4 class="state-card__title">Internal validation</h4>
+            <p class="state-card__desc">真实内部项目已运行，但不构成独立用户验证。</p>
+          </div>
+          <div class="state-card">
+            <h4 class="state-card__title">Runtime prototype</h4>
+            <p class="state-card__desc">当前是实验性最小闭环，不是成熟商业平台。</p>
+          </div>
+          <div class="state-card">
+            <h4 class="state-card__title">Blueprint ≠ Implementation</h4>
+            <p class="state-card__desc">Registry / Router / Dashboard / APS 等未被证明实现。</p>
+          </div>
+          <div class="state-card">
+            <h4 class="state-card__title">Procedural control</h4>
+            <p class="state-card__desc">Controlled Execution 目前主要依赖 Task Brief、Review Gate 和流程约束，不是程序级权限系统。</p>
+          </div>
+          <div class="state-card">
+            <h4 class="state-card__title">Partial traceability</h4>
+            <p class="state-card__desc">Execution Log 支持任务级复核，但尚未形成完整 Chat State ↔ Machine State 状态桥梁。</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CLOSING
+         ================================================================ -->
+    <section class="closing">
+      <div class="container">
+        <h2 class="closing__title reveal">从“更多 AI”转向“更可靠的协作”。</h2>
+        <p class="closing__copy reveal">
+          Project 03 最终让我形成了一套后来持续复用的方法：<strong>先运行 → 暴露问题 → 回到真实证据 → 做最小修改 → 再验证</strong>。相比“让更多 AI 工作”，我现在更关心的是：<strong>怎样让 AI 在真实状态、明确边界和可复核证据下工作</strong>。
+        </p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CASE META — Evidence Manifest 说明
+         ================================================================ -->
+    <section class="case-meta">
+      <div class="container">
+        <p>
+          本页 9 张 Evidence 图均为统一视觉版资产（Soft Glass Editorial Lab），由 Project03_Evidence_Production/Unified_Web 复制至 <em>assets/img/evidence/project03/</em>，原始证据与行号、时间戳、文件名真实可回查；E08A 为本页 Hero Evidence，E03 / E05 / E06 为 Primary Evidence，E01 / E02 / E04 / E07 / E08B 为 Supporting Evidence。采集与渲染明细见 <em>Project03_Evidence_Production/Unified_Web/_MANIFEST.md</em>。
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__brand">QingYan Studio</p>
+      <p class="footer__note">朱青 · 2026 · Soft Glass Editorial Lab</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="../assets/js/v2-main.js"></script>
+</body>
+</html>

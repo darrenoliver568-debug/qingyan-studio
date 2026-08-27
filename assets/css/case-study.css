@@ -1204,3 +1204,314 @@
     margin-inline: 0;
   }
 }
+
+
+/* ============================================================
+   13. PROJECT 03 — Multi-AI Workspace Case Study
+   复用 v2.css / case-study.css 既有 token：
+   --c-accent / --c-ink / --c-secondary / --c-muted /
+   --border-subtle / --border-accent / --r-card-sm /
+   --shadow-1 / --r-pill / --space-*
+   不引入新设计系统。
+   ============================================================ */
+
+/* --- Case Hero additions --- */
+.case-hero__intro {
+  max-width: 48em;
+  margin-top: var(--space-md);
+  color: var(--c-secondary);
+  font-size: 1rem;
+  line-height: 1.95;
+}
+
+/* --- Capability Summary（Hero 下方 3 卡） --- */
+.cap-summary {
+  padding-block: var(--space-xl);
+  border-top: var(--border-subtle);
+}
+
+.cap-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.cap-card {
+  padding: 1.4rem 1.5rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: var(--border-subtle);
+  border-radius: var(--r-card-sm);
+  box-shadow: var(--shadow-1);
+}
+
+.cap-card__label {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: 0.7rem;
+}
+
+.cap-card__desc {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--c-secondary);
+}
+
+/* --- Workflow Flow（SECTION 03 轻量流程） --- */
+.wf-panel {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin: var(--space-md) 0;
+  padding: 1.2rem 1.7rem;
+  background: rgba(91, 116, 128, 0.05);
+  border: var(--border-accent);
+  border-radius: var(--r-card-sm);
+}
+
+.wf-panel .flow-arrow {
+  padding-left: 0.5rem;
+  font-size: 0.85rem;
+}
+
+/* --- Four Mechanisms（SECTION 03） --- */
+.mech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.mech {
+  padding: 1.2rem 1.4rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: var(--border-subtle);
+  border-radius: var(--r-card-sm);
+}
+
+.mech__title {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  margin-bottom: 0.5rem;
+}
+
+.mech__desc {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--c-secondary);
+}
+
+/* --- Evidence Hierarchy modifiers（Hero / Primary / Supporting） --- */
+.ev-hero {
+  max-width: 1120px;
+  margin-inline: auto;
+}
+
+.ev-wide {
+  max-width: 1000px;
+  margin-inline: auto;
+}
+
+.ev-wide-lg {
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+.ev-support {
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+.ev-col--primary {
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* --- E08B detail caption --- */
+.ev-detail-cap {
+  margin-top: var(--space-lg);
+  text-align: center;
+}
+
+.ev-detail-cap__label {
+  font-family: var(--font-en);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.ev-note--small {
+  font-size: 0.76rem;
+}
+
+/* --- Before / After（WHAT CHANGED） --- */
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.ba-col {
+  padding: 1.4rem 1.5rem;
+  border-radius: var(--r-card-sm);
+  border: var(--border-subtle);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.ba-col--before {
+  border-left: 3px solid var(--c-muted);
+}
+
+.ba-col--after {
+  border-left: 3px solid var(--c-accent);
+}
+
+.ba-col__title {
+  font-family: var(--font-en);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.ba-col--before .ba-col__title {
+  color: var(--c-muted);
+}
+
+.ba-col--after .ba-col__title {
+  color: var(--c-accent);
+}
+
+.ba-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.ba-item {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--c-secondary);
+  padding-bottom: 0.7rem;
+  border-bottom: var(--border-subtle);
+}
+
+.ba-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* --- Current State（小状态卡） --- */
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.state-card {
+  padding: 1.1rem 1.3rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: var(--border-subtle);
+  border-radius: var(--r-card-sm);
+}
+
+.state-card__title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  margin-bottom: 0.5rem;
+}
+
+.state-card__desc {
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--c-muted);
+}
+
+/* --- Capability Takeaways（SECTION 05 · 5 卡） --- */
+.take-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.take {
+  padding: 1.4rem 1.5rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: var(--border-subtle);
+  border-radius: var(--r-card-sm);
+  box-shadow: var(--shadow-1);
+}
+
+.take__num {
+  font-family: var(--font-en);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--c-muted);
+}
+
+.take__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--c-ink);
+  margin: 0.5rem 0 0.7rem;
+}
+
+.take__desc {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--c-secondary);
+}
+
+/* --- Closing --- */
+.closing {
+  padding-block: var(--space-2xl);
+  border-top: var(--border-subtle);
+  text-align: center;
+}
+
+.closing__title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.closing__copy {
+  max-width: 44em;
+  margin: var(--space-md) auto 0;
+  font-size: 1.02rem;
+  line-height: 1.9;
+  color: var(--c-secondary);
+}
+
+.closing__copy strong {
+  color: var(--c-ink);
+  font-weight: 600;
+}
+
+
+/* ===== 14. RESPONSIVE — PROJECT 03 ===== */
+@media (max-width: 860px) {
+  .cap-cards {
+    grid-template-columns: 1fr;
+  }
+  .ba-grid {
+    grid-template-columns: 1fr;
+  }
+  .ev-hero,
+  .ev-wide,
+  .ev-wide-lg,
+  .ev-support {
+    max-width: 100%;
+  }
+}
