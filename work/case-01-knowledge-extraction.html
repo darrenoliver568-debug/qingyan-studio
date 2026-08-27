@@ -31,6 +31,7 @@
         <a class="nav__link" href="#beat-3">Fix</a>
         <a class="nav__link" href="#beat-4">Validation</a>
         <a class="nav__link" href="#beat-5">Escalation</a>
+        <a class="nav__link" href="#ending">Ending</a>
       </nav>
 
       <a class="nav__cta" href="../index.html#contact">Contact</a>
@@ -48,6 +49,7 @@
     <a href="#beat-3">Controlled Fix <small>Prompt Diff</small></a>
     <a href="#beat-4">Validation <small>验证结果</small></a>
     <a href="#beat-5">Escalation <small>Human Review Queue</small></a>
+    <a href="#ending">Ending <small>最终结论</small></a>
     <a href="../index.html#projects">返回首页 <small>Selected Projects</small></a>
   </div>
 
@@ -70,8 +72,18 @@
         </div>
 
         <p class="case-hero__lede">
-          让直播课程不止被“总结”，而是沉淀成 AI 可以继续学习和复用的知识资产。将直播课程中的 Agent 搭建演示转化为结构化知识，并通过原文核对、独立 AI 审核与历史错误复测，降低知识在 AI 整理过程中的失真。
+          把直播课程从一次性转录，变成<strong>可回查、可审核、可继续复用的知识资产</strong>。
         </p>
+
+        <div class="case-hero__question">
+          核心问题：<br>
+          <strong>AI 整理出来的知识，凭什么值得继续相信？</strong>
+        </div>
+
+        <div class="case-hero__pipeline">
+          <span class="case-hero__pipeline-label">Pipeline</span>
+          <span class="case-hero__pipeline-flow">课程录音 &rarr; ASR &rarr; AI 提取 &rarr; 独立审核 &rarr; 回归测试 &rarr; Human Review</span>
+        </div>
 
         <div class="case-hero__tags">
           <span class="tag">知识结构化</span>
@@ -115,14 +127,18 @@
           <span class="beat-head__num">BEAT 01</span>
           <span class="beat-head__role">Failure</span>
           <h2 class="beat-head__title">
-            First Bad Case — 同一份输出内的保真度分裂
+            AI 明明读对了，为什么还是会写错？
             <small>E02 · Same Source → Same Output File → Inconsistent Fidelity</small>
           </h2>
         </header>
 
         <p class="beat-lede reveal">
-          课程原文说“完全权限”；同一份 LLM 输出的叙述段正确保留了它，但工作流段把它改写成“只授予完成任务所需的权限”。模型不是没理解 Source，而是在转述模式切换时，将课程实际操作泛化成了通用最佳实践。
+          课程原文是「<strong>完全权限</strong>」。AI 一处正确保留了它，另一处却改成「<strong>只授予完成任务所需权限</strong>」。
         </p>
+
+        <blockquote class="beat-conclusion reveal">
+          <p>AI 不是没读懂，而是把课程事实擅自优化成了它认为更合理的做法。</p>
+        </blockquote>
 
         <div class="ev-grid ev-grid--3 reveal">
 
@@ -189,11 +205,9 @@
 
         </div>
 
-        <div class="ev-caption reveal">
-          <strong class="ev-caption__en">Same Source → Same Output File → Inconsistent Fidelity.</strong>
-          <span class="ev-caption__zh">
-            同一份课程转录，同一份 LLM 输出：叙述段忠实保留「完全权限」，工作流段泛化为最小权限建议——模型不是没读懂，而是在转述模式切换时把课程实际操作替换成了通用最佳实践。
-          </span>
+        <div class="my-decision reveal">
+          <span class="my-decision__label">MY DECISION</span>
+          <p>没有简单归因成 hallucination，而是回原文定位具体失真模式。</p>
         </div>
 
       </div>
@@ -218,14 +232,22 @@
           <span class="beat-head__num">BEAT 02</span>
           <span class="beat-head__role">Diagnosis</span>
           <h2 class="beat-head__title">
-            Self Review vs Independent Review — 预先定义的 Gate
+            为什么不能让执行 Agent 自己宣布 PASS？
             <small>E03 · Rule existed before review · 产物合格 ≠ 闭环合格</small>
           </h2>
         </header>
 
         <p class="beat-lede reveal">
-          REVISE 不是 Independent Reviewer 临时提高标准——判定规则在首次 LLM 提取之前已落盘（Task Brief 10:19 &lt; 首次提取 10:27）。Self Review 与 Independent Review 用的是同一套 Gate，分歧在于审的对象不同（修正后产物 vs 首次原始输出），而不是标准不同。
+          Codex 自检认为可以提交。WorkBuddy 按任务开始前已经定义好的验收标准复核后：
         </p>
+
+        <div class="beat-verdict beat-verdict--revise reveal">
+          <span class="beat-verdict__label">REVISE</span>
+        </div>
+
+        <blockquote class="beat-conclusion reveal">
+          <p>Self Review 不能替代 Independent Review。</p>
+        </blockquote>
 
         <div class="ev-grid ev-grid--3 reveal">
 
@@ -325,11 +347,9 @@
           </a>
         </div>
 
-        <div class="ev-caption reveal">
-          <strong class="ev-caption__en">Output fixed. Workflow not validated.</strong>
-          <span class="ev-caption__zh">
-            Self Review 判「可提交」（审的是修正后产物）；Independent Review 按执行前落盘的 Gate（Task Brief L403–405「一条明确幻觉即 REVISE」/ L641「不得人工润色绕过重新生成」）审首次输出，判 REVISE——标准预先存在，分歧在对象，不在门槛。
-          </span>
+        <div class="my-decision reveal">
+          <span class="my-decision__label">MY DECISION</span>
+          <p>执行者可以提交，但不能自己拥有最终验收权。</p>
         </div>
 
       </div>
@@ -354,14 +374,26 @@
           <span class="beat-head__num">BEAT 03</span>
           <span class="beat-head__role">Controlled Fix</span>
           <h2 class="beat-head__title">
-            Prompt Diff — Baseline vs R1 Added Constraints
+            怎么修？只改真正失败的地方
             <small>E04 · 修复不是推倒重写，而是唯一追加一段强约束</small>
           </h2>
         </header>
 
         <p class="beat-lede reveal">
-          Baseline 已有回查与防幻觉规则，但对「把课程操作泛化为最佳实践」失效；R1 唯一新增「课程忠实转述强约束」8 条，每条对应已确认的失效模式。问题不是「没写规则」，而是「规则对建议泛化模式失效」。
+          原 Prompt 已经有「不要编造、必须回查原文」等规则。但它没挡住这个问题：
         </p>
+
+        <blockquote class="beat-conclusion reveal">
+          <p>AI 会把课程实际操作自动升级成「最佳实践」。</p>
+        </blockquote>
+
+        <p class="beat-lede reveal" style="margin-top: var(--space-md);">
+          所以没有重写 Prompt，只新增针对性约束：
+        </p>
+
+        <blockquote class="beat-conclusion reveal">
+          <p>课程没明确说是最佳实践，就不能写成最佳实践。</p>
+        </blockquote>
 
         <div class="ev-grid ev-grid--2 ev-grid--diff reveal">
 
@@ -414,11 +446,9 @@
           逐行 diff 证实：除新增段外 Baseline 其他内容未变（<em>v0.2_R1_execution_log.md L46</em>）；R1 Prompt 独立存档（<em>5218 B vs Baseline 3772 B，R1 Review L29</em>）。上方右栏英文为 Web Label，Prompt 原文为中文，以截图为准。
         </div>
 
-        <div class="ev-caption reveal">
-          <strong class="ev-caption__en">Fidelity Constraints — 8 added, nothing rewritten.</strong>
-          <span class="ev-caption__zh">
-            Baseline 已有回查与防幻觉规则，但对「把课程操作泛化为最佳实践」失效；R1 唯一新增「课程忠实转述强约束」8 条（逐行 diff 证实其余未变），每条对应已确认的失效模式。
-          </span>
+        <div class="my-decision reveal">
+          <span class="my-decision__label">MY DECISION</span>
+          <p>只修复已被真实证据证明的问题，控制变量。</p>
         </div>
 
       </div>
@@ -443,13 +473,13 @@
           <span class="beat-head__num">BEAT 04</span>
           <span class="beat-head__role">Validation</span>
           <h2 class="beat-head__title">
-            Validation — 带边界声明的验证结果
+            修完以后，真的解决了吗？
             <small>E05 · 每张卡都能顺着引线落到 Raw Evidence</small>
           </h2>
         </header>
 
         <p class="beat-lede reveal">
-          3 个历史 Bad Case 零复现；零人工修正由 SHA-256 同值 + diff 零差异背书；Independent Review 给出 PASS——并且 PASS 附带明确的单样本范围声明。Scope Awareness 与结果本身是同等的能力证据。
+          4 张结果卡，每张都能顺着引线落到 Raw Evidence。
         </p>
 
         <!-- Result Cards -->
@@ -541,11 +571,13 @@
 
         </div>
 
-        <div class="ev-caption reveal">
-          <strong class="ev-caption__en">Validated — with its boundary stated.</strong>
-          <span class="ev-caption__zh">
-            3/3 历史 Bad Case 未复现；0 人工修正由 SHA-256 同值 + diff 零差异背书；Independent Review 判 PASS 并同步声明：这是单样本实证，不证明跨课程稳定泛化。
-          </span>
+        <blockquote class="beat-conclusion reveal">
+          <p>修复有效，但不能因此声称跨课程泛化。</p>
+        </blockquote>
+
+        <div class="my-decision reveal">
+          <span class="my-decision__label">MY DECISION</span>
+          <p>用真实 Bad Case 做 Regression，而不是凭感觉宣布「修好了」。</p>
         </div>
 
       </div>
@@ -570,14 +602,32 @@
           <span class="beat-head__num">BEAT 05</span>
           <span class="beat-head__role">Escalation</span>
           <h2 class="beat-head__title">
-            Human Review Queue — 知道何时该停
-            <small>E08 · Pending 3 · Completed 0 · Under Validation</small>
+            AI 不确定的时候，什么时候应该停下来交给人？
+            <small>E08 · Two-Key Rule · Human Review Queue</small>
           </h2>
         </header>
 
         <p class="beat-lede reveal">
-          系统已能识别「无法安全自动判断」的问题并显式排队等待人工，而不是静默处理或强行确认；Human Review 的完整闭环尚未完成——这是登记下来的未解决项，不是展示中的功能。
+          AI 自动确认术语时，必须同时满足两个条件，否则必须停下来交给人。
         </p>
+
+        <div class="two-key-rule reveal">
+          <span class="two-key-rule__label">Two-Key Rule</span>
+          <div class="two-key-rule__keys">
+            <div class="two-key-rule__key">
+              <span class="two-key-rule__key-id">Key-1</span>
+              <span class="two-key-rule__key-text">标准术语存在于 Transcript</span>
+            </div>
+            <div class="two-key-rule__key">
+              <span class="two-key-rule__key-id">Key-2</span>
+              <span class="two-key-rule__key-text">当前表达与标准术语之间有直接证据</span>
+            </div>
+          </div>
+        </div>
+
+        <blockquote class="beat-conclusion reveal">
+          <p>AI 必须停止自动确认。</p>
+        </blockquote>
 
         <div class="queue-wrap">
           <div class="queue-panel reveal">
@@ -665,16 +715,28 @@
             <div class="spanel">
               <span class="spanel__title">Status Panel</span>
               <div class="spanel__row">
-                <span class="spanel__key">Pending</span>
-                <span class="spanel__value">3</span>
+                <span class="spanel__key">Approved</span>
+                <span class="spanel__value">1</span>
               </div>
               <div class="spanel__row">
-                <span class="spanel__key">Completed</span>
+                <span class="spanel__key">Rejected</span>
+                <span class="spanel__value">2</span>
+              </div>
+              <div class="spanel__row">
+                <span class="spanel__key">Pending</span>
                 <span class="spanel__value">0</span>
               </div>
-              <span class="spanel__status">Under Validation</span>
+              <div class="spanel__row">
+                <span class="spanel__key">Schema</span>
+                <span class="spanel__value spanel__value--frozen">FROZEN</span>
+              </div>
+              <div class="spanel__row">
+                <span class="spanel__key">v0.2</span>
+                <span class="spanel__value spanel__value--stop">STOP</span>
+              </div>
+              <span class="spanel__status">HRQ-E001 &middot; PASS</span>
               <p class="spanel__note">
-                数字来自目录计数（状态由文件所在目录表达，不增加独立数据库字段）；「Under Validation」为 UI Label，对应 README L3「HRQ-E001 最小验证环境」。
+                三个真实 Human Review 都能被现有三终态表达（Approved / Rejected / Needs More Evidence），因此 Schema 冻结、v0.2 停止。截图为初始状态（Pending 3），此处为 Human Review 完成后的最新状态。
               </p>
             </div>
 
@@ -712,15 +774,136 @@
             </div>
           </div>
 
-          <div class="ev-caption reveal">
-            <strong class="ev-caption__en">AI should know when to stop.</strong>
-            <span class="ev-caption__zh">
-              系统已能识别无法安全自动判断的问题并显式排队（Pending 3：术语映射 / 多 ASR 变体拼写 / 跨单位数字一致性）；Human Review 完整闭环尚未完成（Completed 0）——这是登记下来的未解决项，不是展示中的功能。
-            </span>
+          <!-- HRQ Detail Blocks -->
+          <div class="hrq-blocks">
+
+            <!-- HRQ-0001 -->
+            <div class="hrq-block hrq-block--approved reveal">
+              <div class="hrq-block__head">
+                <span class="hrq-block__id">HRQ-0001</span>
+                <span class="hrq-block__decision hrq-block__decision--approved">Approved</span>
+              </div>
+              <div class="hrq-block__body">
+                <code class="hrq-block__code">Redmi文档 &rarr; README文档</code>
+              </div>
+              <p class="hrq-block__note">Human 确认正确，不代表 AI 当时已经满足 Two-Key。</p>
+            </div>
+
+            <!-- HRQ-0002 -->
+            <div class="hrq-block hrq-block--rejected reveal">
+              <div class="hrq-block__head">
+                <span class="hrq-block__id">HRQ-0002</span>
+                <span class="hrq-block__decision hrq-block__decision--rejected">Rejected</span>
+              </div>
+              <div class="hrq-block__body">
+                <p class="hrq-block__variants">typolis / polis / Typeless / Types</p>
+                <p class="hrq-block__ai-action">AI 曾统一成：<code class="hrq-block__code">Typolis Level A</code></p>
+                <p class="hrq-block__real-value">真实标准拼写：<strong>UNKNOWN</strong></p>
+              </div>
+              <p class="hrq-block__note">拒绝的是 AI 无证据统一，不是证明 Typolis 一定错误。</p>
+            </div>
+
+            <!-- HRQ-0003 -->
+            <div class="hrq-block hrq-block--rejected reveal">
+              <div class="hrq-block__head">
+                <span class="hrq-block__id">HRQ-0003</span>
+                <span class="hrq-block__decision hrq-block__decision--rejected">Rejected</span>
+              </div>
+              <div class="hrq-block__body">
+                <p class="hrq-block__transcript">Transcript：<code class="hrq-block__code">35 元 / 天</code></p>
+                <p class="hrq-block__ai-action">AI 自行改成：<code class="hrq-block__code">约 3.5 元</code></p>
+                <p class="hrq-block__real-value">真实值：<strong>UNKNOWN</strong></p>
+              </div>
+              <p class="hrq-block__note">拒绝的是 AI 无证据修改数字。</p>
+            </div>
+
+          </div>
+
+          <!-- Human Review Core Conclusion -->
+          <div class="hrq-conclusion reveal">
+            <h3 class="hrq-conclusion__title">不知道真相，不等于无法做出记录决策</h3>
+            <p>HRQ-0002 和 HRQ-0003 的真实答案仍然 <strong>UNKNOWN</strong>，但 Human 依然可以决定 <strong>Rejected</strong>。</p>
+            <blockquote class="beat-conclusion">
+              <p>Truth Resolution &ne; Knowledge Asset Recording Decision</p>
+            </blockquote>
+            <p class="hrq-conclusion__zh">不知道现实唯一答案，不妨碍决定当前知识资产该怎么记录。</p>
+          </div>
+
+          <!-- HRQ-E001 Result -->
+          <div class="hrq-result reveal">
+            <div class="hrq-result__head">
+              <span class="hrq-result__id">HRQ-E001 RESULT</span>
+              <span class="hrq-result__verdict rcard__value--pass">PASS</span>
+            </div>
+            <p>三个真实 Human Review 都能被现有三终态表达：<strong>Approved / Rejected / Needs More Evidence</strong></p>
+            <div class="hrq-result__schema">
+              <div class="hrq-result__schema-row">
+                <span class="hrq-result__schema-label">HRQ v0.1</span>
+                <span class="hrq-result__schema-value hrq-result__schema-value--frozen">FROZEN</span>
+              </div>
+              <div class="hrq-result__schema-row">
+                <span class="hrq-result__schema-label">HRQ v0.2</span>
+                <span class="hrq-result__schema-value hrq-result__schema-value--stop">STOP</span>
+              </div>
+            </div>
+            <blockquote class="beat-conclusion">
+              <p>没有真实失败样本，就没有理由继续增加状态和字段。</p>
+            </blockquote>
+            <div class="my-decision">
+              <span class="my-decision__label">MY DECISION</span>
+              <p>发现更多问题，不等于应该继续设计更复杂的 Schema。</p>
+            </div>
+          </div>
+
+          <!-- Open Questions -->
+          <div class="open-questions reveal">
+            <h3 class="open-questions__title">Open Questions</h3>
+            <ul class="open-questions__list">
+              <li>Human 与 Two-Key 的权限边界</li>
+              <li>无视频资产造成的 Evidence Ceiling</li>
+              <li>SRT 只能表示本地录音时间</li>
+              <li>Human Review 有真实时间成本</li>
+            </ul>
+            <blockquote class="beat-conclusion">
+              <p>Open Issue &ne; Schema Failure</p>
+            </blockquote>
           </div>
 
         </div>
 
+      </div>
+    </section>
+
+    <!-- ================================================================
+         ENDING
+         ================================================================ -->
+    <section class="ending" id="ending">
+      <div class="container">
+        <h2 class="ending__title reveal">
+          我最终学到的不是「怎么让 AI 更会总结」
+        </h2>
+        <p class="ending__intro reveal">而是：</p>
+        <ul class="ending__list reveal">
+          <li>AI 什么时候可以确认</li>
+          <li>AI 什么时候必须停止</li>
+          <li>谁拥有最终验收权</li>
+          <li>一个修复凭什么算有效</li>
+        </ul>
+
+        <div class="ending__methods reveal">
+          <div class="ending__method">
+            <span class="ending__method-label">工程方法</span>
+            <span class="ending__method-flow">Failure &rarr; Diagnosis &rarr; Fix &rarr; Validation &rarr; Escalation</span>
+          </div>
+          <div class="ending__method">
+            <span class="ending__method-label">以及</span>
+            <span class="ending__method-flow">模型提出质疑 &rarr; 回原始证据 &rarr; 最低成本实验 &rarr; 再决策</span>
+          </div>
+        </div>
+
+        <blockquote class="ending__final-line reveal">
+          <p>目标不是让 AI 永远给答案，而是让系统知道什么时候不该相信自己。</p>
+        </blockquote>
       </div>
     </section>
 

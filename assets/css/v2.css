@@ -1137,6 +1137,80 @@ button:focus-visible {
   }
 }
 
+/* ===== Case Study CTA (replaces Project 01 MEDIA_SLOT row) ===== */
+.project__cta {
+  display: block;
+  margin-top: var(--space-sm);
+  padding: 1.6rem 1.8rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: var(--border-subtle);
+  border-radius: var(--r-card);
+  text-decoration: none;
+  transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+
+.project__cta:hover {
+  border-color: var(--c-border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-1);
+}
+
+.project__cta:hover .project__cta-arrow {
+  transform: translateX(4px);
+}
+
+.project__cta-label {
+  display: block;
+  font-family: var(--font-en);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: .6rem;
+}
+
+.project__cta-desc {
+  font-size: .92rem;
+  line-height: 1.7;
+  color: var(--c-secondary);
+  max-width: 36em;
+}
+
+.project__cta-flow {
+  display: inline-block;
+  margin-top: .8rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  color: var(--c-muted);
+}
+
+.project__cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  margin-top: .9rem;
+  font-size: .88rem;
+  font-weight: 500;
+  color: var(--c-ink);
+  border-bottom: 1px solid var(--c-border-strong);
+  transition: border-color .3s ease;
+}
+
+.project__cta-arrow {
+  display: inline-block;
+  transition: transform .3s ease;
+}
+
+.project__cta-sub {
+  display: block;
+  margin-top: .5rem;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .06em;
+  color: var(--c-muted);
+}
+
 
 /* ===== 9. AIGC WORKS — FILM GALLERY ===== */
 .section--film {
