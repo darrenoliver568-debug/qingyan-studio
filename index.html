@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QingYan Studio — 让 AI 进入工作，也让 AI 进入创作</title>
+  <meta name="description" content="QingYan Studio — 朱青的个人 AI 原生作品集。">
+
+  <!-- Fonts: Noto Sans SC + Inter (Neo-Grotesk 气质) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/v2.css">
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand reveal reveal--fade" href="#hero" aria-label="QingYan Studio 首页">
+        <span class="nav__brand-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">QingYan Studio</span>
+        <span class="nav__brand-sep" aria-hidden="true">·</span>
+        <span class="nav__brand-person">朱青</span>
+      </a>
+
+      <nav class="nav__links" aria-label="主导航">
+        <a class="nav__link" href="#experience">Experience</a>
+        <a class="nav__link" href="#projects">Projects</a>
+        <a class="nav__link" href="#aigc-works">AIGC Works</a>
+        <a class="nav__link" href="#about">About</a>
+      </nav>
+
+      <a class="nav__cta" href="#contact">Contact</a>
+
+      <button class="nav__toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="#experience">Experience <small>实践经历</small></a>
+    <a href="#projects">Projects <small>精选项目</small></a>
+    <a href="#aigc-works">AIGC Works <small>创意作品</small></a>
+    <a href="#about">About <small>关于</small></a>
+    <a href="#contact">Contact <small>联系</small></a>
+  </div>
+
+  <main>
+
+    <!-- ================================================================
+         HERO — Soft Glass Editorial Lab
+         LOCKED: 让 AI 进入工作，也让 AI 进入创作。
+         Media Slot: hero-background (HERO_MEDIA_PLACEHOLDER)
+         ================================================================ -->
+    <section class="hero" id="hero">
+      <div class="hero__container">
+
+        <!-- MEDIA SLOT: hero-background — HERO_MEDIA_PLACEHOLDER
+             替换方式: 修改 site-data.js 中 media["hero-background"]
+             当前为 cinematic placeholder scene（灰阶山脊 + 光雾 + 噪点 + 缓慢漂移）
+             注意: noise / vignette 是 hero__container 的独立长期层，
+             替换 video 时不会被清空，电影质感层始终保留。 -->
+        <div class="hero__media" data-slot-id="hero-background">
+          <svg class="hero__scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="hero-sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#21252b"/>
+                <stop offset="52%" stop-color="#15171b"/>
+                <stop offset="100%" stop-color="#0b0c0e"/>
+              </linearGradient>
+              <linearGradient id="hero-far" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2c313a"/>
+                <stop offset="100%" stop-color="#191c21"/>
+              </linearGradient>
+              <linearGradient id="hero-mid" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#38404b"/>
+                <stop offset="100%" stop-color="#1e2126"/>
+              </linearGradient>
+              <radialGradient id="hero-glow" cx="0.5" cy="0.5" r="0.5">
+                <stop offset="0%" stop-color="#66717f" stop-opacity="0.42"/>
+                <stop offset="100%" stop-color="#66717f" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="1600" height="900" fill="url(#hero-sky)"/>
+            <ellipse class="hero__scene-glow" cx="830" cy="350" rx="620" ry="330" fill="url(#hero-glow)"/>
+            <path class="hero__scene-ridge hero__scene-ridge--far" d="M0,470 C230,420 420,505 700,465 C960,428 1180,520 1600,468 L1600,900 L0,900 Z" fill="url(#hero-far)"/>
+            <path class="hero__scene-ridge hero__scene-ridge--mid" d="M0,610 C310,555 560,650 880,600 C1180,553 1400,650 1600,600 L1600,900 L0,900 Z" fill="url(#hero-mid)"/>
+          </svg>
+          <span class="hero__media-label">HERO_MEDIA_PLACEHOLDER</span>
+        </div>
+
+        <!-- 长期电影质感层：独立于 media slot，video 替换时永久保留 -->
+        <div class="hero__media-noise" aria-hidden="true"></div>
+        <div class="hero__media-vignette" aria-hidden="true"></div>
+
+        <div class="hero__overlay" aria-hidden="true"></div>
+
+        <!-- 中央 Typography (LOCKED) -->
+        <div class="hero__content">
+          <span class="hero__badge reveal">AI × Product × Creativity</span>
+          <h1 class="hero__title reveal">
+            让 AI 进入工作，<br>也让 AI 进入创作。
+          </h1>
+        </div>
+
+        <!-- 左下 Glass Card（ambient wrapper 负责慢速浮动，内层负责 reveal + hover） -->
+        <div class="hero__card-bl-ambient">
+          <div class="hero__card-bl reveal">
+            <span class="hero__card-num">3</span>
+            <div class="hero__card-body">
+              <span class="hero__card-label">Selected AI Projects</span>
+              <a class="hero__card-link" href="#projects">View Projects →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右下 Faux Cutout -->
+        <div class="hero__cutout reveal">
+          <span class="hero__cutout-label">QingYan Studio</span>
+          <a class="hero__cutout-link" href="#projects">
+            Explore
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         01 · EXPERIENCE — LOCKED
+         ================================================================ -->
+    <section class="section" id="experience">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-num">01</span>
+          <h2 class="section-title">Experience<small>实践经历</small></h2>
+        </header>
+
+        <article class="exp-item exp-item--primary reveal">
+          <div class="exp-main">
+            <span class="exp-period">2026.01 – 2026.03</span>
+            <h3 class="exp-company">北京九州文化传媒有限公司</h3>
+            <span class="exp-role">AI 内容生产实习生</span>
+
+            <div class="exp-stats">
+              <span class="exp-stat"><strong>8</strong><em>部 AI 短剧</em></span>
+              <span class="exp-stat"><strong>280</strong><em>集</em></span>
+              <span class="exp-stat"><strong>复用</strong><em>团队推广</em></span>
+            </div>
+
+            <p class="exp-desc">参与 AI 短剧全流程生产，累计落地 8 部、280 集，覆盖剧本分析、视觉设计、AI 素材生成、剪辑配音等环节。</p>
+            <p class="exp-desc">在实际制作中，根据短剧的流量与付费链路分配制作资源：重点提升承担流量与转化的一卡，通过口型同步保证核心内容质量，其余部分结合关键帧处理增强动态表现，在控制时间与算力投入的同时解决平台审核问题。</p>
+            <p class="exp-desc">该方法在实际项目中验证后被领导注意并认可，随后应要求整理为关键帧处理教程，并在团队内部推广复用。</p>
+          </div>
+
+          <aside class="exp-side">
+            <span class="exp-side__label">Media Slot · 待补素材</span>
+            <div class="exp-side__grid">
+              <div data-slot-id="exp-jiuzhou-outcomes">
+                <div class="media-slot">
+                  <span class="media-slot__label">AI 短剧 / 成片截图</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+              <div data-slot-id="exp-jiuzhou-tutorials">
+                <div class="media-slot">
+                  <span class="media-slot__label">关键帧教程 / 团队复用证据</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         02 · SELECTED PROJECTS — LOCKED
+         ================================================================ -->
+    <section class="section section--alt" id="projects">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-num">02</span>
+          <h2 class="section-title">Selected Projects<small>精选项目</small></h2>
+        </header>
+
+        <div class="projects-list">
+
+          <!-- PROJECT 01 -->
+          <article class="project reveal">
+            <header class="project__header">
+              <span class="project__index">01</span>
+              <h3 class="project__title">Agent 方法学习与知识沉淀系统</h3>
+              <span class="project__title-en">Agent Learning &amp; Knowledge System</span>
+              <div class="project__meta">
+                <span class="project__status">Ongoing Experiment</span>
+              </div>
+            </header>
+            <p class="project__problem">让直播课程不止被“总结”，而是沉淀成 AI 可以继续学习和复用的知识资产。</p>
+            <p class="project__problem">将直播课程中的 Agent 搭建演示转化为结构化知识，并通过原文核对、独立 AI 审核与历史错误复测，降低知识在 AI 整理过程中的失真。</p>
+            <div class="project__tags">
+              <span class="tag">知识结构化</span>
+              <span class="tag">方法提取</span>
+              <span class="tag">原文核对</span>
+              <span class="tag">独立 AI 审核</span>
+              <span class="tag">错误复测</span>
+            </div>
+            <div class="project__media">
+              <div data-slot-id="p01-workflow">
+                <div class="media-slot">
+                  <span class="media-slot__label">Workflow</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+              <div data-slot-id="p01-transcript">
+                <div class="media-slot">
+                  <span class="media-slot__label">Transcript</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+              <div data-slot-id="p01-review">
+                <div class="media-slot">
+                  <span class="media-slot__label">Review / Regression 证据</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 02 -->
+          <article class="project reveal">
+            <header class="project__header">
+              <span class="project__index">02</span>
+              <h3 class="project__title">个人 AI 学习工作台</h3>
+              <span class="project__title-en">Personal AI Learning Workspace</span>
+              <div class="project__meta">
+                <span class="project__status">7 次迭代 · Personal MVP</span>
+              </div>
+            </header>
+            <p class="project__problem">把“看懂了”，继续推进到记录、行动、反馈和复盘。</p>
+            <p class="project__problem">为长期 AI 学习设计的个人工作台，将课程内容、笔记批注、行动实验与 AI 反馈放进同一个学习闭环，并通过真实使用持续迭代。</p>
+            <div class="project__tags">
+              <span class="tag">33 章内容体系</span>
+              <span class="tag">Pad 批注</span>
+              <span class="tag">无限画布</span>
+              <span class="tag">本地数据</span>
+              <span class="tag">AI 反馈</span>
+            </div>
+            <div class="project__media">
+              <div data-slot-id="p02-product-ui">
+                <div class="media-slot">
+                  <span class="media-slot__label">产品 UI</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+              <div data-slot-id="p02-pad-annotation">
+                <div class="media-slot">
+                  <span class="media-slot__label">Pad 批注</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+              <div data-slot-id="p02-canvas">
+                <div class="media-slot">
+                  <span class="media-slot__label">无限画布</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+              <div data-slot-id="p02-experiment">
+                <div class="media-slot">
+                  <span class="media-slot__label">行动实验</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROJECT 03 -->
+          <article class="project reveal">
+            <header class="project__header">
+              <span class="project__index">03</span>
+              <h3 class="project__title">青砚多 AI 协作工作台</h3>
+              <span class="project__title-en">QingYan Multi-AI Workspace</span>
+              <div class="project__meta">
+                <span class="project__status">Runtime v0.1 · In Validation</span>
+              </div>
+            </header>
+            <p class="project__problem">不是让更多 AI 同时工作，而是让不同 AI 在明确边界下完成一次可靠协作。</p>
+            <p class="project__problem">将复杂任务拆分为需求定义、独立审核、受控执行与结果记录，让不同 AI 各自承担明确角色，并保留任务、审核和执行过程作为可追溯资产。</p>
+            <div class="project__runtime">
+              <span class="project__runtime-label">Runtime</span>
+              <div class="project__flow">
+                <span class="flow-step">Human Intent</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">ChatGPT</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">WorkBuddy Review</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Codex Execution</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">Execution Log</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-step">AI Workstation</span>
+              </div>
+            </div>
+            <div class="project__tags">
+              <span class="tag">任务拆解</span>
+              <span class="tag">多 AI 分工</span>
+              <span class="tag">独立审核</span>
+              <span class="tag">执行边界</span>
+              <span class="tag">过程留痕</span>
+            </div>
+            <div class="project__media">
+              <div data-slot-id="p03-multi-ai">
+                <div class="media-slot">
+                  <span class="media-slot__label">Multi-AI Workflow</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+              <div data-slot-id="p03-exec-log">
+                <div class="media-slot">
+                  <span class="media-slot__label">Execution Log</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+              <div data-slot-id="p03-workstation">
+                <div class="media-slot">
+                  <span class="media-slot__label">Workstation</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         03 · AIGC WORKS — Film / Editorial Gallery
+         ================================================================ -->
+    <section class="section section--film" id="aigc-works">
+      <div class="container">
+        <header class="section-head section-head--film reveal">
+          <span class="section-num">03</span>
+          <h2 class="section-title">AIGC Works<small>创意作品</small></h2>
+        </header>
+
+        <div class="film-grid">
+
+          <!-- 01 嘉定的清晨 — 主视觉 (16:9 / 21:9) -->
+          <article class="film film--feature reveal">
+            <div class="film__media">
+              <div class="media-slot" data-slot-id="aigc-jiading-cover">
+                <span class="media-slot__label">嘉定的清晨 · 封面</span>
+                <span class="media-slot__status">MEDIA_SLOT</span>
+              </div>
+            </div>
+            <footer class="film__cap">
+              <span class="film__index">01</span>
+              <h3 class="film__title">嘉定的清晨</h3>
+              <span class="film__year">2025</span>
+              <span class="film__real">REAL ASSET</span>
+            </footer>
+          </article>
+
+          <!-- 02 回声 -->
+          <article class="film film--a reveal">
+            <div class="film__media">
+              <div class="media-slot" data-slot-id="aigc-huisheng-cover">
+                <span class="media-slot__label">回声 · 封面</span>
+                <span class="media-slot__status">MEDIA_SLOT</span>
+              </div>
+            </div>
+            <footer class="film__cap">
+              <span class="film__index">02</span>
+              <h3 class="film__title">回声</h3>
+            </footer>
+          </article>
+
+          <!-- 03 紫荆花盛开 -->
+          <article class="film film--b reveal">
+            <div class="film__media">
+              <div class="media-slot" data-slot-id="aigc-zijing-cover">
+                <span class="media-slot__label">紫荆花盛开 · 封面</span>
+                <span class="media-slot__status">MEDIA_SLOT</span>
+              </div>
+            </div>
+            <footer class="film__cap">
+              <span class="film__index">03</span>
+              <h3 class="film__title">紫荆花盛开</h3>
+            </footer>
+          </article>
+
+          <!-- 04 本然 -->
+          <article class="film film--c reveal">
+            <div class="film__media">
+              <div class="media-slot" data-slot-id="aigc-benran-cover">
+                <span class="media-slot__label">本然 · 封面</span>
+                <span class="media-slot__status">MEDIA_SLOT</span>
+              </div>
+            </div>
+            <footer class="film__cap">
+              <span class="film__index">04</span>
+              <h3 class="film__title">本然</h3>
+            </footer>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         04 · HOW I WORK — 工作方法
+         ================================================================ -->
+    <section class="section section--alt" id="how-i-work">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-num">04</span>
+          <h2 class="section-title">How I Work<small>工作方法</small></h2>
+        </header>
+
+        <div class="principles">
+
+          <div class="principle reveal">
+            <span class="principle__num">01</span>
+            <h4 class="principle__title">自动化之前，先确认事实</h4>
+            <span class="principle__en">Evidence Before Automation</span>
+            <p class="principle__desc">AI 输出应可追溯、可验证。在把任何 AI 能力自动化之前，先确认输入的事实基础与输出的可验证性。</p>
+          </div>
+
+          <div class="principle reveal">
+            <span class="principle__num">02</span>
+            <h4 class="principle__title">先跑通最小闭环</h4>
+            <span class="principle__en">Small Loop Before Complex System</span>
+            <p class="principle__desc">不追求一次设计完整系统。先用最小成本验证一个端到端环节，再逐步扩展、封装与回测。</p>
+          </div>
+
+          <div class="principle reveal">
+            <span class="principle__num">03</span>
+            <h4 class="principle__title">人掌握最终决策权</h4>
+            <span class="principle__en">Human Control Over AI</span>
+            <p class="principle__desc">AI 是协作工具。关键节点保留人工确认闸门，确保意图、价值判断与最终责任始终在人。</p>
+          </div>
+
+        </div>
+
+        <div class="method-loop reveal">
+          <h4 class="method-loop__title">The Working Loop · 工作闭环</h4>
+          <div class="method-loop__flow">
+            <span class="flow-step">Human Intent</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Problem Definition</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Evidence</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">AI Collaboration</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Review</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Iteration</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Knowledge Asset</span>
+          </div>
+          <p class="method-loop__note">沉淀后的 Knowledge Asset 会回到下一轮 Human Intent，形成持续改进的循环。</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         05 · ABOUT — 文案未 LOCKED，使用 Placeholder
+         ================================================================ -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-num">05</span>
+          <h2 class="section-title">About<small>关于</small></h2>
+        </header>
+
+        <div class="about-content">
+          <div class="about-placeholder reveal">
+            <span class="placeholder-mark">PLACEHOLDER</span>
+            <p>[ About 文案未 LOCKED — 此处为 Placeholder，不自行编写 ]</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         06 · CONTACT — 联系
+         ================================================================ -->
+    <section class="section section--alt" id="contact">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-num">06</span>
+          <h2 class="section-title">Contact<small>联系</small></h2>
+        </header>
+
+        <div class="contact reveal">
+          <p class="contact__status">
+            联系方式确认中 · Contact channels to be confirmed
+          </p>
+          <p class="contact__note">Email / GitHub / 微信 / 简历 PDF 待确认后更新。</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__brand">QingYan Studio</p>
+      <p class="footer__note">朱青 · 2026 · Soft Glass Editorial Lab</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <!-- site-data.js: 集中式数据 + Media Slot 映射 -->
+  <script src="assets/js/site-data.js"></script>
+  <!-- v2-main.js: 交互逻辑（导航 / Media Slot 替换 / Reveal） -->
+  <script src="assets/js/v2-main.js"></script>
+</body>
+</html>

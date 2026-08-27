@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case 01 · Agent 方法学习与知识沉淀系统 | QingYan Studio</title>
+  <meta name="description" content="Agent Learning &amp; Knowledge System — 以原文核对、独立 AI 审核与历史错误复测，降低知识在 AI 整理过程中的失真。Evidence-Backed Case Study。">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/v2.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand reveal reveal--fade" href="../index.html" aria-label="QingYan Studio 首页">
+        <span class="nav__brand-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">QingYan Studio</span>
+        <span class="nav__brand-sep" aria-hidden="true">·</span>
+        <span class="nav__brand-person">朱青</span>
+      </a>
+
+      <nav class="nav__links" aria-label="本页导航">
+        <a class="nav__link" href="#beat-1">Failure</a>
+        <a class="nav__link" href="#beat-2">Diagnosis</a>
+        <a class="nav__link" href="#beat-3">Fix</a>
+        <a class="nav__link" href="#beat-4">Validation</a>
+        <a class="nav__link" href="#beat-5">Escalation</a>
+      </nav>
+
+      <a class="nav__cta" href="../index.html#contact">Contact</a>
+
+      <button class="nav__toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="#beat-1">Failure <small>首次 Bad Case</small></a>
+    <a href="#beat-2">Diagnosis <small>双层评审</small></a>
+    <a href="#beat-3">Controlled Fix <small>Prompt Diff</small></a>
+    <a href="#beat-4">Validation <small>验证结果</small></a>
+    <a href="#beat-5">Escalation <small>Human Review Queue</small></a>
+    <a href="../index.html#projects">返回首页 <small>Selected Projects</small></a>
+  </div>
+
+  <main>
+
+    <!-- ================================================================
+         CASE HERO
+         ================================================================ -->
+    <section class="case-hero">
+      <div class="container">
+        <span class="case-hero__label">Case 01 · AI Product Lab</span>
+        <h1 class="case-hero__title">
+          Agent 方法学习与知识沉淀系统
+          <span class="case-hero__title-en">Agent Learning &amp; Knowledge System</span>
+        </h1>
+
+        <div class="case-hero__meta">
+          <span class="case-hero__status">Ongoing Experiment</span>
+          <span class="case-hero__status">v0.2 Minimum Loop · Evidence-Backed</span>
+        </div>
+
+        <p class="case-hero__lede">
+          让直播课程不止被“总结”，而是沉淀成 AI 可以继续学习和复用的知识资产。将直播课程中的 Agent 搭建演示转化为结构化知识，并通过原文核对、独立 AI 审核与历史错误复测，降低知识在 AI 整理过程中的失真。
+        </p>
+
+        <div class="case-hero__tags">
+          <span class="tag">知识结构化</span>
+          <span class="tag">方法提取</span>
+          <span class="tag">原文核对</span>
+          <span class="tag">独立 AI 审核</span>
+          <span class="tag">错误复测</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="case-timeline">
+      <div class="container">
+        <div class="case-timeline__inner">
+          <span class="case-timeline__label">Timeline · 2026-08-23</span>
+          <span class="case-timeline__node">10:19 Gate 落盘</span>
+          <span class="case-timeline__sep">→</span>
+          <span class="case-timeline__node">10:27 首次提取</span>
+          <span class="case-timeline__sep">→</span>
+          <span class="case-timeline__node">10:29 Self Review</span>
+          <span class="case-timeline__sep">→</span>
+          <span class="case-timeline__node">10:37 Independent Review · REVISE</span>
+          <span class="case-timeline__sep">→</span>
+          <span class="case-timeline__node">10:44 R1 重生成</span>
+          <span class="case-timeline__sep">→</span>
+          <span class="case-timeline__node">10:54 PASS</span>
+          <span class="case-timeline__sep">·</span>
+          <span class="case-timeline__node">08-26 07:00 HRQ 初始化</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         BEAT 1 — S01 · First Bad Case（Failure）
+         ================================================================ -->
+    <section class="beat" id="beat-1">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">BEAT 01</span>
+          <span class="beat-head__role">Failure</span>
+          <h2 class="beat-head__title">
+            First Bad Case — 同一份输出内的保真度分裂
+            <small>E02 · Same Source → Same Output File → Inconsistent Fidelity</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">
+          课程原文说“完全权限”；同一份 LLM 输出的叙述段正确保留了它，但工作流段把它改写成“只授予完成任务所需的权限”。模型不是没理解 Source，而是在转述模式切换时，将课程实际操作泛化成了通用最佳实践。
+        </p>
+
+        <div class="ev-grid ev-grid--3 reveal">
+
+          <!-- 左：Source -->
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Source · 课程原文</span>
+              <span class="ev-col__path">02_ASR测试\whispercpp\course_5min_raw.txt · L13–17</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s01-source.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s01-source.png" alt="课程转写原文 L13–17：默认权限不行，选择完全权限，了解风险允许继续" loading="lazy">
+              </a>
+            </div>
+            <div class="ev-hl">
+              <span class="ev-hl__title">Highlight</span>
+              <ul>
+                <li><span class="ev-hl__line">L15</span>「完全权限」——Source 的 anchor 词</li>
+                <li><span class="ev-hl__line">L14</span>「默认权限不行」——与改写方向相反，必须与 L15 同框</li>
+                <li><span class="ev-hl__line">L16–17</span>「了解风险，允许继续」——讲师确认过的操作，不是口误</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 中：AI Output — Correct -->
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role ev-col__role--good">AI Output — Correct</span>
+              <span class="ev-col__path">05_知识提取\course_notes_raw_llm.md · L20–24</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s01-output-correct.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s01-output-correct.png" alt="LLM 输出叙述段 L20–24：演示随后选择完全权限，确认了解风险并继续" loading="lazy">
+              </a>
+            </div>
+            <div class="ev-hl">
+              <span class="ev-hl__title">Highlight</span>
+              <ul>
+                <li><span class="ev-hl__line ev-hl__line--good">L24</span>首句忠实保留「完全权限」——模型读对了 Source</li>
+                <li><span class="ev-hl__line">L24 后半</span>「混元 3」待确认标注——不确定性标注机制在同一文件里正常运转</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 右：AI Output — Over-generalized -->
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role ev-col__role--bad">AI Output — Over-generalized</span>
+              <span class="ev-col__path">05_知识提取\course_notes_raw_llm.md · L74–78</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s01-output-overgeneralized.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s01-output-overgeneralized.png" alt="LLM 输出可复用工作流段 L74–78：只授予完成任务所需的权限" loading="lazy">
+              </a>
+            </div>
+            <div class="ev-hl">
+              <span class="ev-hl__title">Highlight</span>
+              <ul>
+                <li><span class="ev-hl__line ev-hl__line--bad">L77</span>「只授予完成任务所需的权限」——出现在编号工作流中的一步，不是孤立句子</li>
+                <li><span class="ev-hl__line">L74</span>「可复用工作流」标题——转述模式切换的文本依据</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ev-caption reveal">
+          <strong class="ev-caption__en">Same Source → Same Output File → Inconsistent Fidelity.</strong>
+          <span class="ev-caption__zh">
+            同一份课程转录，同一份 LLM 输出：叙述段忠实保留「完全权限」，工作流段泛化为最小权限建议——模型不是没读懂，而是在转述模式切换时把课程实际操作替换成了通用最佳实践。
+          </span>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="beat-transition">
+      <div class="container">
+        <p>
+          同一天的 8 分钟之内（10:29 → 10:37），Self Review 与 Independent Review 相继发生——治理结构真实运转的节奏证据。
+          <span class="sep" aria-hidden="true"></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ================================================================
+         BEAT 2 — S02 · Self Review vs Independent Review（Diagnosis）
+         ================================================================ -->
+    <section class="beat" id="beat-2">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">BEAT 02</span>
+          <span class="beat-head__role">Diagnosis</span>
+          <h2 class="beat-head__title">
+            Self Review vs Independent Review — 预先定义的 Gate
+            <small>E03 · Rule existed before review · 产物合格 ≠ 闭环合格</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">
+          REVISE 不是 Independent Reviewer 临时提高标准——判定规则在首次 LLM 提取之前已落盘（Task Brief 10:19 &lt; 首次提取 10:27）。Self Review 与 Independent Review 用的是同一套 Gate，分歧在于审的对象不同（修正后产物 vs 首次原始输出），而不是标准不同。
+        </p>
+
+        <div class="ev-grid ev-grid--3 reveal">
+
+          <!-- 左：Execution Self Review -->
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Execution Self Review</span>
+              <span class="ev-col__path">05_知识提取\v0.2_quality_review.md · L1–3 / L45 / L86–88</span>
+              <span class="ev-col__time">mtime 10:29:56</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-self-review-01.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s02-self-review-01.png" alt="Self Review L1–3：边界声明，本文件是执行阶段质量自检，不代表最终 PASS" loading="lazy">
+              </a>
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-self-review-02.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s02-self-review-02.png" alt="Self Review L45：首次输出发现 3 处，已按明示修订流程修正，复查未发现明确幻觉" loading="lazy">
+              </a>
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-self-review-03.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s02-self-review-03.png" alt="Self Review L86–88：READY FOR POST-EXECUTION REVIEW" loading="lazy">
+              </a>
+            </div>
+            <div class="ev-hl">
+              <span class="ev-hl__title">Highlight</span>
+              <ul>
+                <li><span class="ev-hl__line">L3</span>边界声明：自检不代表最终 PASS——两层分工的文本依据</li>
+                <li><span class="ev-hl__line">L45</span>如实上报「首次输出发现 3 处……已按明示修订流程修正」</li>
+                <li><span class="ev-hl__line">L86</span>判定：READY FOR POST-EXECUTION REVIEW（审的是修正后产物）</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 中：Pre-defined Acceptance Criteria -->
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Pre-defined Acceptance Criteria</span>
+              <span class="ev-col__path">00_项目管理\Task_Brief\Pipeline_v0.2_Task_Brief_REVISED.md · L393–405 / L636–641</span>
+              <span class="ev-col__time">mtime 10:19:35 — 先于首次提取 10:27</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-gate-01.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s02-gate-01.png" alt="Task Brief L393–405：忠实性验收标准，若发现一条明确幻觉，结论不得为 PASS，必须 REVISE" loading="lazy">
+              </a>
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-gate-02.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s02-gate-02.png" alt="Task Brief L636–641：不得通过人工静默润色绕过重新生成" loading="lazy">
+              </a>
+            </div>
+            <div class="ev-hl">
+              <span class="ev-hl__title">Highlight</span>
+              <ul>
+                <li><span class="ev-hl__line">L403–405</span>「若发现一条明确幻觉：结论不得为 PASS，必须 REVISE。」——Gate 原文（条件与结论必须同框）</li>
+                <li><span class="ev-hl__line">L641</span>「不得通过人工静默润色绕过重新生成。」——人工修正不能替代重生成</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 右：Independent Review — REVISE -->
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role ev-col__role--bad">Independent Review — REVISE</span>
+              <span class="ev-col__path">00_项目管理\WorkBuddy_Review\WorkBuddy_v0.2_PostExecution_Review.md · L11–18 / L111</span>
+              <span class="ev-col__time">mtime 10:37:16</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-independent-review-01.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s02-independent-review-01.png" alt="WorkBuddy 终审 L11–18：结论 REVISE，失败的不是笔记质量，是闭环本身" loading="lazy">
+              </a>
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-independent-review-02.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s02-independent-review-02.png" alt="WorkBuddy 终审 L111：按一条明确幻觉即 REVISE 标准本身就是 REVISE" loading="lazy">
+              </a>
+            </div>
+            <div class="ev-hl">
+              <span class="ev-hl__title">Highlight</span>
+              <ul>
+                <li><span class="ev-hl__line">L13</span>「失败的不是笔记质量，是闭环本身。」</li>
+                <li><span class="ev-hl__line">L15</span>3 处人工修正中的 2 处属于实质性内容重写——Reviewer 的定性，非 Gate 原文</li>
+                <li><span class="ev-hl__line">L111</span>「按‘一条明确幻觉即 REVISE’标准本身就是 REVISE」——Reviewer 在援引预先规则，不是临时加码</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ev-note reveal">
+          Source Check · 磁盘时间戳——「Rule existed before review」的原始依据（Get-Item，与 Evidence Ledger 一致）：
+          <em>Task Brief 10:19:35</em> → <em>Self Review 10:29:56</em> → <em>Independent Review 10:37:16</em>。
+        </div>
+
+        <div class="ev-grid ev-grid--3 reveal" style="margin-top: var(--space-md);">
+          <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-timestamp-brief.png" target="_blank" rel="noopener">
+            <img src="../assets/img/evidence/project01/p01-s02-timestamp-brief.png" alt="Get-Item Task Brief：LastWriteTime 10:19:35" loading="lazy">
+          </a>
+          <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-timestamp-self-review.png" target="_blank" rel="noopener">
+            <img src="../assets/img/evidence/project01/p01-s02-timestamp-self-review.png" alt="Get-Item Self Review：LastWriteTime 10:29:56" loading="lazy">
+          </a>
+          <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-timestamp-independent-review.png" target="_blank" rel="noopener">
+            <img src="../assets/img/evidence/project01/p01-s02-timestamp-independent-review.png" alt="Get-Item Independent Review：LastWriteTime 10:37:16" loading="lazy">
+          </a>
+        </div>
+
+        <div class="ev-caption reveal">
+          <strong class="ev-caption__en">Output fixed. Workflow not validated.</strong>
+          <span class="ev-caption__zh">
+            Self Review 判「可提交」（审的是修正后产物）；Independent Review 按执行前落盘的 Gate（Task Brief L403–405「一条明确幻觉即 REVISE」/ L641「不得人工润色绕过重新生成」）审首次输出，判 REVISE——标准预先存在，分歧在对象，不在门槛。
+          </span>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="beat-transition">
+      <div class="container">
+        <p>
+          REVISE 的修复面收敛在终审里写得明确——「修改对象：仅 Prompt」。这就是下一节 Controlled Fix 的出处。
+          <span class="sep" aria-hidden="true"></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ================================================================
+         BEAT 3 — S03 · Prompt Diff（Controlled Fix）
+         ================================================================ -->
+    <section class="beat" id="beat-3">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">BEAT 03</span>
+          <span class="beat-head__role">Controlled Fix</span>
+          <h2 class="beat-head__title">
+            Prompt Diff — Baseline vs R1 Added Constraints
+            <small>E04 · 修复不是推倒重写，而是唯一追加一段强约束</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">
+          Baseline 已有回查与防幻觉规则，但对「把课程操作泛化为最佳实践」失效；R1 唯一新增「课程忠实转述强约束」8 条，每条对应已确认的失效模式。问题不是「没写规则」，而是「规则对建议泛化模式失效」。
+        </p>
+
+        <div class="ev-grid ev-grid--2 ev-grid--diff reveal">
+
+          <!-- 左：Baseline -->
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Baseline</span>
+              <span class="ev-col__path">05_知识提取\prompt_v0.2.md · L61–68</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s03-prompt-baseline.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s03-prompt-baseline.png" alt="Prompt v0.2 Baseline L61–68：忠实性与可读性要求整节" loading="lazy">
+              </a>
+            </div>
+            <div class="ev-hl">
+              <span class="ev-hl__title">Highlight</span>
+              <ul>
+                <li><span class="ev-hl__line">L64</span>「数字、地点、渠道、步骤、文件名与课程观点必须能回查到 Raw Transcript」——规则已在</li>
+                <li><span class="ev-hl__line">L65</span>「一条明确幻觉即不合格」——规则已在</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 右：R1 Added Constraints -->
+          <div class="ev-col ev-col--added">
+            <div class="ev-col__head">
+              <span class="ev-col__role ev-col__role--good">R1 Added Constraints</span>
+              <span class="ev-col__path">05_知识提取\prompt_v0.2_R1.md · L70–79</span>
+              <span class="diff-add-badge">+ 8 constraints · nothing rewritten</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s03-prompt-r1.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s03-prompt-r1.png" alt="Prompt v0.2_R1 L70–79：课程忠实转述强约束 8 条全部可见" loading="lazy">
+              </a>
+            </div>
+            <div class="ev-hl">
+              <span class="ev-hl__title">Fidelity Constraints</span>
+              <ul>
+                <li><span class="ev-hl__line">L72</span>Workflow steps must come from Raw Transcript</li>
+                <li><span class="ev-hl__line">L73–74</span>Do not replace instructor actions with best practices（两行必须一起看：不得自行纠正讲师的方法）</li>
+                <li><span class="ev-hl__line">L76</span>“Sounds reasonable” is not evidence</li>
+                <li><span class="ev-hl__line">L79</span>Insufficiency over plausible completion（禁止为显得完整而补充内容）</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ev-note reveal">
+          逐行 diff 证实：除新增段外 Baseline 其他内容未变（<em>v0.2_R1_execution_log.md L46</em>）；R1 Prompt 独立存档（<em>5218 B vs Baseline 3772 B，R1 Review L29</em>）。上方右栏英文为 Web Label，Prompt 原文为中文，以截图为准。
+        </div>
+
+        <div class="ev-caption reveal">
+          <strong class="ev-caption__en">Fidelity Constraints — 8 added, nothing rewritten.</strong>
+          <span class="ev-caption__zh">
+            Baseline 已有回查与防幻觉规则，但对「把课程操作泛化为最佳实践」失效；R1 唯一新增「课程忠实转述强约束」8 条（逐行 diff 证实其余未变），每条对应已确认的失效模式。
+          </span>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="beat-transition">
+      <div class="container">
+        <p>
+          修复之后是验证：R1 重生成（10:44）→ Independent Review PASS（10:54），全部结果落在可复核的 Evidence 上。
+          <span class="sep" aria-hidden="true"></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ================================================================
+         BEAT 4 — S04 · Validation
+         ================================================================ -->
+    <section class="beat" id="beat-4">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">BEAT 04</span>
+          <span class="beat-head__role">Validation</span>
+          <h2 class="beat-head__title">
+            Validation — 带边界声明的验证结果
+            <small>E05 · 每张卡都能顺着引线落到 Raw Evidence</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">
+          3 个历史 Bad Case 零复现；零人工修正由 SHA-256 同值 + diff 零差异背书；Independent Review 给出 PASS——并且 PASS 附带明确的单样本范围声明。Scope Awareness 与结果本身是同等的能力证据。
+        </p>
+
+        <!-- Result Cards -->
+        <div class="result-cards reveal">
+
+          <div class="rcard">
+            <span class="rcard__value">3 / 3</span>
+            <span class="rcard__label">Historical Bad Cases Not Reproduced</span>
+            <span class="rcard__zh">历史 Bad Case 零复现</span>
+            <span class="rcard__anchor"><span class="cardref">Card 1</span>v0.2_R1_execution_log.md L65–67</span>
+          </div>
+
+          <div class="rcard">
+            <span class="rcard__value">0</span>
+            <span class="rcard__label">Manual Corrections</span>
+            <span class="rcard__zh">零人工修正 · SHA-256 + diff 背书</span>
+            <span class="rcard__anchor"><span class="cardref">Card 2</span>v0.2_R1_execution_log.md L53–54 · R1 Review L32</span>
+          </div>
+
+          <div class="rcard">
+            <span class="rcard__value rcard__value--pass">PASS</span>
+            <span class="rcard__label">Independent Review</span>
+            <span class="rcard__zh">独立审核通过</span>
+            <span class="rcard__anchor"><span class="cardref">Card 3</span>WorkBuddy_v0.2_R1_PostExecution_Review.md L14–16</span>
+          </div>
+
+          <div class="rcard">
+            <span class="rcard__value">1 Sample</span>
+            <span class="rcard__label">Validated Scope</span>
+            <span class="rcard__zh">单样本实证 · 不证明跨课程稳定泛化</span>
+            <span class="rcard__anchor"><span class="cardref">Card 4</span>WorkBuddy_v0.2_R1_PostExecution_Review.md L18</span>
+          </div>
+
+        </div>
+
+        <!-- Source Evidence Strip -->
+        <div class="source-strip reveal">
+
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Card 1 ↘ Bad Case Regression</span>
+              <span class="ev-col__path">00_项目管理\Execution_Log\v0.2_R1_execution_log.md · L65–67</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-badcase-regression.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s04-badcase-regression.png" alt="R1 执行日志 L65–67：Bad Case 1/2/3 均 PASS，未复现" loading="lazy">
+              </a>
+            </div>
+          </div>
+
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Card 2 ↘ Zero Manual Corrections</span>
+              <span class="ev-col__path">00_项目管理\Execution_Log\v0.2_R1_execution_log.md · L53–54（SHA-256 全串未截断）</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-zero-manual-fix.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s04-zero-manual-fix.png" alt="R1 执行日志 L53–54：两文件 SHA-256 均为 AE6C 开头全串一致，生成后人工内容修改 0" loading="lazy">
+              </a>
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-diff-proof.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s04-diff-proof.png" alt="R1 Review L32：SHA-256 双实测同值，diff -q 零差异" loading="lazy">
+              </a>
+            </div>
+          </div>
+
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Card 3 ↘ PASS</span>
+              <span class="ev-col__path">00_项目管理\WorkBuddy_Review\WorkBuddy_v0.2_R1_PostExecution_Review.md · L14–16</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-pass.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s04-pass.png" alt="R1 Review L14–16：PASS，Pipeline v0.2 Minimum Knowledge Structuring Loop VALIDATED" loading="lazy">
+              </a>
+            </div>
+          </div>
+
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Card 4 ↘ Validated Scope</span>
+              <span class="ev-col__path">00_项目管理\WorkBuddy_Review\WorkBuddy_v0.2_R1_PostExecution_Review.md · L18（限定语完整保留）</span>
+            </div>
+            <div class="ev-col__body">
+              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-scope.png" target="_blank" rel="noopener">
+                <img src="../assets/img/evidence/project01/p01-s04-scope.png" alt="R1 Review L18：单样本范围声明全文，不等于已经证明稳定泛化" loading="lazy">
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="ev-caption reveal">
+          <strong class="ev-caption__en">Validated — with its boundary stated.</strong>
+          <span class="ev-caption__zh">
+            3/3 历史 Bad Case 未复现；0 人工修正由 SHA-256 同值 + diff 零差异背书；Independent Review 判 PASS 并同步声明：这是单样本实证，不证明跨课程稳定泛化。
+          </span>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="beat-transition">
+      <div class="container">
+        <p>
+          Beat 4 与 Beat 5 之间隔了三天，中间还有 v0.3 / v0.4 的失败链——后续阶段暴露的新问题类型，沉淀为队列机制，而不是验证通过后顺手加的功能。
+          <span class="sep" aria-hidden="true"></span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ================================================================
+         BEAT 5 — S05 · Human Review Queue（Escalation）
+         ================================================================ -->
+    <section class="beat" id="beat-5">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">BEAT 05</span>
+          <span class="beat-head__role">Escalation</span>
+          <h2 class="beat-head__title">
+            Human Review Queue — 知道何时该停
+            <small>E08 · Pending 3 · Completed 0 · Under Validation</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">
+          系统已能识别「无法安全自动判断」的问题并显式排队等待人工，而不是静默处理或强行确认；Human Review 的完整闭环尚未完成——这是登记下来的未解决项，不是展示中的功能。
+        </p>
+
+        <div class="queue-wrap">
+          <div class="queue-panel reveal">
+
+            <!-- 左：Queue / File Tree + Items -->
+            <div class="queue-items">
+
+              <div class="ev-col">
+                <div class="ev-col__head">
+                  <span class="ev-col__role">Queue · File Tree</span>
+                  <span class="ev-col__path">Human_Review_Queue\ 整棵子树（Pending 3 / Completed 空）</span>
+                </div>
+                <div class="ev-col__body">
+                  <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-queue-tree.png" target="_blank" rel="noopener">
+                    <img src="../assets/img/evidence/project01/p01-s05-queue-tree.png" alt="Human Review Queue 目录树：Pending 含 HRQ-0001/0002/0003，Completed 的 Approved/Rejected/Needs_More_Evidence 三个空子目录可辨" loading="lazy">
+                  </a>
+                </div>
+                <div class="ev-hl">
+                  <span class="ev-hl__title">Highlight</span>
+                  <ul>
+                    <li><span class="ev-hl__line">Pending/</span>HRQ-0001 / 0002 / 0003 三个文件</li>
+                    <li><span class="ev-hl__line">Completed/</span>Approved / Rejected / Needs_More_Evidence 全部为空——空目录保持可见，不加填充</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="ev-col">
+                <div class="ev-col__head">
+                  <span class="ev-col__role">HRQ-0001 · Terminology / Two-Key Rule</span>
+                  <span class="ev-col__path">Human_Review_Queue\Pending\HRQ-0001.md · L1–13</span>
+                </div>
+                <div class="ev-col__body">
+                  <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-hrq0001.png" target="_blank" rel="noopener">
+                    <img src="../assets/img/evidence/project01/p01-s05-hrq0001.png" alt="HRQ-0001 条目：Review_ID、Risk_Type 术语 Two-Key Rule、Source、Related_Case" loading="lazy">
+                  </a>
+                </div>
+              </div>
+
+              <div class="ev-col">
+                <div class="ev-col__head">
+                  <span class="ev-col__role">HRQ-0002 · Terminology / Multiple ASR Variants</span>
+                  <span class="ev-col__path">Human_Review_Queue\Pending\HRQ-0002.md · L1–14</span>
+                </div>
+                <div class="ev-col__body">
+                  <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-hrq0002.png" target="_blank" rel="noopener">
+                    <img src="../assets/img/evidence/project01/p01-s05-hrq0002.png" alt="HRQ-0002 条目：多 ASR 变体拼写问题" loading="lazy">
+                  </a>
+                </div>
+              </div>
+
+              <div class="ev-col">
+                <div class="ev-col__head">
+                  <span class="ev-col__role">HRQ-0003 · Numeric / Fidelity / Cross-unit Consistency</span>
+                  <span class="ev-col__path">Human_Review_Queue\Pending\HRQ-0003.md · L1–14</span>
+                </div>
+                <div class="ev-col__body">
+                  <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-hrq0003.png" target="_blank" rel="noopener">
+                    <img src="../assets/img/evidence/project01/p01-s05-hrq0003.png" alt="HRQ-0003 条目：跨单位数字一致性问题，非术语问题" loading="lazy">
+                  </a>
+                </div>
+              </div>
+
+              <!-- Pending 语义证据 -->
+              <div class="ev-col">
+                <div class="ev-col__head">
+                  <span class="ev-col__role">Pending 语义 · Human_Decision 空字段</span>
+                  <span class="ev-col__path">Human_Review_Queue\Pending\HRQ-0001.md · L15–21</span>
+                </div>
+                <div class="ev-col__body">
+                  <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-human-decision-empty.png" target="_blank" rel="noopener">
+                    <img src="../assets/img/evidence/project01/p01-s05-human-decision-empty.png" alt="HRQ-0001 L15–21：Human_Decision 字段为空——设计上等待 Human Reviewer 来填" loading="lazy">
+                  </a>
+                </div>
+                <div class="ev-hl">
+                  <span class="ev-hl__title">Highlight</span>
+                  <ul>
+                    <li><span class="ev-hl__line">L20</span>「Human_Decision:」后为空——不是没人填，而是设计上就等 Human Reviewer 来填</li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 右：Status Panel -->
+            <div class="spanel">
+              <span class="spanel__title">Status Panel</span>
+              <div class="spanel__row">
+                <span class="spanel__key">Pending</span>
+                <span class="spanel__value">3</span>
+              </div>
+              <div class="spanel__row">
+                <span class="spanel__key">Completed</span>
+                <span class="spanel__value">0</span>
+              </div>
+              <span class="spanel__status">Under Validation</span>
+              <p class="spanel__note">
+                数字来自目录计数（状态由文件所在目录表达，不增加独立数据库字段）；「Under Validation」为 UI Label，对应 README L3「HRQ-E001 最小验证环境」。
+              </p>
+            </div>
+
+          </div>
+
+          <!-- README 两条 Strip -->
+          <div class="ev-grid ev-grid--2 reveal" style="margin-top: var(--space-md);">
+            <div class="ev-col">
+              <div class="ev-col__head">
+                <span class="ev-col__role">README · Queue 定位</span>
+                <span class="ev-col__path">Human_Review_Queue\README.md · L1–3</span>
+              </div>
+              <div class="ev-col__body">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-readme-status.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s05-readme-status.png" alt="README L1–3：Human Review Queue v0.1.1，当前为最小验证环境，不是完整审核系统" loading="lazy">
+                </a>
+              </div>
+            </div>
+            <div class="ev-col">
+              <div class="ev-col__head">
+                <span class="ev-col__role">README · 初始化禁令</span>
+                <span class="ev-col__path">Human_Review_Queue\README.md · L19</span>
+              </div>
+              <div class="ev-col__body">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-readme-l19.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s05-readme-l19.png" alt="README L19：当前初始化阶段不得把任何 Item 移入 Completed" loading="lazy">
+                </a>
+              </div>
+              <div class="ev-hl">
+                <span class="ev-hl__title">Highlight</span>
+                <ul>
+                  <li><span class="ev-hl__line">L19</span>「当前初始化阶段不得把任何 Item 移入 Completed。」——Completed 0 是设计约束，不是怠工</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="ev-caption reveal">
+            <strong class="ev-caption__en">AI should know when to stop.</strong>
+            <span class="ev-caption__zh">
+              系统已能识别无法安全自动判断的问题并显式排队（Pending 3：术语映射 / 多 ASR 变体拼写 / 跨单位数字一致性）；Human Review 完整闭环尚未完成（Completed 0）——这是登记下来的未解决项，不是展示中的功能。
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CASE META — Evidence Manifest 说明
+         ================================================================ -->
+    <section class="case-meta">
+      <div class="container">
+        <p>
+          本页全部 27 张 Evidence 图均为 Raw / Cropped Raw Screenshot，按已锁定的 Evidence Shot List 从 Project Root（<em>D:\agent学习笔记\直播课程知识提取Pipeline</em>）只读采集，行号可逐字回查；Result Cards 与 Status Panel 为 Re-draw 数据卡，每张卡均标注对应源文件与行号。采集明细见 <em>assets/img/evidence/project01/_MANIFEST.md</em>（Screenshot Manifest · Conflict Log · Quality Check）。
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__brand">QingYan Studio</p>
+      <p class="footer__note">朱青 · 2026 · Soft Glass Editorial Lab</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="../assets/js/v2-main.js"></script>
+</body>
+</html>
