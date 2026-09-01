@@ -31,8 +31,7 @@
         <a class="nav__link" href="#beat-3">Fix</a>
         <a class="nav__link" href="#beat-4">Validation</a>
         <a class="nav__link" href="#beat-5">Escalation</a>
-        <a class="nav__link" href="#takeaways">Takeaways</a>
-        <a class="nav__link" href="#evidence-trail">Evidence</a>
+        <a class="nav__link" href="#ending">Ending</a>
       </nav>
 
       <a class="nav__cta" href="../index.html#contact">Contact</a>
@@ -44,17 +43,15 @@
   </header>
 
   <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-      <a href="#overview">Overview <small>项目缘起</small></a>
-      <a href="#beat-1">Failure <small>首次 Bad Case</small></a>
-      <a href="#beat-2">Diagnosis <small>双层评审</small></a>
-      <a href="#beat-3">Controlled Fix <small>Prompt Diff</small></a>
-      <a href="#beat-4">Validation <small>验证结果</small></a>
-      <a href="#beat-5">Escalation <small>Human Review Queue</small></a>
-      <a href="#takeaways">Takeaways <small>能力总结</small></a>
-      <a href="#evidence-trail">Evidence <small>完整证据链</small></a>
-      <a href="../index.html#projects">返回首页 <small>Selected Projects</small></a>
-    </div>
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="#beat-1">Failure <small>首次 Bad Case</small></a>
+    <a href="#beat-2">Diagnosis <small>双层评审</small></a>
+    <a href="#beat-3">Controlled Fix <small>Prompt Diff</small></a>
+    <a href="#beat-4">Validation <small>验证结果</small></a>
+    <a href="#beat-5">Escalation <small>Human Review Queue</small></a>
+    <a href="#ending">Ending <small>最终结论</small></a>
+    <a href="../index.html#projects">返回首页 <small>Selected Projects</small></a>
+  </div>
 
   <main>
 
@@ -98,54 +95,11 @@
       </div>
     </section>
 
-    <!-- ================================================================
-         CAPABILITY SUMMARY — 能力摘要（3 卡）
-         ================================================================ -->
-    <section class="cap-summary" id="cap-summary">
+    <!-- TIMELINE -->
+    <section class="case-timeline">
       <div class="container">
-        <div class="cap-cards">
-
-          <div class="cap-card reveal">
-            <span class="cap-card__label">AI Quality Judgment</span>
-            <p class="cap-card__desc">从“看起来合理”的 AI 输出中识别事实失真，并回到原始课程定位具体错误模式，而不是直接接受模型结论。</p>
-          </div>
-
-          <div class="cap-card reveal">
-            <span class="cap-card__label">Validation Design</span>
-            <p class="cap-card__desc">把原文核对、独立 AI 审核和历史错误复测组合成验证链，判断一次 Prompt 修复是否真的解决了问题。</p>
-          </div>
-
-          <div class="cap-card reveal">
-            <span class="cap-card__label">Human-in-the-loop Design</span>
-            <p class="cap-card__desc">识别自动化无法可靠判断的边界，把证据不足或存在歧义的问题升级到 Human Review，而不是强行让模型给出确定答案。</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         CASE OVERVIEW — 项目缘起
-         ================================================================ -->
-    <section class="case-overview" id="overview">
-      <div class="container">
-        <h2 class="case-overview__title reveal">从一次 AI 知识失真开始</h2>
-        <p class="case-overview__body reveal">这个项目最初只是为了把直播课程转成可以继续学习和复用的结构化知识。</p>
-        <p class="case-overview__body reveal">真正运行后，我发现了一个更重要的问题：AI 可以正确读到课程原文，却在把内容整理成“可复用方法”时，擅自把原始事实改写成它认为更合理的做法。</p>
-        <p class="case-overview__body reveal">于是项目重点从“怎样提取更多知识”，转向“怎样判断 AI 整理出的知识是否值得继续相信”。</p>
-        <p class="case-overview__body reveal">我没有直接增加更多 Prompt 规则，而是先回原文定位错误，再引入独立审核、受控 Prompt 修复和历史 Bad Case 回归测试。最后，当部分问题无法仅靠现有证据可靠判断时，我没有继续扩大自动化，而是把它们升级到 Human Review。</p>
-      </div>
-    </section>
-
-    <!-- TIMELINE — 降权为 Iteration Trace -->
-    <section class="case-timeline case-timeline--minor">
-      <div class="container">
-        <div class="case-timeline__head">
-          <h2 class="case-timeline__title">Iteration Trace</h2>
-          <p class="case-timeline__sub">一次真实失败如何在同一天推动审核、修复与重新验证。</p>
-        </div>
         <div class="case-timeline__inner">
-          <span class="case-timeline__label">2026-08-23</span>
+          <span class="case-timeline__label">Timeline · 2026-08-23</span>
           <span class="case-timeline__node">10:19 Gate 落盘</span>
           <span class="case-timeline__sep">→</span>
           <span class="case-timeline__node">10:27 首次提取</span>
@@ -174,7 +128,7 @@
           <span class="beat-head__role">Failure</span>
           <h2 class="beat-head__title">
             AI 明明读对了，为什么还是会写错？
-            <small>Failure · 当 AI 从事实整理进入方法抽象，它开始擅自「优化」原文。</small>
+            <small>E02 · Same Source → Same Output File → Inconsistent Fidelity</small>
           </h2>
         </header>
 
@@ -183,21 +137,23 @@
         </p>
 
         <blockquote class="beat-conclusion reveal">
-          <p>AI 并不是没有理解原文，而在整理成方法时，把课程里的事实改成了它认为更合理的做法。</p>
+          <p>AI 不是没读懂，而是把课程事实擅自优化成了它认为更合理的做法。</p>
         </blockquote>
 
-        <div class="ev-grid ev-grid--3 reveal">
+        <div class="ev-pair ev-pair--3 reveal">
 
           <!-- 左：Source -->
           <div class="ev-col">
             <div class="ev-col__head">
               <span class="ev-col__role">Source · 课程原文</span>
-              <span class="ev-col__path">02_ASR测试\whispercpp\course_5min_raw.txt · L13–17</span>
             </div>
             <div class="ev-col__body">
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s01-source.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s01-source.png" alt="课程转写原文 L13–17：默认权限不行，选择完全权限，了解风险允许继续" loading="lazy">
-              </a>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s01-source.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s01-source.png" alt="课程转写原文 L13–17：默认权限不行，选择完全权限，了解风险允许继续" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L13–17：讲师明确选择「完全权限」，并确认了解风险后继续。</figcaption>
+              </figure>
             </div>
             <div class="ev-hl">
               <span class="ev-hl__title">Highlight</span>
@@ -207,18 +163,21 @@
                 <li><span class="ev-hl__line">L16–17</span>「了解风险，允许继续」——讲师确认过的操作，不是口误</li>
               </ul>
             </div>
+            <div class="ev-source">02_ASR测试\whispercpp\course_5min_raw.txt · L13–17</div>
           </div>
 
           <!-- 中：AI Output — Correct -->
           <div class="ev-col">
             <div class="ev-col__head">
               <span class="ev-col__role ev-col__role--good">AI Output — Correct</span>
-              <span class="ev-col__path">05_知识提取\course_notes_raw_llm.md · L20–24</span>
             </div>
             <div class="ev-col__body">
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s01-output-correct.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s01-output-correct.png" alt="LLM 输出叙述段 L20–24：演示随后选择完全权限，确认了解风险并继续" loading="lazy">
-              </a>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s01-output-correct.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s01-output-correct.png" alt="LLM 输出叙述段 L20–24：演示随后选择完全权限，确认了解风险并继续" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L20–24：首句忠实保留「完全权限」；「混元 3」待确认标注同时在场。</figcaption>
+              </figure>
             </div>
             <div class="ev-hl">
               <span class="ev-hl__title">Highlight</span>
@@ -227,18 +186,21 @@
                 <li><span class="ev-hl__line">L24 后半</span>「混元 3」待确认标注——不确定性标注机制在同一文件里正常运转</li>
               </ul>
             </div>
+            <div class="ev-source">05_知识提取\course_notes_raw_llm.md · L20–24</div>
           </div>
 
           <!-- 右：AI Output — Over-generalized -->
           <div class="ev-col">
             <div class="ev-col__head">
               <span class="ev-col__role ev-col__role--bad">AI Output — Over-generalized</span>
-              <span class="ev-col__path">05_知识提取\course_notes_raw_llm.md · L74–78</span>
             </div>
             <div class="ev-col__body">
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s01-output-overgeneralized.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s01-output-overgeneralized.png" alt="LLM 输出可复用工作流段 L74–78：只授予完成任务所需的权限" loading="lazy">
-              </a>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s01-output-overgeneralized.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s01-output-overgeneralized.png" alt="LLM 输出可复用工作流段 L74–78：只授予完成任务所需的权限" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L74–78：编号工作流中出现「只授予完成任务所需的权限」，与原文方向相反。</figcaption>
+              </figure>
             </div>
             <div class="ev-hl">
               <span class="ev-hl__title">Highlight</span>
@@ -247,18 +209,14 @@
                 <li><span class="ev-hl__line">L74</span>「可复用工作流」标题——转述模式切换的文本依据</li>
               </ul>
             </div>
+            <div class="ev-source">05_知识提取\course_notes_raw_llm.md · L74–78</div>
           </div>
 
         </div>
 
         <div class="my-decision reveal">
           <span class="my-decision__label">MY DECISION</span>
-          <p>我没有简单把它归因成「模型幻觉」，而是回到原文，先确认错误到底发生在哪个转换环节，再决定怎么修。</p>
-        </div>
-
-        <div class="why-matters reveal">
-          <span class="why-matters__label">WHY IT MATTERS</span>
-          <p>体现问题诊断能力，而不是只会修改 Prompt。</p>
+          <p>没有简单归因成 hallucination，而是回原文定位具体失真模式。</p>
         </div>
 
       </div>
@@ -284,7 +242,7 @@
           <span class="beat-head__role">Diagnosis</span>
           <h2 class="beat-head__title">
             为什么不能让执行 Agent 自己宣布 PASS？
-            <small>Diagnosis · 产物通过自检，不代表整个质量闭环成立。</small>
+            <small>E03 · Rule existed before review · 产物合格 ≠ 闭环合格</small>
           </h2>
         </header>
 
@@ -300,25 +258,33 @@
           <p>Self Review 不能替代 Independent Review。</p>
         </blockquote>
 
-        <div class="ev-grid ev-grid--2 reveal">
+        <div class="ev-pair ev-pair--3 reveal">
 
           <!-- 左：Execution Self Review -->
           <div class="ev-col">
             <div class="ev-col__head">
               <span class="ev-col__role">Execution Self Review</span>
-              <span class="ev-col__path">05_知识提取\v0.2_quality_review.md · L1–3 / L45 / L86–88</span>
               <span class="ev-col__time">mtime 10:29:56</span>
             </div>
             <div class="ev-col__body">
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-self-review-01.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s02-self-review-01.png" alt="Self Review L1–3：边界声明，本文件是执行阶段质量自检，不代表最终 PASS" loading="lazy">
-              </a>
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-self-review-02.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s02-self-review-02.png" alt="Self Review L45：首次输出发现 3 处，已按明示修订流程修正，复查未发现明确幻觉" loading="lazy">
-              </a>
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-self-review-03.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s02-self-review-03.png" alt="Self Review L86–88：READY FOR POST-EXECUTION REVIEW" loading="lazy">
-              </a>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-self-review-01.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s02-self-review-01.png" alt="Self Review L1–3：边界声明，本文件是执行阶段质量自检，不代表最终 PASS" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L1–3：边界声明——自检不代表最终 PASS。</figcaption>
+              </figure>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-self-review-02.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s02-self-review-02.png" alt="Self Review L45：首次输出发现 3 处，已按明示修订流程修正，复查未发现明确幻觉" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L45：首次输出发现 3 处，已按明示修订流程修正。</figcaption>
+              </figure>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-self-review-03.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s02-self-review-03.png" alt="Self Review L86–88：READY FOR POST-EXECUTION REVIEW" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L86–88：判定 READY FOR POST-EXECUTION REVIEW。</figcaption>
+              </figure>
             </div>
             <div class="ev-hl">
               <span class="ev-hl__title">Highlight</span>
@@ -328,22 +294,58 @@
                 <li><span class="ev-hl__line">L86</span>判定：READY FOR POST-EXECUTION REVIEW（审的是修正后产物）</li>
               </ul>
             </div>
+            <div class="ev-source">05_知识提取\v0.2_quality_review.md · L1–3 / L45 / L86–88</div>
+          </div>
+
+          <!-- 中：Pre-defined Acceptance Criteria -->
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Pre-defined Acceptance Criteria</span>
+              <span class="ev-col__time">mtime 10:19:35 — 先于首次提取 10:27</span>
+            </div>
+            <div class="ev-col__body">
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-gate-01.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s02-gate-01.png" alt="Task Brief L393–405：忠实性验收标准，若发现一条明确幻觉，结论不得为 PASS，必须 REVISE" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L393–405：发现一条明确幻觉即 REVISE，结论不得 PASS。</figcaption>
+              </figure>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-gate-02.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s02-gate-02.png" alt="Task Brief L636–641：不得通过人工静默润色绕过重新生成" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L636–641：不得通过人工静默润色绕过重新生成。</figcaption>
+              </figure>
+            </div>
+            <div class="ev-hl">
+              <span class="ev-hl__title">Highlight</span>
+              <ul>
+                <li><span class="ev-hl__line">L403–405</span>「若发现一条明确幻觉：结论不得为 PASS，必须 REVISE。」——Gate 原文（条件与结论必须同框）</li>
+                <li><span class="ev-hl__line">L641</span>「不得通过人工静默润色绕过重新生成。」——人工修正不能替代重生成</li>
+              </ul>
+            </div>
+            <div class="ev-source">00_项目管理\Task_Brief\Pipeline_v0.2_Task_Brief_REVISED.md · L393–405 / L636–641</div>
           </div>
 
           <!-- 右：Independent Review — REVISE -->
           <div class="ev-col">
             <div class="ev-col__head">
               <span class="ev-col__role ev-col__role--bad">Independent Review — REVISE</span>
-              <span class="ev-col__path">00_项目管理\WorkBuddy_Review\WorkBuddy_v0.2_PostExecution_Review.md · L11–18 / L111</span>
               <span class="ev-col__time">mtime 10:37:16</span>
             </div>
             <div class="ev-col__body">
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-independent-review-01.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s02-independent-review-01.png" alt="WorkBuddy 终审 L11–18：结论 REVISE，失败的不是笔记质量，是闭环本身" loading="lazy">
-              </a>
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-independent-review-02.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s02-independent-review-02.png" alt="WorkBuddy 终审 L111：按一条明确幻觉即 REVISE 标准本身就是 REVISE" loading="lazy">
-              </a>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-independent-review-01.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s02-independent-review-01.png" alt="WorkBuddy 终审 L11–18：结论 REVISE，失败的不是笔记质量，是闭环本身" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L11–18：结论 REVISE——失败的不是笔记质量，是闭环本身。</figcaption>
+              </figure>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-independent-review-02.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s02-independent-review-02.png" alt="WorkBuddy 终审 L111：按一条明确幻觉即 REVISE 标准本身就是 REVISE" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L111：按「一条明确幻觉即 REVISE」标准本身就是 REVISE。</figcaption>
+              </figure>
             </div>
             <div class="ev-hl">
               <span class="ev-hl__title">Highlight</span>
@@ -353,18 +355,40 @@
                 <li><span class="ev-hl__line">L111</span>「按‘一条明确幻觉即 REVISE’标准本身就是 REVISE」——Reviewer 在援引预先规则，不是临时加码</li>
               </ul>
             </div>
+            <div class="ev-source">00_项目管理\WorkBuddy_Review\WorkBuddy_v0.2_PostExecution_Review.md · L11–18 / L111</div>
           </div>
 
         </div>
 
-        <div class="my-decision reveal">
-          <span class="my-decision__label">MY DECISION</span>
-          <p>把执行与最终审核拆开：Self Review 负责基础检查，Independent Review 依据独立验收标准重新判断。</p>
+        <div class="ev-note reveal">
+          Source Check · 磁盘时间戳——「Rule existed before review」的原始依据（Get-Item，与 Evidence Ledger 一致）：
+          <em>Task Brief 10:19:35</em> → <em>Self Review 10:29:56</em> → <em>Independent Review 10:37:16</em>。
         </div>
 
-        <div class="why-matters reveal">
-          <span class="why-matters__label">WHY IT MATTERS</span>
-          <p>重要的不是多一个 AI，而是让最终判断拥有独立的验收依据。</p>
+        <div class="ev-pair ev-pair--3 reveal" style="margin-top: var(--space-md);">
+          <figure class="ev-plain">
+            <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-timestamp-brief.png" target="_blank" rel="noopener">
+              <img src="../assets/img/evidence/project01/p01-s02-timestamp-brief.png" alt="Get-Item Task Brief：LastWriteTime 10:19:35" loading="lazy">
+            </a>
+            <figcaption class="ev-figcap">Task Brief 落盘 10:19:35——先于首次提取。</figcaption>
+          </figure>
+          <figure class="ev-plain">
+            <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-timestamp-self-review.png" target="_blank" rel="noopener">
+              <img src="../assets/img/evidence/project01/p01-s02-timestamp-self-review.png" alt="Get-Item Self Review：LastWriteTime 10:29:56" loading="lazy">
+            </a>
+            <figcaption class="ev-figcap">Self Review 落盘 10:29:56。</figcaption>
+          </figure>
+          <figure class="ev-plain">
+            <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-timestamp-independent-review.png" target="_blank" rel="noopener">
+              <img src="../assets/img/evidence/project01/p01-s02-timestamp-independent-review.png" alt="Get-Item Independent Review：LastWriteTime 10:37:16" loading="lazy">
+            </a>
+            <figcaption class="ev-figcap">Independent Review 落盘 10:37:16。</figcaption>
+          </figure>
+        </div>
+
+        <div class="my-decision reveal">
+          <span class="my-decision__label">MY DECISION</span>
+          <p>执行者可以提交，但不能自己拥有最终验收权。</p>
         </div>
 
       </div>
@@ -390,7 +414,7 @@
           <span class="beat-head__role">Controlled Fix</span>
           <h2 class="beat-head__title">
             怎么修？只改真正失败的地方
-            <small>Controlled Fix · 只修改已经被证据定位的问题。</small>
+            <small>E04 · 修复不是推倒重写，而是唯一追加一段强约束</small>
           </h2>
         </header>
 
@@ -410,18 +434,20 @@
           <p>课程没明确说是最佳实践，就不能写成最佳实践。</p>
         </blockquote>
 
-        <div class="ev-grid ev-grid--2 ev-grid--diff reveal">
+        <div class="ev-pair ev-grid--diff reveal">
 
           <!-- 左：Baseline -->
           <div class="ev-col">
             <div class="ev-col__head">
               <span class="ev-col__role">Baseline</span>
-              <span class="ev-col__path">05_知识提取\prompt_v0.2.md · L61–68</span>
             </div>
             <div class="ev-col__body">
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s03-prompt-baseline.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s03-prompt-baseline.png" alt="Prompt v0.2 Baseline L61–68：忠实性与可读性要求整节" loading="lazy">
-              </a>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s03-prompt-baseline.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s03-prompt-baseline.png" alt="Prompt v0.2 Baseline L61–68：忠实性与可读性要求整节" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L61–68：忠实性规则已在——回查原文、一条幻觉即不合格。</figcaption>
+              </figure>
             </div>
             <div class="ev-hl">
               <span class="ev-hl__title">Highlight</span>
@@ -430,19 +456,22 @@
                 <li><span class="ev-hl__line">L65</span>「一条明确幻觉即不合格」——规则已在</li>
               </ul>
             </div>
+            <div class="ev-source">05_知识提取\prompt_v0.2.md · L61–68</div>
           </div>
 
           <!-- 右：R1 Added Constraints -->
           <div class="ev-col ev-col--added">
             <div class="ev-col__head">
               <span class="ev-col__role ev-col__role--good">R1 Added Constraints</span>
-              <span class="ev-col__path">05_知识提取\prompt_v0.2_R1.md · L70–79</span>
               <span class="diff-add-badge">+ 8 constraints · nothing rewritten</span>
             </div>
             <div class="ev-col__body">
-              <a class="ev-fig" href="../assets/img/evidence/project01/p01-s03-prompt-r1.png" target="_blank" rel="noopener">
-                <img src="../assets/img/evidence/project01/p01-s03-prompt-r1.png" alt="Prompt v0.2_R1 L70–79：课程忠实转述强约束 8 条全部可见" loading="lazy">
-              </a>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s03-prompt-r1.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s03-prompt-r1.png" alt="Prompt v0.2_R1 L70–79：课程忠实转述强约束 8 条全部可见" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L70–79：新增 8 条忠实转述强约束，未改写既有内容。</figcaption>
+              </figure>
             </div>
             <div class="ev-hl">
               <span class="ev-hl__title">Fidelity Constraints</span>
@@ -453,6 +482,7 @@
                 <li><span class="ev-hl__line">L79</span>Insufficiency over plausible completion（禁止为显得完整而补充内容）</li>
               </ul>
             </div>
+            <div class="ev-source">05_知识提取\prompt_v0.2_R1.md · L70–79</div>
           </div>
 
         </div>
@@ -463,12 +493,7 @@
 
         <div class="my-decision reveal">
           <span class="my-decision__label">MY DECISION</span>
-          <p>控制变量，而不是全面重写。</p>
-        </div>
-
-        <div class="why-matters reveal">
-          <span class="why-matters__label">WHY IT MATTERS</span>
-          <p>如果一次同时修改很多地方，即使结果变好了，也无法确认究竟是哪条修改真正起作用。</p>
+          <p>只修复已被真实证据证明的问题，控制变量。</p>
         </div>
 
       </div>
@@ -494,7 +519,7 @@
           <span class="beat-head__role">Validation</span>
           <h2 class="beat-head__title">
             修完以后，真的解决了吗？
-            <small>Validation · 当前样本通过之后，还要重新面对历史错误。</small>
+            <small>E05 · 每张卡都能顺着引线落到 Raw Evidence</small>
           </h2>
         </header>
 
@@ -535,18 +560,88 @@
 
         </div>
 
+        <!-- Source Evidence：按源文件配对拆为两行 Pair -->
+        <div class="ev-pair reveal">
+
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Card 1 ↘ Bad Case Regression</span>
+            </div>
+            <div class="ev-col__body">
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-badcase-regression.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s04-badcase-regression.png" alt="R1 执行日志 L65–67：Bad Case 1/2/3 均 PASS，未复现" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L65–67：Bad Case 1/2/3 复测均 PASS，未复现。</figcaption>
+              </figure>
+            </div>
+            <div class="ev-source">00_项目管理\Execution_Log\v0.2_R1_execution_log.md · L65–67</div>
+          </div>
+
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Card 2 ↘ Zero Manual Corrections</span>
+            </div>
+            <div class="ev-col__body">
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-zero-manual-fix.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s04-zero-manual-fix.png" alt="R1 执行日志 L53–54：两文件 SHA-256 均为 AE6C 开头全串一致，生成后人工内容修改 0" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L53–54：两文件 SHA-256 全串一致，生成后人工内容修改 0。</figcaption>
+              </figure>
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-diff-proof.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s04-diff-proof.png" alt="R1 Review L32：SHA-256 双实测同值，diff -q 零差异" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">R1 Review L32：SHA-256 双实测同值，diff -q 零差异。</figcaption>
+              </figure>
+            </div>
+            <div class="ev-source">00_项目管理\Execution_Log\v0.2_R1_execution_log.md · L53–54 · R1 Review L32</div>
+          </div>
+
+        </div>
+
+        <div class="ev-pair reveal">
+
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Card 3 ↘ PASS</span>
+            </div>
+            <div class="ev-col__body">
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-pass.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s04-pass.png" alt="R1 Review L14–16：PASS，Pipeline v0.2 Minimum Knowledge Structuring Loop VALIDATED" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L14–16：PASS——Pipeline v0.2 Minimum Loop VALIDATED。</figcaption>
+              </figure>
+            </div>
+            <div class="ev-source">00_项目管理\WorkBuddy_Review\WorkBuddy_v0.2_R1_PostExecution_Review.md · L14–16</div>
+          </div>
+
+          <div class="ev-col">
+            <div class="ev-col__head">
+              <span class="ev-col__role">Card 4 ↘ Validated Scope</span>
+            </div>
+            <div class="ev-col__body">
+              <figure class="ev-plain">
+                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-scope.png" target="_blank" rel="noopener">
+                  <img src="../assets/img/evidence/project01/p01-s04-scope.png" alt="R1 Review L18：单样本范围声明全文，不等于已经证明稳定泛化" loading="lazy">
+                </a>
+                <figcaption class="ev-figcap">L18：单样本范围声明完整保留——不等于已证明稳定泛化。</figcaption>
+              </figure>
+            </div>
+            <div class="ev-source">00_项目管理\WorkBuddy_Review\WorkBuddy_v0.2_R1_PostExecution_Review.md · L18</div>
+          </div>
+
+        </div>
+
         <blockquote class="beat-conclusion reveal">
           <p>修复有效，但不能因此声称跨课程泛化。</p>
         </blockquote>
 
         <div class="my-decision reveal">
           <span class="my-decision__label">MY DECISION</span>
-          <p>把历史错误变成 Regression Case。</p>
-        </div>
-
-        <div class="why-matters reveal">
-          <span class="why-matters__label">WHY IT MATTERS</span>
-          <p>「感觉模型变好了」不算结论，必须能重复验证。</p>
+          <p>用真实 Bad Case 做 Regression，而不是凭感觉宣布「修好了」。</p>
         </div>
 
       </div>
@@ -572,7 +667,7 @@
           <span class="beat-head__role">Escalation</span>
           <h2 class="beat-head__title">
             AI 不确定的时候，什么时候应该停下来交给人？
-            <small>Human Review · 当证据不足时，系统应该允许自己「不知道」。</small>
+            <small>E08 · Two-Key Rule · Human Review Queue</small>
           </h2>
         </header>
 
@@ -598,7 +693,7 @@
           <p>AI 必须停止自动确认。</p>
         </blockquote>
 
-        <div class="queue-wrap">
+        <div class="queue-wrap ev-md">
           <div class="queue-panel reveal">
 
             <!-- 左：Queue / File Tree + Items -->
@@ -607,12 +702,14 @@
               <div class="ev-col">
                 <div class="ev-col__head">
                   <span class="ev-col__role">Queue · File Tree</span>
-                  <span class="ev-col__path">Human_Review_Queue\ 整棵子树（Pending 3 / Completed 空）</span>
                 </div>
                 <div class="ev-col__body">
-                  <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-queue-tree.png" target="_blank" rel="noopener">
-                    <img src="../assets/img/evidence/project01/p01-s05-queue-tree.png" alt="Human Review Queue 目录树：Pending 含 HRQ-0001/0002/0003，Completed 的 Approved/Rejected/Needs_More_Evidence 三个空子目录可辨" loading="lazy">
-                  </a>
+                  <figure class="ev-plain">
+                    <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-queue-tree.png" target="_blank" rel="noopener">
+                      <img src="../assets/img/evidence/project01/p01-s05-queue-tree.png" alt="Human Review Queue 目录树：Pending 含 HRQ-0001/0002/0003，Completed 的 Approved/Rejected/Needs_More_Evidence 三个空子目录可辨" loading="lazy">
+                    </a>
+                    <figcaption class="ev-figcap">Pending 含 HRQ-0001/0002/0003；Completed 三个终态子目录为空且保持可见。</figcaption>
+                  </figure>
                 </div>
                 <div class="ev-hl">
                   <span class="ev-hl__title">Highlight</span>
@@ -621,254 +718,136 @@
                     <li><span class="ev-hl__line">Completed/</span>Approved / Rejected / Needs_More_Evidence 全部为空——空目录保持可见，不加填充</li>
                   </ul>
                 </div>
+                <div class="ev-source">Human_Review_Queue\ 整棵子树（Pending 3 / Completed 空）</div>
               </div>
 
               <div class="ev-col">
                 <div class="ev-col__head">
                   <span class="ev-col__role">HRQ-0001 · Terminology / Two-Key Rule</span>
-                  <span class="ev-col__path">Human_Review_Queue\Pending\HRQ-0001.md · L1–13</span>
                 </div>
                 <div class="ev-col__body">
-                  <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-hrq0001.png" target="_blank" rel="noopener">
-                    <img src="../assets/img/evidence/project01/p01-s05-hrq0001.png" alt="HRQ-0001 条目：Review_ID、Risk_Type 术语 Two-Key Rule、Source、Related_Case" loading="lazy">
-                  </a>
+                  <figure class="ev-plain">
+                    <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-hrq0001.png" target="_blank" rel="noopener">
+                      <img src="../assets/img/evidence/project01/p01-s05-hrq0001.png" alt="HRQ-0001 条目：Review_ID、Risk_Type 术语 Two-Key Rule、Source、Related_Case" loading="lazy">
+                    </a>
+                    <figcaption class="ev-figcap">L1–13：术语类条目，Risk_Type 标注 Two-Key Rule。</figcaption>
+                  </figure>
                 </div>
+                <div class="ev-source">Human_Review_Queue\Pending\HRQ-0001.md · L1–13</div>
+              </div>
+
+              <div class="ev-col">
+                <div class="ev-col__head">
+                  <span class="ev-col__role">HRQ-0002 · Terminology / Multiple ASR Variants</span>
+                </div>
+                <div class="ev-col__body">
+                  <figure class="ev-plain">
+                    <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-hrq0002.png" target="_blank" rel="noopener">
+                      <img src="../assets/img/evidence/project01/p01-s05-hrq0002.png" alt="HRQ-0002 条目：多 ASR 变体拼写问题" loading="lazy">
+                    </a>
+                    <figcaption class="ev-figcap">L1–14：多 ASR 变体拼写问题条目。</figcaption>
+                  </figure>
+                </div>
+                <div class="ev-source">Human_Review_Queue\Pending\HRQ-0002.md · L1–14</div>
+              </div>
+
+              <div class="ev-col">
+                <div class="ev-col__head">
+                  <span class="ev-col__role">HRQ-0003 · Numeric / Fidelity / Cross-unit Consistency</span>
+                </div>
+                <div class="ev-col__body">
+                  <figure class="ev-plain">
+                    <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-hrq0003.png" target="_blank" rel="noopener">
+                      <img src="../assets/img/evidence/project01/p01-s05-hrq0003.png" alt="HRQ-0003 条目：跨单位数字一致性问题，非术语问题" loading="lazy">
+                    </a>
+                    <figcaption class="ev-figcap">L1–14：跨单位数字一致性问题，非术语问题。</figcaption>
+                  </figure>
+                </div>
+                <div class="ev-source">Human_Review_Queue\Pending\HRQ-0003.md · L1–14</div>
+              </div>
+
+              <!-- Pending 语义证据 -->
+              <div class="ev-col">
+                <div class="ev-col__head">
+                  <span class="ev-col__role">Pending 语义 · Human_Decision 空字段</span>
+                </div>
+                <div class="ev-col__body">
+                  <figure class="ev-plain">
+                    <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-human-decision-empty.png" target="_blank" rel="noopener">
+                      <img src="../assets/img/evidence/project01/p01-s05-human-decision-empty.png" alt="HRQ-0001 L15–21：Human_Decision 字段为空——设计上等待 Human Reviewer 来填" loading="lazy">
+                    </a>
+                    <figcaption class="ev-figcap">L15–21：Human_Decision 字段为空——设计上等待 Human Reviewer 来填。</figcaption>
+                  </figure>
+                </div>
+                <div class="ev-hl">
+                  <span class="ev-hl__title">Highlight</span>
+                  <ul>
+                    <li><span class="ev-hl__line">L20</span>「Human_Decision:」后为空——不是没人填，而是设计上就等 Human Reviewer 来填</li>
+                  </ul>
+                </div>
+                <div class="ev-source">Human_Review_Queue\Pending\HRQ-0001.md · L15–21</div>
               </div>
 
             </div>
 
-          </div>
-        </div>
-
-        <div class="my-decision reveal">
-          <span class="my-decision__label">MY DECISION</span>
-          <p>Human Review 不是失败兜底，而是系统设计的一部分。</p>
-        </div>
-
-        <div class="why-matters reveal">
-          <span class="why-matters__label">WHY IT MATTERS</span>
-          <p>Human Review 是系统边界，而不是自动化失败。</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ================================================================
-         TAKEAWAYS — 第一阅读层结论
-         ================================================================ -->
-    <section class="ending" id="takeaways">
-      <div class="container">
-        <h2 class="ending__title reveal">Takeaways</h2>
-        <div class="take-grid">
-          <div class="take reveal">
-            <span class="take__num">01</span>
-            <h4 class="take__title">AI 输出「合理」不等于忠实</h4>
-            <p class="take__desc">AI 在从事实整理进入方法抽象时，可能主动补入它认为正确的行业常识。因此，可靠性不能只靠输出是否通顺来判断。</p>
-          </div>
-          <div class="take reveal">
-            <span class="take__num">02</span>
-            <h4 class="take__title">修 Prompt 不是终点，验证修复才是</h4>
-            <p class="take__desc">一次修改只有在当前问题消失、历史 Bad Case 不再复现，并且没有引入新的明显退化时，才算完成一次有效迭代。</p>
-          </div>
-          <div class="take reveal">
-            <span class="take__num">03</span>
-            <h4 class="take__title">有些问题不应该继续自动化</h4>
-            <p class="take__desc">当判断所需证据超出现有输入范围时，继续增加模型规则可能只会制造更确定的错误。Human Review 是系统边界，而不是自动化失败。</p>
-          </div>
-        </div>
-        <blockquote class="ending__final-line reveal">
-          <p>目标不是让 AI 永远给答案，而是让系统知道什么时候不该相信自己。</p>
-        </blockquote>
-      </div>
-    </section>
-
-    <!-- ================================================================
-         FULL EVIDENCE TRAIL — 完整证据链（辅助深挖）
-         ================================================================ -->
-    <section class="ev-trail" id="evidence-trail">
-      <div class="container">
-        <h2 class="ev-trail__title reveal">Full Evidence Trail · 完整证据链</h2>
-        <p class="ev-trail__intro reveal">以下为第一阅读层未完整展示的辅助 Evidence，按对应 Beat 归类，用于继续深挖；每组均标注源文件与行号，可逐字回查。</p>
-
-        <!-- BEAT 02 — 验收 Gate 与时间戳 -->
-        <div class="ev-trail__group">
-          <h3 class="ev-trail__group-title">BEAT 02 · Diagnosis — 验收 Gate 与时间戳</h3>
-          <p class="ev-trail__group-note">证明「Rule existed before review」：Gate 原文先于首次提取落盘，且 Independent Review 援引的是预先定义的验收标准。</p>
-          <div class="ev-grid ev-grid--2 reveal">
-            <div class="ev-col">
-              <div class="ev-col__head">
-                <span class="ev-col__role">Pre-defined Acceptance Criteria</span>
-                <span class="ev-col__path">00_项目管理\Task_Brief\Pipeline_v0.2_Task_Brief_REVISED.md · L393–405 / L636–641</span>
-                <span class="ev-col__time">mtime 10:19:35 — 先于首次提取 10:27</span>
+            <!-- 右：Status Panel -->
+            <div class="spanel">
+              <span class="spanel__title">Status Panel</span>
+              <div class="spanel__row">
+                <span class="spanel__key">Approved</span>
+                <span class="spanel__value">1</span>
               </div>
-              <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-gate-01.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s02-gate-01.png" alt="Task Brief L393–405：忠实性验收标准，若发现一条明确幻觉，结论不得为 PASS，必须 REVISE" loading="lazy">
-                </a>
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-gate-02.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s02-gate-02.png" alt="Task Brief L636–641：不得通过人工静默润色绕过重新生成" loading="lazy">
-                </a>
+              <div class="spanel__row">
+                <span class="spanel__key">Rejected</span>
+                <span class="spanel__value">2</span>
               </div>
-              <div class="ev-hl">
-                <span class="ev-hl__title">Highlight</span>
-                <ul>
-                  <li><span class="ev-hl__line">L403–405</span>「若发现一条明确幻觉：结论不得为 PASS，必须 REVISE。」——Gate 原文</li>
-                  <li><span class="ev-hl__line">L641</span>「不得通过人工静默润色绕过重新生成。」——人工修正不能替代重生成</li>
-                </ul>
+              <div class="spanel__row">
+                <span class="spanel__key">Pending</span>
+                <span class="spanel__value">0</span>
               </div>
+              <div class="spanel__row">
+                <span class="spanel__key">Schema</span>
+                <span class="spanel__value spanel__value--frozen">FROZEN</span>
+              </div>
+              <div class="spanel__row">
+                <span class="spanel__key">v0.2</span>
+                <span class="spanel__value spanel__value--stop">STOP</span>
+              </div>
+              <span class="spanel__status">HRQ-E001 &middot; PASS</span>
+              <p class="spanel__note">
+                三个真实 Human Review 都能被现有三终态表达（Approved / Rejected / Needs More Evidence），因此 Schema 冻结、v0.2 停止。截图为初始状态（Pending 3），此处为 Human Review 完成后的最新状态。
+              </p>
             </div>
-          </div>
-          <div class="ev-note reveal">
-            Source Check · 磁盘时间戳——「Rule existed before review」的原始依据（Get-Item，与 Evidence Ledger 一致）：
-            <em>Task Brief 10:19:35</em> → <em>Self Review 10:29:56</em> → <em>Independent Review 10:37:16</em>。
-          </div>
-          <div class="ev-grid ev-grid--3 reveal" style="margin-top: var(--space-md);">
-            <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-timestamp-brief.png" target="_blank" rel="noopener">
-              <img src="../assets/img/evidence/project01/p01-s02-timestamp-brief.png" alt="Get-Item Task Brief：LastWriteTime 10:19:35" loading="lazy">
-            </a>
-            <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-timestamp-self-review.png" target="_blank" rel="noopener">
-              <img src="../assets/img/evidence/project01/p01-s02-timestamp-self-review.png" alt="Get-Item Self Review：LastWriteTime 10:29:56" loading="lazy">
-            </a>
-            <a class="ev-fig" href="../assets/img/evidence/project01/p01-s02-timestamp-independent-review.png" target="_blank" rel="noopener">
-              <img src="../assets/img/evidence/project01/p01-s02-timestamp-independent-review.png" alt="Get-Item Independent Review：LastWriteTime 10:37:16" loading="lazy">
-            </a>
-          </div>
-        </div>
 
-        <!-- BEAT 04 — 完整 Regression 记录 -->
-        <div class="ev-trail__group">
-          <h3 class="ev-trail__group-title">BEAT 04 · Validation — 完整 Regression 记录</h3>
-          <p class="ev-trail__group-note">Result Cards 已给出结论，此处为逐卡对应的原始截图，可顺着引线落到 Raw Evidence。</p>
-          <div class="ev-grid ev-grid--2 reveal">
-            <div class="ev-col">
-              <div class="ev-col__head">
-                <span class="ev-col__role">Card 1 ↘ Bad Case Regression</span>
-                <span class="ev-col__path">00_项目管理\Execution_Log\v0.2_R1_execution_log.md · L65–67</span>
-              </div>
-              <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-badcase-regression.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s04-badcase-regression.png" alt="R1 执行日志 L65–67：Bad Case 1/2/3 均 PASS，未复现" loading="lazy">
-                </a>
-              </div>
-            </div>
-            <div class="ev-col">
-              <div class="ev-col__head">
-                <span class="ev-col__role">Card 2 ↘ Zero Manual Corrections</span>
-                <span class="ev-col__path">00_项目管理\Execution_Log\v0.2_R1_execution_log.md · L53–54（SHA-256 全串未截断）</span>
-              </div>
-              <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-zero-manual-fix.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s04-zero-manual-fix.png" alt="R1 执行日志 L53–54：两文件 SHA-256 均为 AE6C 开头全串一致，生成后人工内容修改 0" loading="lazy">
-                </a>
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-diff-proof.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s04-diff-proof.png" alt="R1 Review L32：SHA-256 双实测同值，diff -q 零差异" loading="lazy">
-                </a>
-              </div>
-            </div>
-            <div class="ev-col">
-              <div class="ev-col__head">
-                <span class="ev-col__role">Card 3 ↘ PASS</span>
-                <span class="ev-col__path">00_项目管理\WorkBuddy_Review\WorkBuddy_v0.2_R1_PostExecution_Review.md · L14–16</span>
-              </div>
-              <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-pass.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s04-pass.png" alt="R1 Review L14–16：PASS，Pipeline v0.2 Minimum Knowledge Structuring Loop VALIDATED" loading="lazy">
-                </a>
-              </div>
-            </div>
-            <div class="ev-col">
-              <div class="ev-col__head">
-                <span class="ev-col__role">Card 4 ↘ Validated Scope</span>
-                <span class="ev-col__path">00_项目管理\WorkBuddy_Review\WorkBuddy_v0.2_R1_PostExecution_Review.md · L18（限定语完整保留）</span>
-              </div>
-              <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s04-scope.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s04-scope.png" alt="R1 Review L18：单样本范围声明全文，不等于已经证明稳定泛化" loading="lazy">
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BEAT 05 — 完整队列与案例 -->
-        <div class="ev-trail__group">
-          <h3 class="ev-trail__group-title">BEAT 05 · Human Review — 完整队列与案例</h3>
-          <p class="ev-trail__group-note">第一阅读层仅展示 1 张 Queue + 1 张 HRQ-0001；此处为其余 HRQ 案例、Status Panel、README 与结论推导。</p>
-
-          <div class="ev-grid ev-grid--2 reveal">
-            <div class="ev-col">
-              <div class="ev-col__head">
-                <span class="ev-col__role">HRQ-0002 · Terminology / Multiple ASR Variants</span>
-                <span class="ev-col__path">Human_Review_Queue\Pending\HRQ-0002.md · L1–14</span>
-              </div>
-              <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-hrq0002.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s05-hrq0002.png" alt="HRQ-0002 条目：多 ASR 变体拼写问题" loading="lazy">
-                </a>
-              </div>
-            </div>
-            <div class="ev-col">
-              <div class="ev-col__head">
-                <span class="ev-col__role">HRQ-0003 · Numeric / Fidelity / Cross-unit Consistency</span>
-                <span class="ev-col__path">Human_Review_Queue\Pending\HRQ-0003.md · L1–14</span>
-              </div>
-              <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-hrq0003.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s05-hrq0003.png" alt="HRQ-0003 条目：跨单位数字一致性问题，非术语问题" loading="lazy">
-                </a>
-              </div>
-            </div>
-            <div class="ev-col">
-              <div class="ev-col__head">
-                <span class="ev-col__role">Pending 语义 · Human_Decision 空字段</span>
-                <span class="ev-col__path">Human_Review_Queue\Pending\HRQ-0001.md · L15–21</span>
-              </div>
-              <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-human-decision-empty.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s05-human-decision-empty.png" alt="HRQ-0001 L15–21：Human_Decision 字段为空——设计上等待 Human Reviewer 来填" loading="lazy">
-                </a>
-              </div>
-              <div class="ev-hl">
-                <span class="ev-hl__title">Highlight</span>
-                <ul>
-                  <li><span class="ev-hl__line">L20</span>「Human_Decision:」后为空——不是没人填，而是设计上就等 Human Reviewer 来填</li>
-                </ul>
-              </div>
-            </div>
           </div>
 
-          <div class="spanel reveal">
-            <span class="spanel__title">Status Panel</span>
-            <div class="spanel__row"><span class="spanel__key">Approved</span><span class="spanel__value">1</span></div>
-            <div class="spanel__row"><span class="spanel__key">Rejected</span><span class="spanel__value">2</span></div>
-            <div class="spanel__row"><span class="spanel__key">Pending</span><span class="spanel__value">0</span></div>
-            <div class="spanel__row"><span class="spanel__key">Schema</span><span class="spanel__value spanel__value--frozen">FROZEN</span></div>
-            <div class="spanel__row"><span class="spanel__key">v0.2</span><span class="spanel__value spanel__value--stop">STOP</span></div>
-            <span class="spanel__status">HRQ-E001 &middot; PASS</span>
-            <p class="spanel__note">三个真实 Human Review 都能被现有三终态表达（Approved / Rejected / Needs More Evidence），因此 Schema 冻结、v0.2 停止。</p>
-          </div>
-
-          <div class="ev-grid ev-grid--2 reveal" style="margin-top: var(--space-md);">
+          <!-- README 两条 Pair -->
+          <div class="ev-pair reveal" style="margin-top: var(--space-md);">
             <div class="ev-col">
               <div class="ev-col__head">
                 <span class="ev-col__role">README · Queue 定位</span>
-                <span class="ev-col__path">Human_Review_Queue\README.md · L1–3</span>
               </div>
               <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-readme-status.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s05-readme-status.png" alt="README L1–3：Human Review Queue v0.1.1，当前为最小验证环境，不是完整审核系统" loading="lazy">
-                </a>
+                <figure class="ev-plain">
+                  <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-readme-status.png" target="_blank" rel="noopener">
+                    <img src="../assets/img/evidence/project01/p01-s05-readme-status.png" alt="README L1–3：Human Review Queue v0.1.1，当前为最小验证环境，不是完整审核系统" loading="lazy">
+                  </a>
+                  <figcaption class="ev-figcap">L1–3：Queue v0.1.1 定位——最小验证环境，不是完整审核系统。</figcaption>
+                </figure>
               </div>
+              <div class="ev-source">Human_Review_Queue\README.md · L1–3</div>
             </div>
             <div class="ev-col">
               <div class="ev-col__head">
                 <span class="ev-col__role">README · 初始化禁令</span>
-                <span class="ev-col__path">Human_Review_Queue\README.md · L19</span>
               </div>
               <div class="ev-col__body">
-                <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-readme-l19.png" target="_blank" rel="noopener">
-                  <img src="../assets/img/evidence/project01/p01-s05-readme-l19.png" alt="README L19：当前初始化阶段不得把任何 Item 移入 Completed" loading="lazy">
-                </a>
+                <figure class="ev-plain">
+                  <a class="ev-fig" href="../assets/img/evidence/project01/p01-s05-readme-l19.png" target="_blank" rel="noopener">
+                    <img src="../assets/img/evidence/project01/p01-s05-readme-l19.png" alt="README L19：当前初始化阶段不得把任何 Item 移入 Completed" loading="lazy">
+                  </a>
+                  <figcaption class="ev-figcap">L19：初始化阶段不得把任何 Item 移入 Completed。</figcaption>
+                </figure>
               </div>
               <div class="ev-hl">
                 <span class="ev-hl__title">Highlight</span>
@@ -876,17 +855,31 @@
                   <li><span class="ev-hl__line">L19</span>「当前初始化阶段不得把任何 Item 移入 Completed。」——Completed 0 是设计约束，不是怠工</li>
                 </ul>
               </div>
+              <div class="ev-source">Human_Review_Queue\README.md · L19</div>
             </div>
           </div>
 
+          <!-- HRQ Detail Blocks -->
           <div class="hrq-blocks">
+
+            <!-- HRQ-0001 -->
             <div class="hrq-block hrq-block--approved reveal">
-              <div class="hrq-block__head"><span class="hrq-block__id">HRQ-0001</span><span class="hrq-block__decision hrq-block__decision--approved">Approved</span></div>
-              <div class="hrq-block__body"><code class="hrq-block__code">Redmi文档 &rarr; README文档</code></div>
+              <div class="hrq-block__head">
+                <span class="hrq-block__id">HRQ-0001</span>
+                <span class="hrq-block__decision hrq-block__decision--approved">Approved</span>
+              </div>
+              <div class="hrq-block__body">
+                <code class="hrq-block__code">Redmi文档 &rarr; README文档</code>
+              </div>
               <p class="hrq-block__note">Human 确认正确，不代表 AI 当时已经满足 Two-Key。</p>
             </div>
+
+            <!-- HRQ-0002 -->
             <div class="hrq-block hrq-block--rejected reveal">
-              <div class="hrq-block__head"><span class="hrq-block__id">HRQ-0002</span><span class="hrq-block__decision hrq-block__decision--rejected">Rejected</span></div>
+              <div class="hrq-block__head">
+                <span class="hrq-block__id">HRQ-0002</span>
+                <span class="hrq-block__decision hrq-block__decision--rejected">Rejected</span>
+              </div>
               <div class="hrq-block__body">
                 <p class="hrq-block__variants">typolis / polis / Typeless / Types</p>
                 <p class="hrq-block__ai-action">AI 曾统一成：<code class="hrq-block__code">Typolis Level A</code></p>
@@ -894,8 +887,13 @@
               </div>
               <p class="hrq-block__note">拒绝的是 AI 无证据统一，不是证明 Typolis 一定错误。</p>
             </div>
+
+            <!-- HRQ-0003 -->
             <div class="hrq-block hrq-block--rejected reveal">
-              <div class="hrq-block__head"><span class="hrq-block__id">HRQ-0003</span><span class="hrq-block__decision hrq-block__decision--rejected">Rejected</span></div>
+              <div class="hrq-block__head">
+                <span class="hrq-block__id">HRQ-0003</span>
+                <span class="hrq-block__decision hrq-block__decision--rejected">Rejected</span>
+              </div>
               <div class="hrq-block__body">
                 <p class="hrq-block__transcript">Transcript：<code class="hrq-block__code">35 元 / 天</code></p>
                 <p class="hrq-block__ai-action">AI 自行改成：<code class="hrq-block__code">约 3.5 元</code></p>
@@ -903,25 +901,46 @@
               </div>
               <p class="hrq-block__note">拒绝的是 AI 无证据修改数字。</p>
             </div>
+
           </div>
 
+          <!-- Human Review Core Conclusion -->
           <div class="hrq-conclusion reveal">
             <h3 class="hrq-conclusion__title">不知道真相，不等于无法做出记录决策</h3>
             <p>HRQ-0002 和 HRQ-0003 的真实答案仍然 <strong>UNKNOWN</strong>，但 Human 依然可以决定 <strong>Rejected</strong>。</p>
-            <blockquote class="beat-conclusion"><p>Truth Resolution &ne; Knowledge Asset Recording Decision</p></blockquote>
+            <blockquote class="beat-conclusion">
+              <p>Truth Resolution &ne; Knowledge Asset Recording Decision</p>
+            </blockquote>
             <p class="hrq-conclusion__zh">不知道现实唯一答案，不妨碍决定当前知识资产该怎么记录。</p>
           </div>
 
+          <!-- HRQ-E001 Result -->
           <div class="hrq-result reveal">
-            <div class="hrq-result__head"><span class="hrq-result__id">HRQ-E001 RESULT</span><span class="hrq-result__verdict rcard__value--pass">PASS</span></div>
+            <div class="hrq-result__head">
+              <span class="hrq-result__id">HRQ-E001 RESULT</span>
+              <span class="hrq-result__verdict rcard__value--pass">PASS</span>
+            </div>
             <p>三个真实 Human Review 都能被现有三终态表达：<strong>Approved / Rejected / Needs More Evidence</strong></p>
             <div class="hrq-result__schema">
-              <div class="hrq-result__schema-row"><span class="hrq-result__schema-label">HRQ v0.1</span><span class="hrq-result__schema-value hrq-result__schema-value--frozen">FROZEN</span></div>
-              <div class="hrq-result__schema-row"><span class="hrq-result__schema-label">HRQ v0.2</span><span class="hrq-result__schema-value hrq-result__schema-value--stop">STOP</span></div>
+              <div class="hrq-result__schema-row">
+                <span class="hrq-result__schema-label">HRQ v0.1</span>
+                <span class="hrq-result__schema-value hrq-result__schema-value--frozen">FROZEN</span>
+              </div>
+              <div class="hrq-result__schema-row">
+                <span class="hrq-result__schema-label">HRQ v0.2</span>
+                <span class="hrq-result__schema-value hrq-result__schema-value--stop">STOP</span>
+              </div>
             </div>
-            <blockquote class="beat-conclusion"><p>没有真实失败样本，就没有理由继续增加状态和字段。</p></blockquote>
+            <blockquote class="beat-conclusion">
+              <p>没有真实失败样本，就没有理由继续增加状态和字段。</p>
+            </blockquote>
+            <div class="my-decision">
+              <span class="my-decision__label">MY DECISION</span>
+              <p>发现更多问题，不等于应该继续设计更复杂的 Schema。</p>
+            </div>
           </div>
 
+          <!-- Open Questions -->
           <div class="open-questions reveal">
             <h3 class="open-questions__title">Open Questions</h3>
             <ul class="open-questions__list">
@@ -930,10 +949,46 @@
               <li>SRT 只能表示本地录音时间</li>
               <li>Human Review 有真实时间成本</li>
             </ul>
-            <blockquote class="beat-conclusion"><p>Open Issue &ne; Schema Failure</p></blockquote>
+            <blockquote class="beat-conclusion">
+              <p>Open Issue &ne; Schema Failure</p>
+            </blockquote>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         ENDING
+         ================================================================ -->
+    <section class="ending" id="ending">
+      <div class="container">
+        <h2 class="ending__title reveal">
+          我最终学到的不是「怎么让 AI 更会总结」
+        </h2>
+        <p class="ending__intro reveal">而是：</p>
+        <ul class="ending__list reveal">
+          <li>AI 什么时候可以确认</li>
+          <li>AI 什么时候必须停止</li>
+          <li>谁拥有最终验收权</li>
+          <li>一个修复凭什么算有效</li>
+        </ul>
+
+        <div class="ending__methods reveal">
+          <div class="ending__method">
+            <span class="ending__method-label">工程方法</span>
+            <span class="ending__method-flow">Failure &rarr; Diagnosis &rarr; Fix &rarr; Validation &rarr; Escalation</span>
+          </div>
+          <div class="ending__method">
+            <span class="ending__method-label">以及</span>
+            <span class="ending__method-flow">模型提出质疑 &rarr; 回原始证据 &rarr; 最低成本实验 &rarr; 再决策</span>
           </div>
         </div>
 
+        <blockquote class="ending__final-line reveal">
+          <p>目标不是让 AI 永远给答案，而是让系统知道什么时候不该相信自己。</p>
+        </blockquote>
       </div>
     </section>
 
@@ -945,6 +1000,22 @@
         <p>
           本页全部 27 张 Evidence 图均为 Raw / Cropped Raw Screenshot，按已锁定的 Evidence Shot List 从 Project Root（<em>D:\agent学习笔记\直播课程知识提取Pipeline</em>）只读采集，行号可逐字回查；Result Cards 与 Status Panel 为 Re-draw 数据卡，每张卡均标注对应源文件与行号。采集明细见 <em>assets/img/evidence/project01/_MANIFEST.md</em>（Screenshot Manifest · Conflict Log · Quality Check）。
         </p>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CASE NAV — 01 → 02
+         ================================================================ -->
+    <section class="case-nav-wrap">
+      <div class="container">
+        <nav class="case-nav" aria-label="项目导航">
+          <a class="case-nav__back" href="../index.html#projects">
+            <small>← 返回</small> Selected Projects
+          </a>
+          <a class="case-nav__next" href="case-02-personal-learning-workspace.html">
+            Next Case 02 <small>个人 AI 学习工作台 →</small>
+          </a>
+        </nav>
       </div>
     </section>
 

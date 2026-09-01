@@ -174,7 +174,7 @@
 
 .beat-head__title {
   width: 100%;
-  font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
   font-weight: 600;
   line-height: 1.35;
   margin-top: 0.4rem;
@@ -191,6 +191,7 @@
 }
 
 .beat-lede {
+  font-size: 1.05rem;
   max-width: 46em;
   color: var(--c-secondary);
   margin-bottom: var(--space-lg);
@@ -198,20 +199,6 @@
 
 
 /* ===== 4. EVIDENCE 栏 ===== */
-.ev-grid {
-  display: grid;
-  gap: var(--space-md);
-  align-items: start;
-}
-
-.ev-grid--3 {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.ev-grid--2 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
 .ev-col {
   background: rgba(255, 255, 255, 0.6);
   border: var(--border-subtle);
@@ -242,16 +229,6 @@
 
 .ev-col__role--good {
   color: #4A7050;
-}
-
-.ev-col__path {
-  display: block;
-  margin-top: 0.25rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  line-height: 1.5;
-  color: var(--c-muted);
-  word-break: break-all;
 }
 
 .ev-col__time {
@@ -285,14 +262,6 @@
   height: auto;
   display: block;
 }
-
-.ev-strip-label {
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  color: var(--c-muted);
-  letter-spacing: 0.04em;
-}
-
 
 /* Highlight legend（文本侧高亮说明，不动截图像素） */
 .ev-hl {
@@ -386,35 +355,7 @@
 }
 
 
-/* ===== 5. CAPTION ===== */
-.ev-caption {
-  margin-top: var(--space-lg);
-  max-width: 52em;
-  padding: 1.1rem 1.4rem;
-  background: rgba(255, 255, 255, 0.55);
-  border: var(--border-subtle);
-  border-left: 3px solid var(--c-accent);
-  border-radius: 0 var(--r-card-sm) var(--r-card-sm) 0;
-}
-
-.ev-caption__en {
-  display: block;
-  font-family: var(--font-en);
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: var(--c-ink);
-  margin-bottom: 0.45rem;
-}
-
-.ev-caption__zh {
-  font-size: 0.9rem;
-  line-height: 1.85;
-  color: var(--c-secondary);
-}
-
-
-/* ===== 6. 衔接段 ===== */
+/* ===== 5. 衔接段 ===== */
 .beat-transition {
   padding-block: var(--space-sm) 0;
 }
@@ -437,7 +378,7 @@
 }
 
 
-/* ===== 7. RESULT CARDS（S04） ===== */
+/* ===== 6. RESULT CARDS（S04） ===== */
 .result-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -504,19 +445,7 @@
 }
 
 
-/* Source Evidence Strip（S04 下方） */
-.source-strip {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-md);
-}
-
-.source-strip .ev-col__head {
-  padding: 0.6rem 0.95rem;
-}
-
-
-/* ===== 8. QUEUE PANEL（S05） ===== */
+/* ===== 7. QUEUE PANEL（S05） ===== */
 .queue-wrap {
   max-width: 880px;   /* ≈70% of 1280 */
   margin-inline: auto;
@@ -600,7 +529,7 @@
 }
 
 
-/* ===== 9. CASE FOOTER 区（Evidence Manifest 说明） ===== */
+/* ===== 8. CASE FOOTER 区（Evidence Manifest 说明） ===== */
 .case-meta {
   padding-block: var(--space-xl);
   border-top: var(--border-subtle);
@@ -620,14 +549,8 @@
 }
 
 
-/* ===== 10. RESPONSIVE ===== */
+/* ===== 9. RESPONSIVE ===== */
 @media (max-width: 1080px) {
-  .ev-grid--3 {
-    grid-template-columns: 1fr;
-  }
-  .ev-grid--3 .ev-col {
-    max-width: 640px;
-  }
   .result-cards {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -640,10 +563,6 @@
 }
 
 @media (max-width: 860px) {
-  .ev-grid--2,
-  .source-strip {
-    grid-template-columns: 1fr;
-  }
   .case-hero {
     padding-block: calc(var(--nav-height) + var(--space-lg)) var(--space-lg);
   }
@@ -662,7 +581,7 @@
 }
 
 
-/* ===== 11. LOCKED COPY COMPONENTS ===== */
+/* ===== 10. LOCKED COPY COMPONENTS ===== */
 
 /* --- Case Hero additions --- */
 .case-hero__question {
@@ -1189,7 +1108,7 @@
 }
 
 
-/* ===== 12. RESPONSIVE — LOCKED COPY ===== */
+/* ===== 11. RESPONSIVE — LOCKED COPY ===== */
 @media (max-width: 860px) {
   .two-key-rule__keys {
     flex-direction: column;
@@ -1305,27 +1224,6 @@
   font-size: 0.88rem;
   line-height: 1.8;
   color: var(--c-secondary);
-}
-
-/* --- Evidence Hierarchy modifiers（Hero / Primary / Supporting） --- */
-.ev-hero {
-  max-width: 1120px;
-  margin-inline: auto;
-}
-
-.ev-wide {
-  max-width: 1000px;
-  margin-inline: auto;
-}
-
-.ev-wide-lg {
-  max-width: 1080px;
-  margin-inline: auto;
-}
-
-.ev-support {
-  max-width: 560px;
-  margin-inline: auto;
 }
 
 .ev-col--primary {
@@ -1508,153 +1406,228 @@
   .ba-grid {
     grid-template-columns: 1fr;
   }
-  .ev-hero,
-  .ev-wide,
-  .ev-wide-lg,
-  .ev-support {
+}
+
+
+/* ============================================================
+   15. STRUCTURE NORMALIZATION — 统一媒体三档 / Evidence 组件 / case-nav
+   ------------------------------------------------------------
+   本节为 Structure Normalization 轮新增：
+     - Media Scale 三档：ev-lg（Large 85–100%）/ ev-md（Medium 65–75% 居中）
+       / ev-pair（Pair 50+50，ev-pair--3 三联对比 33×3）
+     - ev-source：Source / Path 降级（淡灰小字，图卡底部，低视觉权重）
+     - ev-figcap：Caption（解释"这张图证明什么"，1–3 行）
+     - case-nav：Project 01–03 详情页统一底部导航
+     - demo-slot：Project 02 Product Demo 16:9 视频占位
+   旧档位 class（ev-hero / ev-wide / ev-wide-lg / ev-support）已于
+   2026-09-01 回归确认后删除（dead CSS 清理轮）。
+   ============================================================ */
+
+/* --- Media Scale：Large（一个 Section 最多一张主证据） --- */
+.ev-lg {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  margin-block: var(--space-lg);
+}
+
+/* --- Media Scale：Medium（默认 Evidence 尺寸，居中） --- */
+.ev-md {
+  width: 100%;
+  max-width: 72%;               /* 正文内容区 65–75% */
+  margin-inline: auto;
+  margin-block: var(--space-lg);
+}
+
+/* --- Media Scale：Pair（对应关系图组，Desktop 50+50 / 三联 33×3） --- */
+.ev-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  align-items: start;
+  margin-block: var(--space-md);
+}
+
+.ev-pair--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* --- Source / Path 降级：移至图卡底部，淡灰小字 --- */
+.ev-source {
+  padding: 0.55rem 0.95rem 0.7rem;
+  border-top: var(--border-subtle);
+  background: rgba(255, 255, 255, 0.38);
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  line-height: 1.55;
+  color: var(--c-muted);
+  word-break: break-all;
+}
+
+/* --- Caption：解释"这张图证明什么"（1–3 行） --- */
+.ev-figcap {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--c-secondary);
+  padding: 0.3rem 0.15rem 0;
+}
+
+/* --- 裸图单元（无卡片包裹的 figure + caption） --- */
+.ev-plain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+/* --- Project 01–03 统一底部导航 --- */
+.case-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-2xl);
+  padding-block: var(--space-xl);
+  border-top: var(--border-subtle);
+}
+
+.case-nav__back,
+.case-nav__next {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-en);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--c-ink);
+  padding: 0.6rem 0.2rem;
+  transition: color var(--dur-fast);
+}
+
+.case-nav__back small,
+.case-nav__next small {
+  font-family: var(--font-zh);
+  font-size: 0.76rem;
+  font-weight: 400;
+  color: var(--c-muted);
+}
+
+.case-nav__next {
+  margin-left: auto;
+  color: var(--c-accent);
+}
+
+.case-nav__back:hover {
+  color: var(--c-accent);
+}
+
+.case-nav__next:hover {
+  color: var(--c-accent-hover);
+}
+
+/* --- Project 02 Product Demo：16:9 视频占位 ---
+   后续接入真实 walkthrough 时，只需把 site-data.js 中
+   media["p02-product-demo"] 改为 { type: "video", src: ... }，
+   占位结构会被自动替换，无需改布局。 */
+.demo-slot {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  max-width: 85%;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  background: rgba(45, 45, 45, 0.02);
+  border: 1px dashed var(--c-border-medium);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+.demo-slot__label {
+  font-family: var(--font-en);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-secondary);
+}
+
+.demo-slot__status {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--c-muted);
+}
+
+.demo-slot.is-filled {
+  border: none;
+  background: #0d0d0d;
+}
+
+.demo-slot.is-filled video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* ===== 16. RESPONSIVE — STRUCTURE NORMALIZATION ===== */
+@media (max-width: 1080px) {
+  /* 三联对比在窄屏退化为单列并居中（修复旧 ev-grid--3 左对齐失衡） */
+  .ev-pair--3 {
+    grid-template-columns: 1fr;
+  }
+
+  .ev-pair--3 > * {
+    width: 100%;
+    max-width: 640px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 860px) {
+  .ev-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .ev-md,
+  .ev-lg {
     max-width: 100%;
+    margin-block: var(--space-md);
+  }
+
+  .case-nav {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    text-align: center;
+    gap: var(--space-sm);
+  }
+
+  .case-nav__next {
+    margin-left: 0;
+    justify-content: center;
   }
 }
 
 
 /* ============================================================
-   15. PROJECT 01 — Recruiter-first 增补（最低成本）
-   复用既有 token，不引入新设计系统。
+   17. VISUAL POLISH STAGE 1 — Mobile 校准（追加式）
+   ------------------------------------------------------------
+     - 8.2  case-hero 标题 mobile 收敛（30.4px → 24px 量级，
+            缓解案例页移动端压迫感）
+     - 8.4  Case Hero → First Beat 移动端空白收紧
+           （hero 底 4rem + beat 顶 4rem = 8rem → 6.5rem）
    ============================================================ */
-
-/* --- Case Overview（Hero 后叙事） --- */
-.case-overview {
-  padding-block: var(--space-xl);
-  border-top: var(--border-subtle);
-}
-
-.case-overview__title {
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 700;
-  line-height: 1.35;
-  max-width: 20em;
-  color: var(--c-ink);
-}
-
-.case-overview__body {
-  max-width: 46em;
-  margin-top: var(--space-md);
-  font-size: 1rem;
-  line-height: 1.95;
-  color: var(--c-secondary);
-}
-
-/* --- Why it matters（每 Beat 收尾） --- */
-.why-matters {
-  max-width: 46em;
-  margin-top: var(--space-md);
-  padding: 0.85rem 1.3rem;
-  background: rgba(91, 116, 128, 0.05);
-  border: var(--border-subtle);
-  border-left: 3px solid var(--c-accent);
-  border-radius: 0 var(--r-card-sm) var(--r-card-sm) 0;
-}
-
-.why-matters__label {
-  display: block;
-  font-family: var(--font-en);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--c-muted);
-  margin-bottom: 0.4rem;
-}
-
-.why-matters p {
-  font-size: 0.92rem;
-  line-height: 1.75;
-  color: var(--c-ink);
-  margin: 0;
-}
-
-/* --- Timeline 降权变体（Iteration Trace） --- */
-.case-timeline--minor {
-  padding-block: var(--space-sm) 0;
-}
-
-.case-timeline--minor .case-timeline__inner {
-  opacity: 0.82;
-  font-size: 0.78rem;
-}
-
-.case-timeline__head {
-  margin-bottom: 0.6rem;
-}
-
-.case-timeline__title {
-  font-family: var(--font-en);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--c-muted);
-}
-
-.case-timeline__sub {
-  margin-top: 0.25rem;
-  font-size: 0.9rem;
-  color: var(--c-secondary);
-}
-
-/* --- Full Evidence Trail（末尾辅助证据） --- */
-.ev-trail {
-  padding-block: var(--space-2xl);
-  border-top: var(--border-subtle);
-  scroll-margin-top: calc(var(--nav-height) + 1rem);
-}
-
-.ev-trail__title {
-  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--c-ink);
-}
-
-.ev-trail__intro {
-  max-width: 46em;
-  margin-top: var(--space-sm);
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: var(--c-secondary);
-}
-
-.ev-trail__group {
-  margin-top: var(--space-xl);
-}
-
-.ev-trail__group-title {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--c-ink);
-  padding-bottom: 0.5rem;
-  border-bottom: var(--border-subtle);
-}
-
-.ev-trail__group-note {
-  margin-top: 0.5rem;
-  font-size: 0.88rem;
-  line-height: 1.7;
-  color: var(--c-muted);
-}
-
-/* Full Evidence Trail 内 Status Panel 取消粘附：
-   原 sticky 设计用于 Beat 05 的 .queue-panel 右列（短高度），
-   移入长单列 .ev-trail__group 后会在滚动时覆盖后续辅助证据，造成重叠。
-   选择器限定在 .ev-trail__group 内，不影响 Project 03 的 .queue-panel。 */
-.ev-trail__group .spanel {
-  position: static;
-  top: auto;
-  max-width: 24rem;
-}
-
 @media (max-width: 860px) {
-  .case-overview__body {
-    font-size: 0.96rem;
+  .case-hero__title {
+    font-size: clamp(1.5rem, 5vw, 1.9rem);
+  }
+
+  .case-hero {
+    padding-bottom: var(--space-lg);
   }
 }

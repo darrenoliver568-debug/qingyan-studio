@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-09-01T21:55:00+08:00",
+  "scope": "v2.css + case-study.css（main.css 服务 v1 遗留页，不在清理范围）",
+  "consumers": ["index.html", "work/case-01", "work/case-02-personal-learning-workspace", "work/case-03", "assets/js/v2-main.js", "assets/js/site-data.js"],
+  "audit": {
+    "deleteSafe": {
+      "case-study.css": [
+        "ev-caption", "ev-caption__en", "ev-caption__zh",
+        "ev-col__path",
+        "ev-grid", "ev-grid--2", "ev-grid--3",
+        "ev-hero", "ev-wide", "ev-wide-lg", "ev-support",
+        "ev-strip-label", "source-strip"
+      ],
+      "v2.css": ["film--c", "film__real", "film__year"]
+    },
+    "falsePositives": { "org": "SVG data-URI 中 www.w3.org 的误提取", "w3": "同上" },
+    "keptIntentionally": {
+      "film__recog": "recog 数据预留样式（site-data 三项 recog 均为 null，数据来了即渲染）",
+      "sr-only": "a11y 工具类，建议长期保留"
+    },
+    "mustKeep": {
+      "ev-grid--diff": "case-01 Beat 3 仍在用（ev-pair ev-grid--diff 并用）",
+      "ev-col 系列": "case-01/03 证据卡内部结构，活跃消费中"
+    },
+    "note": "43px mobile 溢出已确认为预存问题（HEAD 基线复现，来源 header.nav 433px > 390px），与本轮迁移无关，未修。"
+  },
+  "execution": {
+    "status": "DONE 2026-09-01 晚（青砚确认：删 16 + 保留 2 预留）",
+    "result": "case-study.css 与 v2.css 共删除 16 个 dead class 的全部规则（含 @media 内规则与旧注释），定义 class 总数 315 → 299。case-study.css 现零 dead class；v2.css 仅剩 film__recog/sr-only（刻意保留）+ org/w3（误报）。删除后全量回归与基线一致：overflowX 不变（除预存 43px）、brokenImgs=0、modal 测试通过、error 仅 favicon 404 噪音。",
+    "files": ["assets/css/case-study.css", "assets/css/v2.css"]
+  }
+}

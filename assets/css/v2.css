@@ -898,7 +898,7 @@ button:focus-visible {
 
 .exp-stat strong {
   font-family: var(--font-en);
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 4.5vw, 2.4rem);
   font-weight: 600;
   line-height: 1;
   color: var(--c-ink);
@@ -913,7 +913,7 @@ button:focus-visible {
 }
 
 .exp-desc {
-  font-size: 0.97rem;
+  font-size: 0.92rem;
   color: var(--c-secondary);
   line-height: 1.9;
   max-width: 62ch;
@@ -1007,7 +1007,7 @@ button:focus-visible {
   font-family: var(--font-en);
   font-size: 0.85rem;
   font-weight: 400;
-  color: var(--c-muted);
+  color: var(--c-secondary);
   letter-spacing: 0.02em;
 }
 
@@ -1037,7 +1037,7 @@ button:focus-visible {
 }
 
 .project__problem {
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   color: var(--c-secondary);
   line-height: 1.9;
   max-width: 64ch;
@@ -1226,7 +1226,7 @@ button:focus-visible {
 .film {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 1.1rem;
 }
 
 .film__media {
@@ -1267,26 +1267,6 @@ button:focus-visible {
   color: var(--c-ink);
 }
 
-.film__year {
-  font-family: var(--font-en);
-  font-size: 0.72rem;
-  font-weight: 400;
-  color: var(--c-muted);
-}
-
-.film__real {
-  font-family: var(--font-en);
-  font-size: 0.56rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #fff;
-  background: var(--c-accent);
-  padding: 0.32em 0.75em;
-  border-radius: var(--r-pill);
-  margin-left: auto;
-}
-
 /* Asymmetric editorial grid */
 @media (min-width: 1024px) {
   .film-grid {
@@ -1310,11 +1290,6 @@ button:focus-visible {
   .film--b {
     grid-column: 5 / span 4;
     margin-top: 5rem;
-  }
-
-  .film--c {
-    grid-column: 9 / span 4;
-    margin-top: 9rem;
   }
 }
 
@@ -1449,7 +1424,7 @@ button:focus-visible {
 /* --- Contact --- */
 .contact {
   text-align: center;
-  padding-block: var(--space-2xl);
+  padding-block: var(--space-3xl);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1745,4 +1720,317 @@ button:focus-visible {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+
+/* ============================================================
+ * ===== 15. STRUCTURE NORMALIZATION (D1–D4) =====
+ * 追加式组件：film 卡四层信息 / film-grid--3up 三卡布局 /
+ * film-modal lightbox / exp-demo 9:16 占位。
+ * Dead CSS 清理（2026-09-01 回归确认后执行）：
+ * 已删除 .film__year / .film__real / .film--c（旧错位网格）；
+ * 保留 .film__recog（recog 数据预留）与 .sr-only（a11y 工具类）。
+ * ============================================================ */
+
+/* --- 15.1 Film 卡四层信息结构（中文作品名 → 类型/年份 → 简介 → 荣誉 → CTA） --- */
+/* 覆盖 .film__cap 行内 baseline 布局 → 纵向编辑式堆叠 */
+.film__cap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding-inline: 0.25rem;
+}
+
+.film__title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.film__type {
+  font-family: var(--font-en);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--c-muted);
+}
+
+.film__desc {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--c-secondary);
+  max-width: 56ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.film__recog {
+  font-size: 0.76rem;
+  line-height: 1.7;
+  color: var(--c-muted);
+  max-width: 56ch;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.film__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  font-family: var(--font-en);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--c-accent);
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--c-accent);
+  cursor: pointer;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+
+.film__cta:hover,
+.film__cta:focus-visible {
+  color: var(--c-accent-hover);
+  border-bottom-color: var(--c-accent-hover);
+}
+
+.film__cta svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  stroke: currentColor;
+  transition: transform var(--dur-fast);
+}
+
+.film__cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* --- 15.2 三卡布局（feature 全宽 21:9 + a/b 并排） ---
+   覆盖默认 .film-grid 12 列错位方案中的 --c 档；b 档错位归零。 */
+@media (min-width: 1024px) {
+  .film-grid--3up {
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--space-lg);
+    row-gap: var(--space-2xl);
+  }
+
+  .film-grid--3up .film--feature {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+
+  .film-grid--3up .film--feature .film__media {
+    aspect-ratio: 21 / 9;
+  }
+
+  .film-grid--3up .film--a {
+    grid-column: 1 / span 6;
+    margin-top: 0;
+  }
+
+  .film-grid--3up .film--b {
+    grid-column: 7 / span 6;
+    margin-top: 0;
+    align-self: end;
+  }
+}
+
+/* --- 15.3 Experience 九州 9:16 竖屏 Demo 占位 --- */
+.exp-demo {
+  max-width: 300px;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.exp-demo .media-slot {
+  aspect-ratio: 9 / 16;
+  min-height: 0;
+  background: transparent;
+}
+
+.exp-demo .media-slot.is-filled video,
+.exp-demo .media-slot.is-filled img {
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+}
+
+.exp-demo__note {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.74rem;
+  color: var(--c-muted);
+}
+
+/* --- 15.4 Film Modal（单实例 Lightbox 播放器） --- */
+.film-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-top);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+  background: rgba(20, 20, 22, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-out);
+}
+
+.film-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.film-modal__head {
+  width: min(100%, 960px);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.film-modal__title {
+  font-family: var(--font-zh);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--c-inverse);
+}
+
+.film-modal__title small {
+  margin-left: 0.6rem;
+  font-family: var(--font-en);
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--c-inverse-secondary);
+  letter-spacing: 0.08em;
+}
+
+.film-modal__close {
+  flex-shrink: 0;
+  font-family: var(--font-en);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-inverse);
+  background: var(--glass-m-bg-dark);
+  border: 1px solid var(--glass-m-border-dark);
+  border-radius: var(--r-pill);
+  padding: 0.55em 1.2em;
+  cursor: pointer;
+  transition: background var(--dur-fast);
+}
+
+.film-modal__close:hover {
+  background: var(--glass-m-bg-dark-soft);
+}
+
+.film-modal__stage {
+  width: min(100%, 960px);
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: #0d0d0d;
+  box-shadow: var(--glass-shadow-lg);
+}
+
+.film-modal__stage video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #0d0d0d;
+}
+
+/* Placeholder 态：视频源未接入时显示占位说明，不产生 broken source */
+.film-modal__stage .film-modal__placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.film-modal__placeholder-mark {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-inverse-secondary);
+  border: 1px dashed rgba(240, 240, 240, 0.3);
+  padding: 0.45em 1em;
+  border-radius: var(--r-pill);
+}
+
+.film-modal__placeholder-note {
+  font-size: 0.8rem;
+  color: rgba(240, 240, 240, 0.55);
+  max-width: 40ch;
+}
+
+/* Modal 打开时锁定页面滚动 */
+body.is-film-modal-open {
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .film-modal {
+    padding: var(--space-md) 0.75rem;
+    justify-content: flex-start;
+    padding-top: 18vh;
+  }
+
+  .film-modal__title {
+    font-size: 0.98rem;
+  }
+}
+
+
+/* ============================================================
+   16. VISUAL POLISH STAGE 1 — 最小高置信视觉校准（追加式）
+   ------------------------------------------------------------
+   仅数值 / 颜色 / 间距 / 比例微调，零结构变动：
+     - 1.2  feature 卡中文标题增强（最大媒体配更大标题）
+     - 8.1  Mobile section-title 下限降低（消除"桌面缩小版"感）
+     - 8.3  Mobile feature 卡 media 16:10（390px 下 219px → 244px，
+            增加画面存在感）
+   ============================================================ */
+
+/* 1.2 AIGC feature 卡标题（21:9 大媒体 → 标题同步放大） */
+.film--feature .film__title {
+  font-size: clamp(1.35rem, 2.2vw, 1.6rem);
+}
+
+/* 8.1 / 8.3 Mobile 校准 */
+@media (max-width: 600px) {
+  .section-title {
+    font-size: clamp(1.5rem, 5.5vw, 1.75rem);
+  }
+
+  .section-title small {
+    font-size: 0.5em;
+    margin-left: 0.5rem;
+  }
+
+  .film--feature .film__media {
+    aspect-ratio: 16 / 10;
+  }
 }

@@ -118,11 +118,11 @@
           </div>
         </div>
 
-        <!-- 右下 Faux Cutout -->
+        <!-- 右下 Faux Cutout — 指向 AIGC Works（与 site-data.js hero.cutout 同步） -->
         <div class="hero__cutout reveal">
           <span class="hero__cutout-label">QingYan Studio</span>
-          <a class="hero__cutout-link" href="#projects">
-            Explore
+          <a class="hero__cutout-link" href="#aigc-works">
+            View AIGC Works
             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
             </svg>
@@ -175,6 +175,16 @@
                   <span class="media-slot__status">MEDIA_SLOT</span>
                 </div>
               </div>
+            </div>
+            <!-- 9:16 竖屏短剧 Demo 占位（D3：纯占位，不引用 短剧/ 目录旧图） -->
+            <div class="exp-demo">
+              <div data-slot-id="exp-jiuzhou-demo">
+                <div class="media-slot">
+                  <span class="media-slot__label">竖屏短剧 Demo · 9:16</span>
+                  <span class="media-slot__status">MEDIA_SLOT</span>
+                </div>
+              </div>
+              <p class="exp-demo__note">8 部 · 280 集 AI 短剧生产实践</p>
             </div>
           </aside>
         </article>
@@ -243,32 +253,14 @@
               <span class="tag">本地数据</span>
               <span class="tag">AI 反馈</span>
             </div>
-            <div class="project__media">
-              <div data-slot-id="p02-product-ui">
-                <div class="media-slot">
-                  <span class="media-slot__label">产品 UI</span>
-                  <span class="media-slot__status">MEDIA_SLOT</span>
-                </div>
-              </div>
-              <div data-slot-id="p02-pad-annotation">
-                <div class="media-slot">
-                  <span class="media-slot__label">Pad 批注</span>
-                  <span class="media-slot__status">MEDIA_SLOT</span>
-                </div>
-              </div>
-              <div data-slot-id="p02-canvas">
-                <div class="media-slot">
-                  <span class="media-slot__label">无限画布</span>
-                  <span class="media-slot__status">MEDIA_SLOT</span>
-                </div>
-              </div>
-              <div data-slot-id="p02-experiment">
-                <div class="media-slot">
-                  <span class="media-slot__label">行动实验</span>
-                  <span class="media-slot__status">MEDIA_SLOT</span>
-                </div>
-              </div>
-            </div>
+            <!-- Large Case Study CTA — mirrors Project 01/03 component (D4) -->
+            <a class="project__cta" href="work/case-02-personal-learning-workspace.html">
+              <span class="project__cta-label">PERSONAL AI LEARNING WORKSPACE</span>
+              <p class="project__cta-desc">为长期 AI 学习设计的个人工作台，将课程内容、笔记批注、行动实验与 AI 反馈放进同一个学习闭环，并通过真实使用持续迭代。</p>
+              <span class="project__cta-flow">记录 &rarr; 行动实验 &rarr; AI 反馈 &rarr; 复盘</span>
+              <span class="project__cta-link">View Case Study <span class="project__cta-arrow" aria-hidden="true">&rarr;</span></span>
+              <span class="project__cta-sub">7 次迭代 &middot; Personal MVP &middot; 真实使用持续迭代</span>
+            </a>
           </article>
 
           <!-- PROJECT 03 -->
@@ -329,9 +321,10 @@
           <h2 class="section-title">AIGC Works<small>创意作品</small></h2>
         </header>
 
-        <div class="film-grid">
+        <!-- 三卡结构：feature 全宽 21:9 + a/b 并排；视频源均为安全 placeholder -->
+        <div class="film-grid film-grid--3up">
 
-          <!-- 01 嘉定的清晨 — 主视觉 (16:9 / 21:9) -->
+          <!-- 01 嘉定的清晨 — Feature -->
           <article class="film film--feature reveal">
             <div class="film__media">
               <div class="media-slot" data-slot-id="aigc-jiading-cover">
@@ -340,10 +333,18 @@
               </div>
             </div>
             <footer class="film__cap">
-              <span class="film__index">01</span>
-              <h3 class="film__title">嘉定的清晨</h3>
-              <span class="film__year">2025</span>
-              <span class="film__real">REAL ASSET</span>
+              <div class="film__title-row">
+                <span class="film__index">01</span>
+                <h3 class="film__title">嘉定的清晨</h3>
+                <span class="film__type">AI 短片 · 2025</span>
+              </div>
+              <p class="film__desc">16 段本地素材已就位，成片待接入。</p>
+              <button class="film__cta" type="button" data-film="aigc-jiading">
+                Watch Film
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                </svg>
+              </button>
             </footer>
           </article>
 
@@ -356,36 +357,42 @@
               </div>
             </div>
             <footer class="film__cap">
-              <span class="film__index">02</span>
-              <h3 class="film__title">回声</h3>
+              <div class="film__title-row">
+                <span class="film__index">02</span>
+                <h3 class="film__title">回声</h3>
+                <span class="film__type">AI 短片</span>
+              </div>
+              <p class="film__desc">作品信息待补充。</p>
+              <button class="film__cta" type="button" data-film="aigc-huisheng">
+                Watch Film
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                </svg>
+              </button>
             </footer>
           </article>
 
-          <!-- 03 紫荆花盛开 -->
+          <!-- 03 自由 -->
           <article class="film film--b reveal">
             <div class="film__media">
-              <div class="media-slot" data-slot-id="aigc-zijing-cover">
-                <span class="media-slot__label">紫荆花盛开 · 封面</span>
+              <div class="media-slot" data-slot-id="aigc-ziyou-cover">
+                <span class="media-slot__label">自由 · 封面</span>
                 <span class="media-slot__status">MEDIA_SLOT</span>
               </div>
             </div>
             <footer class="film__cap">
-              <span class="film__index">03</span>
-              <h3 class="film__title">紫荆花盛开</h3>
-            </footer>
-          </article>
-
-          <!-- 04 本然 -->
-          <article class="film film--c reveal">
-            <div class="film__media">
-              <div class="media-slot" data-slot-id="aigc-benran-cover">
-                <span class="media-slot__label">本然 · 封面</span>
-                <span class="media-slot__status">MEDIA_SLOT</span>
+              <div class="film__title-row">
+                <span class="film__index">03</span>
+                <h3 class="film__title">自由</h3>
+                <span class="film__type">AIGC 预告片 · 90″</span>
               </div>
-            </div>
-            <footer class="film__cap">
-              <span class="film__index">04</span>
-              <h3 class="film__title">本然</h3>
+              <p class="film__desc">已产出成片（trailer-final.mp4），待接入。</p>
+              <button class="film__cta" type="button" data-film="aigc-ziyou">
+                Watch Film
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                </svg>
+              </button>
             </footer>
           </article>
 
@@ -500,6 +507,15 @@
       <p class="footer__note">朱青 · 2026 · Soft Glass Editorial Lab</p>
     </div>
   </footer>
+
+  <!-- ===== FILM MODAL — 单实例 Lightbox 播放器（复用于全部 AIGC 作品） ===== -->
+  <div class="film-modal" id="film-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="film-modal-title">
+    <div class="film-modal__head">
+      <h3 class="film-modal__title" id="film-modal-title"></h3>
+      <button class="film-modal__close" type="button" aria-label="关闭播放器">Close</button>
+    </div>
+    <div class="film-modal__stage" id="film-modal-stage"></div>
+  </div>
 
   <!-- ===== SCRIPTS ===== -->
   <!-- site-data.js: 集中式数据 + Media Slot 映射 -->

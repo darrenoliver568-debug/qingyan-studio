@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case 02 · 个人 AI 学习工作台 | QingYan Studio</title>
+  <meta name="description" content="Personal AI Learning Workspace — 为长期 AI 学习设计的个人工作台，将课程内容、笔记批注、行动实验与 AI 反馈放进同一个学习闭环。">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/v2.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand reveal reveal--fade" href="../index.html" aria-label="QingYan Studio 首页">
+        <span class="nav__brand-dot" aria-hidden="true"></span>
+        <span class="nav__brand-name">QingYan Studio</span>
+        <span class="nav__brand-sep" aria-hidden="true">·</span>
+        <span class="nav__brand-person">朱青</span>
+      </a>
+
+      <nav class="nav__links" aria-label="本页导航">
+        <a class="nav__link" href="#demo">Product Demo</a>
+        <a class="nav__link" href="#workspace">Workspace</a>
+      </nav>
+
+      <a class="nav__cta" href="../index.html#contact">Contact</a>
+
+      <button class="nav__toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="#demo">Product Demo <small>交互演示</small></a>
+    <a href="#workspace">Workspace <small>工作台</small></a>
+    <a href="../index.html#projects">返回首页 <small>Selected Projects</small></a>
+  </div>
+
+  <main>
+
+    <!-- ================================================================
+         CASE HERO — 文案全部来自首页 LOCKED 内容
+         ================================================================ -->
+    <section class="case-hero">
+      <div class="container">
+        <span class="case-hero__label">Case 02 · AI Product Lab</span>
+        <h1 class="case-hero__title">
+          个人 AI 学习工作台
+          <span class="case-hero__title-en">Personal AI Learning Workspace</span>
+        </h1>
+
+        <div class="case-hero__meta">
+          <span class="case-hero__status">7 次迭代 · Personal MVP</span>
+        </div>
+
+        <p class="case-hero__lede">
+          把“看懂了”，继续推进到<strong>记录、行动、反馈和复盘</strong>。
+        </p>
+
+        <p class="case-hero__intro">
+          为长期 AI 学习设计的个人工作台，将课程内容、笔记批注、行动实验与 AI 反馈放进同一个学习闭环，并通过真实使用持续迭代。
+        </p>
+
+        <div class="case-hero__tags">
+          <span class="tag">33 章内容体系</span>
+          <span class="tag">Pad 批注</span>
+          <span class="tag">无限画布</span>
+          <span class="tag">本地数据</span>
+          <span class="tag">AI 反馈</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         BEAT — Product Demo（16:9 占位，接入真实 walkthrough 只改 site-data.js）
+         ================================================================ -->
+    <section class="beat" id="demo">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">BEAT 01</span>
+          <span class="beat-head__role">Product Demo</span>
+          <h2 class="beat-head__title">
+            工作台交互演示
+            <small>Interaction Walkthrough</small>
+          </h2>
+        </header>
+
+        <p class="beat-lede reveal">
+          课程内容、笔记批注、行动实验与 AI 反馈在同一个学习闭环中的实际运转方式。
+        </p>
+
+        <!-- MEDIA SLOT: p02-product-demo
+             替换方式: 修改 site-data.js 中 media["p02-product-demo"]
+             为 { type: "video", src: "..." }，占位结构会被自动替换 -->
+        <div class="reveal" data-slot-id="p02-product-demo">
+          <div class="demo-slot">
+            <span class="demo-slot__label">Interaction Walkthrough</span>
+            <span class="demo-slot__status">DEMO_COMING_SOON · MEDIA_SLOT</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         BEAT — Workspace（首页同款 Media Slot，待补真实素材）
+         ================================================================ -->
+    <section class="beat" id="workspace">
+      <div class="container">
+
+        <header class="beat-head reveal">
+          <span class="beat-head__num">BEAT 02</span>
+          <span class="beat-head__role">Workspace</span>
+          <h2 class="beat-head__title">
+            工作台界面
+            <small>Media Slot · 待补素材</small>
+          </h2>
+        </header>
+
+        <div class="project__media reveal">
+          <div data-slot-id="p02-product-ui">
+            <div class="media-slot">
+              <span class="media-slot__label">产品 UI</span>
+              <span class="media-slot__status">MEDIA_SLOT</span>
+            </div>
+          </div>
+          <div data-slot-id="p02-pad-annotation">
+            <div class="media-slot">
+              <span class="media-slot__label">Pad 批注</span>
+              <span class="media-slot__status">MEDIA_SLOT</span>
+            </div>
+          </div>
+          <div data-slot-id="p02-canvas">
+            <div class="media-slot">
+              <span class="media-slot__label">无限画布</span>
+              <span class="media-slot__status">MEDIA_SLOT</span>
+            </div>
+          </div>
+          <div data-slot-id="p02-experiment">
+            <div class="media-slot">
+              <span class="media-slot__label">行动实验</span>
+              <span class="media-slot__status">MEDIA_SLOT</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         CASE NAV — 02 → 03
+         ================================================================ -->
+    <section>
+      <div class="container">
+        <nav class="case-nav" aria-label="项目导航">
+          <a class="case-nav__back" href="../index.html#projects">
+            <small>← 返回</small> Selected Projects
+          </a>
+          <a class="case-nav__next" href="case-03-multi-ai-workspace.html">
+            Next Case 03 <small>青砚多 AI 协作工作台 →</small>
+          </a>
+        </nav>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__brand">QingYan Studio</p>
+      <p class="footer__note">朱青 · 2026 · Soft Glass Editorial Lab</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <!-- site-data.js: 集中式数据 + Media Slot 映射（demo-slot 数据驱动替换依赖此文件） -->
+  <script src="../assets/js/site-data.js"></script>
+  <!-- v2-main.js: 交互逻辑（导航 / Media Slot 替换 / Reveal） -->
+  <script src="../assets/js/v2-main.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+{
+  "pages": {
+    "index-desktop": {
+      "screenshot": "_capture\\regression\\index-desktop.png",
+      "title": "QingYan Studio — 让 AI 进入工作，也让 AI 进入创作",
+      "overflowX": 0,
+      "brokenImgs": 0,
+      "revealVisible": 24,
+      "revealTotal": 24,
+      "consoleErrors": []
+    },
+    "index-mobile": {
+      "screenshot": "_capture\\regression\\index-mobile.png",
+      "title": "QingYan Studio — 让 AI 进入工作，也让 AI 进入创作",
+      "overflowX": 0,
+      "brokenImgs": 0,
+      "revealVisible": 24,
+      "revealTotal": 24,
+      "consoleErrors": []
+    },
+    "case-01-desktop": {
+      "screenshot": "_capture\\regression\\case-01-desktop.png",
+      "title": "Case 01 · Agent 方法学习与知识沉淀系统 | QingYan Studio",
+      "overflowX": 0,
+      "brokenImgs": 0,
+      "revealVisible": 46,
+      "revealTotal": 46,
+      "consoleErrors": [
+        {
+          "kind": "log",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found) http://127.0.0.1:8080/favicon.ico"
+        }
+      ]
+    },
+    "case-01-mobile": {
+      "screenshot": "_capture\\regression\\case-01-mobile.png",
+      "title": "Case 01 · Agent 方法学习与知识沉淀系统 | QingYan Studio",
+      "overflowX": 0,
+      "brokenImgs": 0,
+      "revealVisible": 46,
+      "revealTotal": 46,
+      "consoleErrors": []
+    },
+    "case-02-desktop": {
+      "screenshot": "_capture\\regression\\case-02-desktop.png",
+      "title": "Case 02 · 个人 AI 学习工作台 | QingYan Studio",
+      "overflowX": 0,
+      "brokenImgs": 0,
+      "revealVisible": 6,
+      "revealTotal": 6,
+      "consoleErrors": []
+    },
+    "case-02-mobile": {
+      "screenshot": "_capture\\regression\\case-02-mobile.png",
+      "title": "Case 02 · 个人 AI 学习工作台 | QingYan Studio",
+      "overflowX": 0,
+      "brokenImgs": 0,
+      "revealVisible": 6,
+      "revealTotal": 6,
+      "consoleErrors": []
+    },
+    "case-03-desktop": {
+      "screenshot": "_capture\\regression\\case-03-desktop.png",
+      "title": "Case 03 · 青砚多 AI 协作工作台 | QingYan Studio",
+      "overflowX": 0,
+      "brokenImgs": 0,
+      "revealVisible": 42,
+      "revealTotal": 42,
+      "consoleErrors": []
+    },
+    "case-03-mobile": {
+      "screenshot": "_capture\\regression\\case-03-mobile.png",
+      "title": "Case 03 · 青砚多 AI 协作工作台 | QingYan Studio",
+      "overflowX": 0,
+      "brokenImgs": 0,
+      "revealVisible": 42,
+      "revealTotal": 42,
+      "consoleErrors": []
+    }
+  },
+  "modalTest": {
+    "ok": true,
+    "openState": {
+      "isOpen": true,
+      "ariaHidden": "false",
+      "bodyLocked": true,
+      "title": "嘉定的清晨AI 短片 · 2025",
+      "hasPlaceholder": true,
+      "hasVideo": false
+    },
+    "closeState": {
+      "closedAfterEsc": true,
+      "bodyUnlocked": true
+    },
+    "consoleErrors": []
+  }
+}

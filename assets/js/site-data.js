@@ -56,8 +56,8 @@ const SITE_DATA = {
     },
     cutout: {
       label: "QingYan Studio",
-      linkText: "Explore →",
-      linkHref: "#projects"
+      linkText: "View AIGC Works →",
+      linkHref: "#aigc-works"
     }
   },
 
@@ -157,7 +157,9 @@ const SITE_DATA = {
 
 
   /* ================================================================
-   * AIGC Works — Film Gallery
+   * AIGC Works — Film Gallery（三卡结构）
+   * 卡片信息层级（LOCKED 顺序）：中文作品名 → 类型/年份 → 简介 → 荣誉 → CTA
+   * 视频源均为 placeholder：接入真实素材只改 media 对应 videoSlotId 条目
    * ================================================================ */
   aigcWorks: {
     items: [
@@ -165,37 +167,34 @@ const SITE_DATA = {
         id: "aigc-jiading",
         index: "01",
         title: "嘉定的清晨",
+        type: "AI 短片",
         year: "2025",
-        hasRealAsset: true,
-        realAssetNote: "本地已存在 16 段素材（D:\\嘉定的清晨）",
-        slotId: "aigc-jiading-cover"
+        desc: "16 段本地素材已就位，成片待接入。",
+        recog: null,
+        coverSlotId: "aigc-jiading-cover",
+        videoSlotId: "aigc-jiading-video"
       },
       {
         id: "aigc-huisheng",
         index: "02",
         title: "回声",
+        type: "AI 短片",
         year: null,
-        hasRealAsset: false,
-        realAssetNote: null,
-        slotId: "aigc-huisheng-cover"
+        desc: "作品信息待补充。",
+        recog: null,
+        coverSlotId: "aigc-huisheng-cover",
+        videoSlotId: "aigc-huisheng-video"
       },
       {
-        id: "aigc-zijing",
+        id: "aigc-ziyou",
         index: "03",
-        title: "紫荆花盛开",
+        title: "自由",
+        type: "AIGC 预告片 · 90″",
         year: null,
-        hasRealAsset: false,
-        realAssetNote: null,
-        slotId: "aigc-zijing-cover"
-      },
-      {
-        id: "aigc-benran",
-        index: "04",
-        title: "本然",
-        year: null,
-        hasRealAsset: false,
-        realAssetNote: null,
-        slotId: "aigc-benran-cover"
+        desc: "已产出成片（trailer-final.mp4），待接入。",
+        recog: null,
+        coverSlotId: "aigc-ziyou-cover",
+        videoSlotId: "aigc-ziyou-video"
       }
     ]
   },
@@ -304,6 +303,7 @@ const SITE_DATA = {
     /* --- Experience / 九州 --- */
     "exp-jiuzhou-outcomes":  { type: "placeholder", label: "AI 短剧 / 成片截图" },
     "exp-jiuzhou-tutorials": { type: "placeholder", label: "关键帧教程 / 团队复用证据" },
+    "exp-jiuzhou-demo":      { type: "placeholder", label: "竖屏短剧 Demo · 9:16" },
 
     /* --- Project 01 --- */
     "p01-workflow":   { type: "placeholder", label: "Workflow" },
@@ -311,6 +311,7 @@ const SITE_DATA = {
     "p01-review":     { type: "placeholder", label: "Review / Regression 证据" },
 
     /* --- Project 02 --- */
+    "p02-product-demo":    { type: "placeholder", label: "Interaction Walkthrough · Demo coming soon" },
     "p02-product-ui":     { type: "placeholder", label: "产品 UI" },
     "p02-pad-annotation": { type: "placeholder", label: "Pad 批注" },
     "p02-canvas":         { type: "placeholder", label: "无限画布" },
@@ -321,10 +322,12 @@ const SITE_DATA = {
     "p03-exec-log":    { type: "placeholder", label: "Execution Log" },
     "p03-workstation": { type: "placeholder", label: "Workstation" },
 
-    /* --- AIGC Works --- */
+    /* --- AIGC Works（封面 + 视频槽位均为 placeholder，接入时只改这里） --- */
     "aigc-jiading-cover":  { type: "placeholder", label: "嘉定的清晨 · 封面" },
     "aigc-huisheng-cover": { type: "placeholder", label: "回声 · 封面" },
-    "aigc-zijing-cover":   { type: "placeholder", label: "紫荆花盛开 · 封面" },
-    "aigc-benran-cover":   { type: "placeholder", label: "本然 · 封面" }
+    "aigc-ziyou-cover":    { type: "placeholder", label: "自由 · 封面" },
+    "aigc-jiading-video":  { type: "placeholder", label: "嘉定的清晨 · 视频" },
+    "aigc-huisheng-video": { type: "placeholder", label: "回声 · 视频" },
+    "aigc-ziyou-video":    { type: "placeholder", label: "自由 · 视频" }
   }
 };

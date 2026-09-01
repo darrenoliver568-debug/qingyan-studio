@@ -376,13 +376,129 @@
 
 
   /* ========================================
-   * 5. INIT
+   * 5. FILM MODAL — 单实例 Lightbox 播放器
+   * ========================================
+   * 触发：.film__cta[data-film] 点击（事件委托）
+   * 数据：SITE_DATA.aigcWorks.items 按 id 查找，
+   *       视频源取 media[item.videoSlotId]。
+   * 视频为 placeholder 时显示占位态（不产生 broken source）。
+   * 关闭：ESC / 遮罩点击 / Close 按钮；关闭时暂停并清空 video。
+   */
+
+  function initFilmModal() {
+    const modal = document.querySelector(".film-modal");
+    if (!modal) return;
+
+    const titleEl = modal.querySelector(".film-modal__title");
+    const closeBtn = modal.querySelector(".film-modal__close");
+    const stage = modal.querySelector(".film-modal__stage");
+    if (!titleEl || !closeBtn || !stage) return;
+
+    // classic script 顶层 const 不挂 window，直接引用
+    const D = typeof SITE_DATA !== "undefined" ? SITE_DATA : null;
+    let lastFocused = null;
+
+    function closeModal() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("is-film-modal-open");
+      // 暂停并清空 video，释放资源
+      stage.innerHTML = "";
+      if (lastFocused && typeof lastFocused.focus === "function") {
+        lastFocused.focus();
+        lastFocused = null;
+      }
+    }
+
+    function openModal(item) {
+      // 标题：作品名 + 类型/年份
+      const metaParts = [item.type, item.year].filter(Boolean);
+      titleEl.innerHTML = "";
+      titleEl.appendChild(document.createTextNode(item.title || ""));
+      if (metaParts.length) {
+        const small = document.createElement("small");
+        small.textContent = metaParts.join(" · ");
+        titleEl.appendChild(small);
+      }
+
+      stage.innerHTML = "";
+
+      const videoMedia = D && D.media ? D.media[item.videoSlotId] : null;
+
+      if (videoMedia && videoMedia.type === "video" && videoMedia.src) {
+        const video = document.createElement("video");
+        video.src = videoMedia.src;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.setAttribute("playsinline", "");
+        video.preload = "metadata";
+        if (videoMedia.poster) video.poster = videoMedia.poster;
+        video.style.width = "100%";
+        video.style.height = "100%";
+        stage.appendChild(video);
+        const p = video.play();
+        if (p && p.catch) p.catch(() => {});
+      } else {
+        // Placeholder 态：视频源未接入
+        const ph = document.createElement("div");
+        ph.className = "film-modal__placeholder";
+
+        const mark = document.createElement("span");
+        mark.className = "film-modal__placeholder-mark";
+        mark.textContent = "DEMO COMING SOON";
+
+        const note = document.createElement("p");
+        note.className = "film-modal__placeholder-note";
+        note.textContent = "视频源待接入（site-data.js media[\""
+          + (item.videoSlotId || "") + "\"]）";
+
+        ph.appendChild(mark);
+        ph.appendChild(note);
+        stage.appendChild(ph);
+      }
+
+      lastFocused = document.activeElement;
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("is-film-modal-open");
+      closeBtn.focus();
+    }
+
+    // 事件委托：所有 .film__cta[data-film]
+    document.addEventListener("click", (e) => {
+      const trigger = e.target.closest("[data-film]");
+      if (!trigger) return;
+      e.preventDefault();
+      if (!D || !D.aigcWorks || !Array.isArray(D.aigcWorks.items)) return;
+      const item = D.aigcWorks.items.find(
+        (it) => it.id === trigger.getAttribute("data-film")
+      );
+      if (item) openModal(item);
+    });
+
+    // 关闭：按钮 / ESC / 遮罩（点击 modal 自身而非内容区）
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) {
+        closeModal();
+      }
+    });
+  }
+
+
+  /* ========================================
+   * 6. INIT
    * ======================================== */
 
   function init() {
     renderHeroMedia();
     renderMediaSlots();
     initReveal();
+    initFilmModal();
   }
 
   if (document.readyState === "loading") {
