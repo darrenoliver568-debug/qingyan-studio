@@ -1563,6 +1563,11 @@
   color: var(--c-muted);
 }
 
+.demo-slot--status {
+  aspect-ratio: auto;
+  min-height: 10rem;
+}
+
 .demo-slot.is-filled {
   border: none;
   background: #0d0d0d;

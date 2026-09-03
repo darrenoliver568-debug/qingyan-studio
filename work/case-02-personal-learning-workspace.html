@@ -27,7 +27,6 @@
 
       <nav class="nav__links" aria-label="本页导航">
         <a class="nav__link" href="#demo">Product Demo</a>
-        <a class="nav__link" href="#workspace">Workspace</a>
       </nav>
 
       <a class="nav__cta" href="../index.html#contact">Contact</a>
@@ -41,7 +40,6 @@
   <!-- Mobile Menu -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <a href="#demo">Product Demo <small>交互演示</small></a>
-    <a href="#workspace">Workspace <small>工作台</small></a>
     <a href="../index.html#projects">返回首页 <small>Selected Projects</small></a>
   </div>
 
@@ -99,59 +97,9 @@
           课程内容、笔记批注、行动实验与 AI 反馈在同一个学习闭环中的实际运转方式。
         </p>
 
-        <!-- MEDIA SLOT: p02-product-demo
-             替换方式: 修改 site-data.js 中 media["p02-product-demo"]
-             为 { type: "video", src: "..." }，占位结构会被自动替换 -->
-        <div class="reveal" data-slot-id="p02-product-demo">
-          <div class="demo-slot">
-            <span class="demo-slot__label">Interaction Walkthrough</span>
-            <span class="demo-slot__status">DEMO_COMING_SOON · MEDIA_SLOT</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ================================================================
-         BEAT — Workspace（首页同款 Media Slot，待补真实素材）
-         ================================================================ -->
-    <section class="beat" id="workspace">
-      <div class="container">
-
-        <header class="beat-head reveal">
-          <span class="beat-head__num">BEAT 02</span>
-          <span class="beat-head__role">Workspace</span>
-          <h2 class="beat-head__title">
-            工作台界面
-            <small>Media Slot · 待补素材</small>
-          </h2>
-        </header>
-
-        <div class="project__media reveal">
-          <div data-slot-id="p02-product-ui">
-            <div class="media-slot">
-              <span class="media-slot__label">产品 UI</span>
-              <span class="media-slot__status">MEDIA_SLOT</span>
-            </div>
-          </div>
-          <div data-slot-id="p02-pad-annotation">
-            <div class="media-slot">
-              <span class="media-slot__label">Pad 批注</span>
-              <span class="media-slot__status">MEDIA_SLOT</span>
-            </div>
-          </div>
-          <div data-slot-id="p02-canvas">
-            <div class="media-slot">
-              <span class="media-slot__label">无限画布</span>
-              <span class="media-slot__status">MEDIA_SLOT</span>
-            </div>
-          </div>
-          <div data-slot-id="p02-experiment">
-            <div class="media-slot">
-              <span class="media-slot__label">行动实验</span>
-              <span class="media-slot__status">MEDIA_SLOT</span>
-            </div>
-          </div>
+        <div class="demo-slot demo-slot--status reveal">
+          <span class="demo-slot__label">Interaction Walkthrough</span>
+          <span class="demo-slot__status">Demo coming soon</span>
         </div>
 
       </div>

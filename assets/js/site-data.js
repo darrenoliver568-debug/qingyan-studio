@@ -167,10 +167,10 @@ const SITE_DATA = {
         id: "aigc-jiading",
         index: "01",
         title: "嘉定的清晨",
-        type: "AI 短片",
+        type: "AIGC Film",
         year: "2025",
-        desc: "16 段本地素材已就位，成片待接入。",
-        recog: null,
+        desc: "以嘉定地域文化与非遗技艺为主题的 AIGC 城市短片。",
+        recog: "“提示未来”2025 上海国际 AIGC 短片大赛入围 · 中国好创意全国总决赛优秀奖",
         coverSlotId: "aigc-jiading-cover",
         videoSlotId: "aigc-jiading-video"
       },
@@ -178,10 +178,10 @@ const SITE_DATA = {
         id: "aigc-huisheng",
         index: "02",
         title: "回声",
-        type: "AI 短片",
-        year: null,
-        desc: "作品信息待补充。",
-        recog: null,
+        type: "公益 AIGC 短片",
+        year: "2025",
+        desc: "关于校园暴力的公益 AIGC 动画作品。",
+        recog: "即梦 AI 放映厅 × 阿那亚海浪电影周展映",
         coverSlotId: "aigc-huisheng-cover",
         videoSlotId: "aigc-huisheng-video"
       },
@@ -189,10 +189,10 @@ const SITE_DATA = {
         id: "aigc-ziyou",
         index: "03",
         title: "自由",
-        type: "AIGC 预告片 · 90″",
-        year: null,
-        desc: "已产出成片（trailer-final.mp4），待接入。",
-        recog: null,
+        type: "AIGC Experimental Film",
+        year: "2026",
+        desc: "关于自由、身体与自我感知的 AIGC 影像实验。",
+        recog: "个人视觉实验",
         coverSlotId: "aigc-ziyou-cover",
         videoSlotId: "aigc-ziyou-video"
       }
@@ -301,9 +301,7 @@ const SITE_DATA = {
     },
 
     /* --- Experience / 九州 --- */
-    "exp-jiuzhou-outcomes":  { type: "placeholder", label: "AI 短剧 / 成片截图" },
-    "exp-jiuzhou-tutorials": { type: "placeholder", label: "关键帧教程 / 团队复用证据" },
-    "exp-jiuzhou-demo":      { type: "placeholder", label: "竖屏短剧 Demo · 9:16" },
+    "exp-jiuzhou-demo":      { type: "video", src: "assets/video/jiuzhou-demo.mp4", preload: "metadata" },
 
     /* --- Project 01 --- */
     "p01-workflow":   { type: "placeholder", label: "Workflow" },
@@ -322,12 +320,12 @@ const SITE_DATA = {
     "p03-exec-log":    { type: "placeholder", label: "Execution Log" },
     "p03-workstation": { type: "placeholder", label: "Workstation" },
 
-    /* --- AIGC Works（封面 + 视频槽位均为 placeholder，接入时只改这里） --- */
-    "aigc-jiading-cover":  { type: "placeholder", label: "嘉定的清晨 · 封面" },
-    "aigc-huisheng-cover": { type: "placeholder", label: "回声 · 封面" },
-    "aigc-ziyou-cover":    { type: "placeholder", label: "自由 · 封面" },
-    "aigc-jiading-video":  { type: "placeholder", label: "嘉定的清晨 · 视频" },
-    "aigc-huisheng-video": { type: "placeholder", label: "回声 · 视频" },
-    "aigc-ziyou-video":    { type: "placeholder", label: "自由 · 视频" }
+    /* --- AIGC Works --- */
+    "aigc-jiading-cover":  { type: "image", src: "assets/images/aigc/jiading-poster.jpg", alt: "《嘉定的清晨》影片画面：晨光中的河岸与猫" },
+    "aigc-huisheng-cover": { type: "image", src: "assets/images/aigc/huisheng-poster.jpg", alt: "《回声》影片画面：悬挂的玩偶" },
+    "aigc-ziyou-cover":    { type: "image", src: "assets/images/aigc/ziyou-poster.jpg", alt: "《自由》影片画面：水面光影中的人物" },
+    "aigc-jiading-video":  { type: "video", src: "assets/video/jiading-web.mp4", preload: "metadata" },
+    "aigc-huisheng-video": { type: "video", src: "assets/video/huisheng-web.mp4", preload: "metadata" },
+    "aigc-ziyou-video":    { type: "video", src: "assets/video/ziyou-web.mp4", preload: "metadata" }
   }
 };

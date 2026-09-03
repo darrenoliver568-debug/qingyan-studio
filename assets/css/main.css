@@ -1254,6 +1254,10 @@ ul, ol {
   margin-bottom: var(--space-xl);
 }
 
+.creator-workflow-page .placeholder-section li {
+  overflow-wrap: anywhere;
+}
+
 .placeholder-visual {
   margin-top: var(--space-xl);
 }
