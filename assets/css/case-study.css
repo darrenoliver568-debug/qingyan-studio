@@ -1527,12 +1527,9 @@
   color: var(--c-accent-hover);
 }
 
-/* --- Project 02 Product Demo：16:9 视频占位 ---
-   后续接入真实 walkthrough 时，只需把 site-data.js 中
-   media["p02-product-demo"] 改为 { type: "video", src: ... }，
-   占位结构会被自动替换，无需改布局。 */
+/* --- Project 02 Product Demo：保留源视频 64:45 比例 --- */
 .demo-slot {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 64 / 45;
   width: 100%;
   max-width: 85%;
   margin-inline: auto;
@@ -1561,11 +1558,6 @@
   font-size: 0.66rem;
   letter-spacing: 0.08em;
   color: var(--c-muted);
-}
-
-.demo-slot--status {
-  aspect-ratio: auto;
-  min-height: 10rem;
 }
 
 .demo-slot.is-filled {

@@ -309,7 +309,7 @@ const SITE_DATA = {
     "p01-review":     { type: "placeholder", label: "Review / Regression 证据" },
 
     /* --- Project 02 --- */
-    "p02-product-demo":    { type: "placeholder", label: "Interaction Walkthrough · Demo coming soon" },
+    "p02-product-demo":    { type: "video", src: "../assets/video/project02-demo.mp4", preload: "metadata", controls: true, autoplay: false, muted: false, loop: false },
     "p02-product-ui":     { type: "placeholder", label: "产品 UI" },
     "p02-pad-annotation": { type: "placeholder", label: "Pad 批注" },
     "p02-canvas":         { type: "placeholder", label: "无限画布" },
@@ -321,9 +321,9 @@ const SITE_DATA = {
     "p03-workstation": { type: "placeholder", label: "Workstation" },
 
     /* --- AIGC Works --- */
-    "aigc-jiading-cover":  { type: "image", src: "assets/images/aigc/jiading-poster.jpg", alt: "《嘉定的清晨》影片画面：晨光中的河岸与猫" },
-    "aigc-huisheng-cover": { type: "image", src: "assets/images/aigc/huisheng-poster.jpg", alt: "《回声》影片画面：悬挂的玩偶" },
-    "aigc-ziyou-cover":    { type: "image", src: "assets/images/aigc/ziyou-poster.jpg", alt: "《自由》影片画面：水面光影中的人物" },
+    "aigc-jiading-cover":  { type: "image", src: "assets/images/aigc/jiading-cover.png", alt: "《嘉定的清晨》封面：晨光中的嘉定古镇与标题字样" },
+    "aigc-huisheng-cover": { type: "image", src: "assets/images/aigc/huisheng-cover.png", alt: "《回声》封面：浅色背景中坐在秋千上的黑裙女孩" },
+    "aigc-ziyou-cover":    { type: "image", src: "assets/images/aigc/ziyou-cover.png", alt: "《自由》封面：低头的银发精灵侧脸特写" },
     "aigc-jiading-video":  { type: "video", src: "assets/video/jiading-web.mp4", preload: "metadata" },
     "aigc-huisheng-video": { type: "video", src: "assets/video/huisheng-web.mp4", preload: "metadata" },
     "aigc-ziyou-video":    { type: "video", src: "assets/video/ziyou-web.mp4", preload: "metadata" }

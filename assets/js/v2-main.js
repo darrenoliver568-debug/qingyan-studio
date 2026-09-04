@@ -293,9 +293,10 @@
     if (media.type === "video") {
       const video = document.createElement("video");
       video.src = media.src;
-      video.autoplay = true;
-      video.muted = true;
-      video.loop = true;
+      video.autoplay = media.autoplay !== false;
+      video.muted = media.muted !== false;
+      video.loop = media.loop !== false;
+      video.controls = media.controls === true;
       video.playsInline = true;
       video.setAttribute("playsinline", "");
       video.preload = media.preload || "metadata";
@@ -308,6 +309,31 @@
       if (media.loading !== false) img.loading = "lazy";
       container.appendChild(img);
     }
+  }
+
+  function addJiuzhouAudioToggle(container) {
+    const video = container.querySelector("video");
+    if (!video) return;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "exp-demo__audio-toggle";
+
+    const syncState = () => {
+      const isMuted = video.muted;
+      button.textContent = isMuted ? "开启声音" : "静音";
+      button.setAttribute("aria-label", isMuted ? "开启九州演示视频声音" : "静音九州演示视频");
+      button.setAttribute("aria-pressed", String(!isMuted));
+    };
+
+    button.addEventListener("click", () => {
+      video.muted = !video.muted;
+      syncState();
+    });
+    video.addEventListener("volumechange", syncState);
+
+    syncState();
+    container.appendChild(button);
   }
 
   function renderMediaSlots() {
@@ -333,6 +359,9 @@
         : container.querySelector(".media-slot") || container;
 
       fillMediaSlot(target, media);
+      if (slotId === "exp-jiuzhou-demo") {
+        addJiuzhouAudioToggle(target);
+      }
     });
   }
 
