@@ -516,6 +516,129 @@
 
 
   /* ========================================
+   * 4b. HERO LIQUID RIPPLE — SVG placeholder 场景液态折射
+   * ========================================
+   * 方案 A（SVG feTurbulence + feDisplacementMap，已过 Implementation Gate）：
+   *   - filter 只挂在 hero__scene 内部 <g class="hero__scene-flow">（光雾+山脊），
+   *     绝不作用于 HTML 元素（.hero__media / video / div / 容器）
+   *   - feTurbulence 参数静态（numOctaves=1，低频大尺度噪声，
+   *     不逐帧改 baseFrequency / seed），流动感只来自 displacement scale
+   *   - 驱动：低频 JS（约 15Hz），不用 SMIL（SMIL 不受 CSS reduced-motion 控制）
+   *   - 幅度：desktop 6–12px 区间双正弦叠加；mobile（≤860px）弱约 30%
+   *
+   * 生命周期（不在必要时运行）：
+   *   - IntersectionObserver：hero__container 离开视口（±15% margin）→ 停止
+   *   - visibilitychange：document.hidden → 停止；回来 → 恢复
+   *   - prefers-reduced-motion：命中时不启动；运行中切换即时响应
+   *     （停止驱动 + scale 归 0）
+   *
+   * Future Safety：hero 换成 video 后 renderHeroMedia() 会移除 .hero__scene，
+   * 本函数查不到节点直接 return，效果自然消失，不迁移到 video。
+   */
+  function setupHeroLiquidRipple() {
+    const scene = document.querySelector(".hero__scene");
+    const flowGroup = scene ? scene.querySelector(".hero__scene-flow") : null;
+    const filter = scene ? scene.querySelector("#hero-liquid") : null;
+    const disp = filter ? filter.querySelector("feDisplacementMap") : null;
+    if (!scene || !flowGroup || !disp) return;
+
+    // 幅度参数：desktop 6–12px；mobile 弱约 30%（4.2–8.4px）
+    const AMP_DESKTOP = { mid: 9, amp: 3 };
+    const AMP_MOBILE = { mid: 6.3, amp: 2.1 };
+    const UPDATE_MS = 66; // ~15Hz（规格 10–24Hz）
+    const W1 = (2 * Math.PI) / 9.5;  // 主波 ~9.5s
+    const W2 = (2 * Math.PI) / 14.3; // 副波 ~14.3s，叠加出有机起伏
+
+    const mobileMQ = window.matchMedia("(max-width: 860px)");
+
+    let rafId = 0;
+    let running = false;
+    let lastUpdate = 0;
+    let heroVisible = true;
+    let pageVisible = !document.hidden;
+
+    const isActive = () =>
+      !reducedMotionMQ.matches && heroVisible && pageVisible;
+
+    // 连续时间相位：停止/恢复后从当前时刻继续，无跳变
+    function scaleAt(tSec) {
+      const p = mobileMQ.matches ? AMP_MOBILE : AMP_DESKTOP;
+      const wave =
+        0.62 * Math.sin(tSec * W1) + 0.38 * Math.sin(tSec * W2 + 2.1);
+      return Math.max(0.5, p.mid + p.amp * wave);
+    }
+
+    function tick(now) {
+      rafId = 0;
+      if (!running) return;
+      if (now - lastUpdate >= UPDATE_MS) {
+        lastUpdate = now;
+        disp.setAttribute("scale", scaleAt(now / 1000).toFixed(2));
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function start() {
+      if (running || !isActive()) return;
+      running = true;
+      lastUpdate = 0; // 立即补一次更新
+      rafId = requestAnimationFrame(tick);
+    }
+
+    function stop(settleZero) {
+      running = false;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      if (settleZero) disp.setAttribute("scale", "0");
+    }
+
+    function onMotionChange() {
+      if (reducedMotionMQ.matches) {
+        stop(true); // reduced-motion：停驱动 + scale 归 0
+      } else {
+        start();
+      }
+    }
+
+    // Hero 进入/离开视口（含 15% 提前量）
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            heroVisible = entry.isIntersecting;
+            if (heroVisible) start();
+            else stop(false); // 离开视口：只停更新，保留静态值
+          });
+        },
+        { rootMargin: "15% 0px 15% 0px" }
+      );
+      io.observe(document.querySelector(".hero__container") || flowGroup);
+    } else {
+      heroVisible = true; // 无 IO 支持时降级为常开（页面可见时）
+    }
+
+    // 页面隐藏/恢复
+    document.addEventListener("visibilitychange", () => {
+      pageVisible = !document.hidden;
+      if (pageVisible) start();
+      else stop(false);
+    });
+
+    // reduced-motion 运行中切换 → 即时响应
+    if (typeof reducedMotionMQ.addEventListener === "function") {
+      reducedMotionMQ.addEventListener("change", onMotionChange);
+    } else if (typeof reducedMotionMQ.addListener === "function") {
+      reducedMotionMQ.addListener(onMotionChange);
+    }
+
+    // 初始化（reduce 命中时不启动，scale 保持 0）
+    onMotionChange();
+  }
+
+
+  /* ========================================
    * 5. FILM MODAL — 单实例 Lightbox 播放器
    * ========================================
    * 触发：.film__cta[data-film] 点击（事件委托）
@@ -640,6 +763,7 @@
     initReveal();
     initFilmModal();
     setupHeroScrollDepth();
+    setupHeroLiquidRipple();
   }
 
   if (document.readyState === "loading") {

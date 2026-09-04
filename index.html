@@ -84,11 +84,22 @@
                 <stop offset="0%" stop-color="#66717f" stop-opacity="0.42"/>
                 <stop offset="100%" stop-color="#66717f" stop-opacity="0"/>
               </radialGradient>
+              <!-- 液态折射滤镜：只作用于 hero__scene-flow（光雾 + 山脊），
+                   不作用于任何 HTML 元素（.hero__media / video / div），
+                   避免未来 video 路径被 Safari SVG filter 兼容性牵连。
+                   feTurbulence 参数静态（不逐帧改 baseFrequency/seed），
+                   流动感由 v2-main.js 低频驱动 feDisplacementMap scale。 -->
+              <filter id="hero-liquid" x="-6%" y="-6%" width="112%" height="112%" color-interpolation-filters="sRGB">
+                <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="1" seed="11" stitchTiles="stitch" result="hero-liquid-noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="hero-liquid-noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
             </defs>
             <rect width="1600" height="900" fill="url(#hero-sky)"/>
-            <ellipse class="hero__scene-glow" cx="830" cy="350" rx="620" ry="330" fill="url(#hero-glow)"/>
-            <path class="hero__scene-ridge hero__scene-ridge--far" d="M0,470 C230,420 420,505 700,465 C960,428 1180,520 1600,468 L1600,900 L0,900 Z" fill="url(#hero-far)"/>
-            <path class="hero__scene-ridge hero__scene-ridge--mid" d="M0,610 C310,555 560,650 880,600 C1180,553 1400,650 1600,600 L1600,900 L0,900 Z" fill="url(#hero-mid)"/>
+            <g class="hero__scene-flow" filter="url(#hero-liquid)">
+              <ellipse class="hero__scene-glow" cx="830" cy="350" rx="620" ry="330" fill="url(#hero-glow)"/>
+              <path class="hero__scene-ridge hero__scene-ridge--far" d="M0,470 C230,420 420,505 700,465 C960,428 1180,520 1600,468 L1600,900 L0,900 Z" fill="url(#hero-far)"/>
+              <path class="hero__scene-ridge hero__scene-ridge--mid" d="M0,610 C310,555 560,650 880,600 C1180,553 1400,650 1600,600 L1600,900 L0,900 Z" fill="url(#hero-mid)"/>
+            </g>
           </svg>
           <span class="hero__media-label">HERO_MEDIA_PLACEHOLDER</span>
         </div>

@@ -292,13 +292,16 @@ const SITE_DATA = {
    * ================================================================ */
   media: {
     /* --- Hero --- */
-    "hero-background": {
+    /* 液态评审期间临时切回 SVG placeholder 场景（renderHeroMedia 会保留静态 hero__scene，
+       液态滤镜 hero-liquid 生效）。切回图片时恢复下方注释的 image 配置即可。 */
+    "hero-background": { type: "placeholder" },
+    /* {
       type: "image",
       src: "assets/img/hero-lake.jpg",
       alt: "湖边自然场景",
       objectPosition: "center 50%",
       objectPositionMobile: "55% 50%"
-    },
+    }, */
 
     /* --- Experience / 九州 --- */
     "exp-jiuzhou-demo":      { type: "video", src: "assets/video/jiuzhou-demo.mp4", preload: "metadata" },
