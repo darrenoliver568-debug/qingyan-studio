@@ -1832,39 +1832,61 @@ button:focus-visible {
   overflow: hidden;
 }
 
-.film__cta {
+/* --- 15.1a AIGC 卡封面中央圆形 Play 按钮（Interaction Polish Pass） ---
+   data-film 语义保留，复用现有 Film Modal 事件委托；
+   Desktop hover 仅轻微 opacity / scale；Mobile 尺寸 ≥44px 可直接点击。 */
+.film__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.35rem;
-  font-family: var(--font-en);
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--c-accent);
+  justify-content: center;
+  width: 64px;
+  height: 64px;
   padding: 0;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--c-accent);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  background: rgba(20, 24, 26, 0.55);
+  color: #fff;
   cursor: pointer;
-  transition: color var(--dur-fast), border-color var(--dur-fast);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform var(--dur-fast) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out),
+    background var(--dur-fast);
 }
 
-.film__cta:hover,
-.film__cta:focus-visible {
-  color: var(--c-accent-hover);
-  border-bottom-color: var(--c-accent-hover);
+.film__play svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-left: 0.18rem; /* 三角形视觉重心补偿 */
+  pointer-events: none;
 }
 
-.film__cta svg {
-  width: 0.9rem;
-  height: 0.9rem;
-  stroke: currentColor;
-  transition: transform var(--dur-fast);
+/* Desktop hover：仅轻微 scale / opacity 变化，不做大位移 */
+@media (hover: hover) {
+  .film__play {
+    opacity: 0.88;
+  }
+
+  .film__play:hover,
+  .film__play:focus-visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.06);
+    background: rgba(20, 24, 26, 0.75);
+  }
 }
 
-.film__cta:hover svg {
-  transform: translateX(3px);
+.film__play:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.film__play:active {
+  transform: translate(-50%, -50%) scale(0.97);
 }
 
 /* --- 15.2 三卡布局（feature 全宽 21:9 + a/b 并排） ---
@@ -1916,24 +1938,47 @@ button:focus-visible {
   object-fit: cover;
 }
 
+/* --- 15.3a 九州演示视频：右下角 SVG 喇叭 overlay（Interaction Polish Pass） ---
+   Desktop：默认隐藏，video container (:hover / :focus-within) 时显示；
+   Mobile（窄屏或无 hover 设备）：常显、可点击、不依赖 hover。 */
 .exp-demo__audio-toggle {
   position: absolute;
-  right: 0.75rem;
-  bottom: 0.75rem;
+  right: 0.65rem;
+  bottom: 0.65rem;
   z-index: 2;
-  min-width: 5.5rem;
-  min-height: 44px;
-  padding: 0.65rem 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: var(--r-pill);
-  background: rgba(20, 24, 26, 0.78);
+  border-radius: 50%;
+  background: rgba(20, 24, 26, 0.72);
   color: #fff;
-  font-family: var(--font-zh);
-  font-size: 0.78rem;
-  line-height: 1;
   cursor: pointer;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-fast) var(--ease-out),
+    visibility var(--dur-fast) var(--ease-out),
+    background var(--dur-fast);
+}
+
+.exp-demo__audio-toggle svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  stroke: currentColor;
+  pointer-events: none;
+}
+
+/* Desktop：container hover / 键盘焦点进入时显示 */
+.exp-demo .media-slot:hover .exp-demo__audio-toggle,
+.exp-demo .media-slot:focus-within .exp-demo__audio-toggle,
+.exp-demo__audio-toggle:focus-visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 .exp-demo__audio-toggle:hover,
@@ -1941,6 +1986,14 @@ button:focus-visible {
   background: rgba(20, 24, 26, 0.92);
   outline: 2px solid #fff;
   outline-offset: 2px;
+}
+
+/* Mobile / 无 hover 设备：常显 */
+@media (max-width: 860px), (hover: none) {
+  .exp-demo__audio-toggle {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 .exp-demo__note {

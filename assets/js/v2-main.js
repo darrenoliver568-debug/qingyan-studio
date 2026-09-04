@@ -6,6 +6,8 @@
  *   2. Media Slot 替换（从 site-data.js 读取，替换占位符）
  *   3. Hero Media Slot（video / poster / cinematic scene 回退链 + reduced-motion）
  *   4. Section Reveal 动画
+ *   5. 九州演示视频：视口播放（IO threshold 0.5）+ SVG 喇叭 overlay
+ *   6. Film Modal（单实例 Lightbox，事件委托 [data-film]）
  *
  * 注意：所有页面内容已写在静态 HTML 中（保证 no-JS 可读 + 截图可拍）。
  * 本文件只负责增强交互和素材替换。
@@ -311,6 +313,63 @@
     }
   }
 
+  /* 喇叭 SVG 图标（volume-on / volume-off 两条 path 组，随 muted 状态切换） */
+  const speakerIcons = {
+    on: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+      + '<path d="M11 5 6 9H2v6h4l5 4V5z"/>'
+      + '<path d="M15.5 8.5a5 5 0 0 1 0 7"/>'
+      + '<path d="M18.5 5.5a9 9 0 0 1 0 13"/>'
+      + '</svg>',
+    off: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+      + '<path d="M11 5 6 9H2v6h4l5 4V5z"/>'
+      + '<path d="m16 9 6 6"/><path d="m22 9-6 6"/>'
+      + '</svg>'
+  };
+
+  /**
+   * 九州演示视频：视口播放控制
+   * - 默认 muted；移除 autoplay 属性，播放完全由 IntersectionObserver 驱动
+   * - threshold 0.5：视频 ≥50% 进入 viewport → play()；离开阈值 → pause()
+   * - 不修改 currentTime：再次进入从暂停位置继续
+   * - play() rejection（如加载策略限制）静默处理，不抛 blocking error
+   */
+  function setupJiuzhouViewportPlayback(container) {
+    const video = container.querySelector("video");
+    if (!video) return;
+
+    video.muted = true;
+    video.removeAttribute("autoplay");
+    video.autoplay = false;
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const p = video.play();
+              if (p && p.catch) p.catch(() => {});
+            } else {
+              video.pause();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      observer.observe(video);
+    } else {
+      // 无 IO 支持时降级为静音循环自动播放
+      video.autoplay = true;
+      const p = video.play();
+      if (p && p.catch) p.catch(() => {});
+    }
+  }
+
+  /**
+   * 九州演示视频：右下角 SVG 喇叭 overlay 按钮
+   * - muted / unmuted 图标同步（重渲染 innerHTML，由 .is-muted 控制显隐）
+   * - aria-pressed / aria-label 同步
+   * - Desktop 显隐由 CSS（container hover / focus-within）控制
+   */
   function addJiuzhouAudioToggle(container) {
     const video = container.querySelector("video");
     if (!video) return;
@@ -321,7 +380,8 @@
 
     const syncState = () => {
       const isMuted = video.muted;
-      button.textContent = isMuted ? "开启声音" : "静音";
+      button.classList.toggle("is-muted", isMuted);
+      button.innerHTML = isMuted ? speakerIcons.off : speakerIcons.on;
       button.setAttribute("aria-label", isMuted ? "开启九州演示视频声音" : "静音九州演示视频");
       button.setAttribute("aria-pressed", String(!isMuted));
     };
@@ -360,6 +420,7 @@
 
       fillMediaSlot(target, media);
       if (slotId === "exp-jiuzhou-demo") {
+        setupJiuzhouViewportPlayback(target);
         addJiuzhouAudioToggle(target);
       }
     });
