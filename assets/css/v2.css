@@ -141,7 +141,7 @@
   --dur-med: 0.35s;
   --dur-slow: 0.7s;
   --dur-ambient-slow: 9s;
-  --dur-ambient-slower: 30s;
+  --dur-ambient-slower: 20s;
 
   /* --- Z-index --- */
   --z-nav: 100;
@@ -525,7 +525,7 @@ button:focus-visible {
   object-position: var(--hero-media-pos);
 }
 
-/* 真实媒体已就位 → 极慢 Ken Burns 缩放（30s，克制） */
+/* 真实媒体极慢呼吸缩放（Motion Stage 1 校准：1 → 1.025，20s，几乎无感但不死图） */
 .hero__media.is-filled {
   animation: heroMediaZoom var(--dur-ambient-slower) ease-in-out infinite alternate;
   will-change: transform;
@@ -1567,12 +1567,42 @@ button:focus-visible {
   transform: translateY(0);
 }
 
-/* Hero entrance — restrained stagger */
+/* Hero entrance — restrained stagger（Motion Stage 1：140/160/140ms 错落，非机械统一） */
 .js-loaded .nav__brand.reveal    { transition-delay: 0.05s; }
-.js-loaded .hero__badge.reveal  { transition-delay: 0.08s; }
-.js-loaded .hero__title.reveal  { transition-delay: 0.20s; }
-.js-loaded .hero__card-bl.reveal { transition-delay: 0.42s; }
+.js-loaded .hero__badge.reveal  { transition-delay: 0.10s; }
+.js-loaded .hero__title.reveal  { transition-delay: 0.24s; }
+.js-loaded .hero__card-bl.reveal { transition-delay: 0.40s; }
 .js-loaded .hero__cutout.reveal { transition-delay: 0.54s; }
+
+/* Headline — 极轻 blur → sharp（仅 hero title，允许范围内） */
+.js-loaded .hero__title.reveal {
+  filter: blur(6px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out),
+    filter var(--dur-slow) var(--ease-out);
+}
+
+.js-loaded .hero__title.reveal.is-visible {
+  filter: blur(0);
+}
+
+/* Hero scroll depth（Motion Stage 1）— JS 以 rAF 把滚动进度写入 --hero-scroll (0–1)，
+   内容层轻微上移 + 淡出，背景层以不同速率上移，形成很轻的 depth。
+   使用独立 translate 属性：与 cardFloat / heroMediaZoom 的 transform 动画无冲突。
+   prefers-reduced-motion 下 JS 不写入变量，此处规则自然失效。 */
+.hero__content {
+  translate: 0 calc(var(--hero-scroll, 0) * -30px);
+  opacity: calc(1 - var(--hero-scroll, 0) * 0.5);
+}
+
+.hero__card-bl-ambient,
+.hero__cutout {
+  translate: 0 calc(var(--hero-scroll, 0) * -16px);
+}
+
+.hero__media {
+  translate: 0 calc(var(--hero-scroll, 0) * -10px);
+}
 
 /* Hero container scale-in */
 @keyframes heroFadeIn {
@@ -1612,10 +1642,10 @@ button:focus-visible {
   to   { transform: translateY(-3px); }
 }
 
-/* Ambient — 真实媒体极慢缩放（Ken Burns，30s） */
+/* Ambient — 真实媒体极慢呼吸缩放（1 → 1.025，明显 Ken Burns 已按 Stage 1 校准移除） */
 @keyframes heroMediaZoom {
-  from { transform: scale(1.02); }
-  to   { transform: scale(1.07); }
+  from { transform: scale(1); }
+  to   { transform: scale(1.025); }
 }
 
 /* Ambient — vignette 光学层极慢漂移 */
@@ -1624,6 +1654,20 @@ button:focus-visible {
   to   { transform: scale(1.03); opacity: 1; }
 }
 
+
+/* ===== 13a. MOTION HIERARCHY + GRID STAGGER（Motion Stage 1）=====
+   层级：section head / major blocks 0.7s → cards / small UI 0.55s。
+   同屏网格子元素 80ms 递进，消除"整排同时出现"的机械感。 */
+.principle.reveal,
+.film.reveal {
+  transition-duration: 0.55s;
+}
+
+.principles .principle:nth-child(2).reveal { transition-delay: 0.08s; }
+.principles .principle:nth-child(3).reveal { transition-delay: 0.16s; }
+
+.film-grid--3up .film--a.reveal { transition-delay: 0.08s; }
+.film-grid--3up .film--b.reveal { transition-delay: 0.16s; }
 
 /* ===== 14. RESPONSIVE ===== */
 
@@ -1866,7 +1910,7 @@ button:focus-visible {
   pointer-events: none;
 }
 
-/* Desktop hover：仅轻微 scale / opacity 变化，不做大位移 */
+/* Desktop hover：仅轻微 scale / opacity 变化（Stage 1 校准：scale 上限 1.03），不做大位移 */
 @media (hover: hover) {
   .film__play {
     opacity: 0.88;
@@ -1875,7 +1919,7 @@ button:focus-visible {
   .film__play:hover,
   .film__play:focus-visible {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.06);
+    transform: translate(-50%, -50%) scale(1.03);
     background: rgba(20, 24, 26, 0.75);
   }
 }

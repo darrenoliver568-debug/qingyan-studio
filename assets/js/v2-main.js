@@ -8,6 +8,7 @@
  *   4. Section Reveal 动画
  *   5. 九州演示视频：视口播放（IO threshold 0.5）+ SVG 喇叭 overlay
  *   6. Film Modal（单实例 Lightbox，事件委托 [data-film]）
+ *   7. Hero Scroll Depth（rAF 节流，写入 --hero-scroll 变量供 CSS 消费）
  *
  * 注意：所有页面内容已写在静态 HTML 中（保证 no-JS 可读 + 截图可拍）。
  * 本文件只负责增强交互和素材替换。
@@ -466,6 +467,55 @@
 
 
   /* ========================================
+   * 4a. HERO SCROLL DEPTH（Motion Stage 1）
+   * ========================================
+   * 用户从 Hero 向下滑时产生很轻的 depth：
+   *   - CSS 侧（v2.css §13）：.hero__content / 底部入口 / .hero__media
+   *     消费 --hero-scroll (0–1) 做小位移 + 淡出（背景不同速率）。
+   *   - JS 侧（本函数）：rAF 节流监听 scroll，每帧只做一次
+   *     getBoundingClientRect 读取 + CSS 变量写入，无 layout thrashing。
+   * prefers-reduced-motion: reduce 时不写入变量（并清除已写入值），
+   * CSS 规则自然失效，功能交互不受影响。
+   */
+  function setupHeroScrollDepth() {
+    const container = document.querySelector(".hero__container");
+    if (!container) return;
+
+    let ticking = false;
+
+    const apply = () => {
+      ticking = false;
+      if (reducedMotionMQ.matches) {
+        container.style.removeProperty("--hero-scroll");
+        return;
+      }
+      const rect = container.getBoundingClientRect();
+      // 0 = hero 完整可见；1 = hero 已完整滚出视口顶端
+      const progress = Math.min(
+        1,
+        Math.max(0, -rect.top / Math.max(rect.height, 1))
+      );
+      container.style.setProperty("--hero-scroll", progress.toFixed(4));
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(apply);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    apply();
+
+    if (typeof reducedMotionMQ.addEventListener === "function") {
+      reducedMotionMQ.addEventListener("change", apply);
+    } else if (typeof reducedMotionMQ.addListener === "function") {
+      reducedMotionMQ.addListener(apply);
+    }
+  }
+
+
+  /* ========================================
    * 5. FILM MODAL — 单实例 Lightbox 播放器
    * ========================================
    * 触发：.film__cta[data-film] 点击（事件委托）
@@ -589,6 +639,7 @@
     renderMediaSlots();
     initReveal();
     initFilmModal();
+    setupHeroScrollDepth();
   }
 
   if (document.readyState === "loading") {
