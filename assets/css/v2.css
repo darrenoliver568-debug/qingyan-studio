@@ -519,39 +519,31 @@ button:focus-visible {
 
 .hero__media video,
 .hero__media img {
+  position: absolute;
+  inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: var(--hero-media-pos);
 }
 
-/* 真实媒体极慢呼吸缩放（Motion Stage 1 校准：1 → 1.025，20s，几乎无感但不死图） */
-.hero__media.is-filled {
-  animation: heroMediaZoom var(--dur-ambient-slower) ease-in-out infinite alternate;
-  will-change: transform;
+.hero__poster {
+  z-index: 0;
 }
 
-/* Real-image water refraction overlay (SVG duplicate + filter + water mask)
-   Architecture: 真实 img 在 .hero__media 内 (z 0 base)；
-                 .hero__liquid 与 .hero__media 同坐标系（.hero__container 兄弟），
-                 通过 .hero__media.is-filled + .hero__liquid 同步 Ken Burns；
-                 liquid 上层是 noise / vignette / overlay / content（z 1+），互不干扰。 */
-.hero__liquid {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.26; /* 0.18–0.32 区间内偏低起步 */
-  overflow: hidden;
-  /* 默认无动画；.hero__media 拿到 .is-filled 后才跟随 */
+.hero__media .hero__video {
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 320ms ease;
 }
-.hero__liquid > svg {
-  width: 100%;
-  height: 100%;
-  display: block;
+
+.hero__media .hero__video.is-ready {
+  opacity: 1;
 }
-/* 与 .hero__media.is-filled 同步 Ken Burns 慢推（同 keyframes / timing） */
-.hero__media.is-filled + .hero__liquid {
+
+/* 真实媒体极慢呼吸缩放（Motion Stage 1 校准：1 → 1.025，20s，几乎无感但不死图） */
+.hero__media.is-filled {
   animation: heroMediaZoom var(--dur-ambient-slower) ease-in-out infinite alternate;
   will-change: transform;
 }
@@ -564,7 +556,7 @@ button:focus-visible {
 .hero__media .hero__reveal {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   height: 100%;
   object-fit: cover;

@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 
+  <link rel="preload" as="image" href="assets/img/hero-lake.jpg" fetchpriority="high">
   <link rel="stylesheet" href="assets/css/v2.css">
 </head>
 <body>
@@ -54,86 +55,15 @@
     <!-- ================================================================
          HERO — Soft Glass Editorial Lab
          LOCKED: 让 AI 进入工作，也让 AI 进入创作。
-         Media Slot: hero-background (HERO_MEDIA_PLACEHOLDER)
+         Media Slot: hero-background (STATIC_POSTER_FIRST)
          ================================================================ -->
     <section class="hero" id="hero">
       <div class="hero__container">
 
-        <!-- MEDIA SLOT: hero-background — HERO_MEDIA_PLACEHOLDER
-             替换方式: 修改 site-data.js 中 media["hero-background"]
-             当前为 cinematic placeholder scene（灰阶山脊 + 光雾 + 噪点 + 缓慢漂移）
-             注意: noise / vignette 是 hero__container 的独立长期层，
-             替换 video 时不会被清空，电影质感层始终保留。 -->
+        <!-- MEDIA SLOT: hero-background — 静态 poster 是首屏与 JS/video failure fallback；
+             主视频由 v2-main.js 渐进增强，noise / vignette 长期层始终保留。 -->
         <div class="hero__media" data-slot-id="hero-background">
-          <svg class="hero__scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs>
-              <linearGradient id="hero-sky" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#21252b"/>
-                <stop offset="52%" stop-color="#15171b"/>
-                <stop offset="100%" stop-color="#0b0c0e"/>
-              </linearGradient>
-              <linearGradient id="hero-far" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#2c313a"/>
-                <stop offset="100%" stop-color="#191c21"/>
-              </linearGradient>
-              <linearGradient id="hero-mid" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#38404b"/>
-                <stop offset="100%" stop-color="#1e2126"/>
-              </linearGradient>
-              <radialGradient id="hero-glow" cx="0.5" cy="0.5" r="0.5">
-                <stop offset="0%" stop-color="#66717f" stop-opacity="0.42"/>
-                <stop offset="100%" stop-color="#66717f" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <rect width="1600" height="900" fill="url(#hero-sky)"/>
-            <ellipse class="hero__scene-glow" cx="830" cy="350" rx="620" ry="330" fill="url(#hero-glow)"/>
-            <path class="hero__scene-ridge hero__scene-ridge--far" d="M0,470 C230,420 420,505 700,465 C960,428 1180,520 1600,468 L1600,900 L0,900 Z" fill="url(#hero-far)"/>
-            <path class="hero__scene-ridge hero__scene-ridge--mid" d="M0,610 C310,555 560,650 880,600 C1180,553 1400,650 1600,600 L1600,900 L0,900 Z" fill="url(#hero-mid)"/>
-          </svg>
-          <span class="hero__media-label">HERO_MEDIA_PLACEHOLDER</span>
-        </div>
-
-        <!-- 真实图片液态折射 overlay（REAL_IMAGE_PLUS_FILTERED_SVG_OVERLAY）
-             嵌在 .hero__media 之外但与 .hero__container 同坐标系，
-             通过 .hero__media.is-filled ~ .hero__liquid CSS 选择器同步 Ken Burns。
-             内嵌 SVG 复用同一张 Hero 图片副本 + feTurbulence/feDisplacementMap + water mask；
-             树 / 白布 / 番茄 / 岩石被 mask 屏蔽，几乎不抖动。 -->
-        <div class="hero__liquid" aria-hidden="true">
-          <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" focusable="false">
-            <defs>
-              <filter id="hero-water" x="-3%" y="-3%" width="106%" height="106%" color-interpolation-filters="sRGB">
-                <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="1" seed="7" stitchTiles="stitch" result="water-noise"/>
-                <feDisplacementMap in="SourceGraphic" in2="water-noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
-              </filter>
-              <filter id="water-mask-blur" x="0" y="0" width="100%" height="100%">
-                <feGaussianBlur stdDeviation="32"/>
-              </filter>
-              <radialGradient id="water-grad" cx="42%" cy="40%" r="55%">
-                <stop offset="0%"  stop-color="#fff" stop-opacity="0.95"/>
-                <stop offset="55%" stop-color="#fff" stop-opacity="0.6"/>
-                <stop offset="100%" stop-color="#000" stop-opacity="1"/>
-              </radialGradient>
-              <radialGradient id="cloth-shield-g" cx="80%" cy="80%" r="65%">
-                <stop offset="0%"  stop-color="#000" stop-opacity="1"/>
-                <stop offset="65%" stop-color="#000" stop-opacity="0.5"/>
-                <stop offset="100%" stop-color="#000" stop-opacity="0"/>
-              </radialGradient>
-              <radialGradient id="tree-shield-g" cx="20%" cy="40%" r="40%">
-                <stop offset="0%"  stop-color="#000" stop-opacity="1"/>
-                <stop offset="60%" stop-color="#000" stop-opacity="0.5"/>
-                <stop offset="100%" stop-color="#000" stop-opacity="0"/>
-              </radialGradient>
-              <mask id="water-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900">
-                <rect width="1600" height="900" fill="black"/>
-                <rect width="1600" height="900" fill="url(#water-grad)" filter="url(#water-mask-blur)"/>
-                <rect width="1600" height="900" fill="url(#cloth-shield-g)" filter="url(#water-mask-blur)"/>
-                <rect width="1600" height="900" fill="url(#tree-shield-g)" filter="url(#water-mask-blur)"/>
-              </mask>
-            </defs>
-            <image href="assets/img/hero-lake.jpg" width="1600" height="900"
-                   filter="url(#hero-water)" mask="url(#water-mask)"
-                   preserveAspectRatio="xMidYMid slice"/>
-          </svg>
+          <img class="hero__poster" src="assets/img/hero-lake.jpg" alt="" fetchpriority="high" decoding="async">
         </div>
 
         <!-- 长期电影质感层：独立于 media slot，video 替换时永久保留 -->

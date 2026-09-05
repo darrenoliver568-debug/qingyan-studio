@@ -186,55 +186,33 @@
     const D = typeof SITE_DATA !== "undefined" ? SITE_DATA : null;
     const heroMedia = D && D.media && D.media["hero-background"];
 
-    // If no data or still placeholder → keep the cinematic scene (already in static HTML)
+    // 静态 poster 已在 HTML 中，数据缺失或仍为 placeholder 时直接保留。
     if (!heroMedia || heroMedia.type === "placeholder") {
       return;
     }
-
-    // 保存 placeholder 节点（scene + label）引用，用于 video 失败时恢复
-    const placeholderNodes = Array.from(heroMediaEl.children);
-
-    // Real media — replace only the media slot content.
-    // noise / vignette 位于 .hero__container 层，不在 .hero__media 内，不会被清空。
-    heroMediaEl.innerHTML = "";
 
     applyObjectPosition(heroMediaEl, heroMedia);
 
     if (heroMedia.type === "video") {
       const video = createHeroVideo(heroMedia);
+      video.classList.add("hero__video");
       let settled = false;
       let watchdog = null;
 
-      // video 加载失败 → poster → cinematic scene（绝不黑屏）
+      // video 加载失败时只移除增强层；HTML poster 始终保留，绝不黑屏。
       const fallback = () => {
         if (settled) return;
         settled = true;
         if (watchdog) clearTimeout(watchdog);
-        const poster = heroMedia.poster;
-        if (poster) {
-          const img = document.createElement("img");
-          img.src = poster;
-          img.alt = heroMedia.alt || "Hero background poster";
-          img.setAttribute("aria-hidden", "true");
-          img.addEventListener("error", () => {
-            // 双重校验：图片已成功解码（naturalWidth > 0）时忽略伪 error，
-            // 避免 headless/异常环境下偶发 error 误触发回退
-            if (img.complete && img.naturalWidth > 0) return;
-            restoreHeroPlaceholder(heroMediaEl, placeholderNodes);
-          });
-          heroMediaEl.innerHTML = "";
-          heroMediaEl.classList.remove("is-filled");
-          heroMediaEl.appendChild(img);
-          return;
-        }
-        restoreHeroPlaceholder(heroMediaEl, placeholderNodes);
+        video.remove();
       };
 
-      // 成功信号：已加载到元数据或可播放 → 取消 watchdog
+      // loadeddata / canplay 后才淡入增强层，poster 在底层承接过渡。
       const success = () => {
         if (settled) return;
         settled = true;
         if (watchdog) clearTimeout(watchdog);
+        video.classList.add("is-ready");
       };
       video.addEventListener("loadeddata", success);
       video.addEventListener("canplay", success);
@@ -259,38 +237,16 @@
       heroMediaEl.appendChild(video);
       bindReducedMotion(video);
 
-      // 双视频模式：静态图水面折射 overlay 不适用于视频 Hero，隐藏之
-      const liquidEl = document.querySelector(".hero__liquid");
-      if (liquidEl) liquidEl.style.display = "none";
-
       // 夕阳 reveal 层（desktop fine-pointer only；内部自带能力门控）
       if (heroMedia.revealSrc) {
         setupHeroCursorReveal(heroMediaEl, heroMedia);
       }
     } else if (heroMedia.type === "image") {
-      const img = document.createElement("img");
+      const img = heroMediaEl.querySelector(".hero__poster");
+      if (!img) return;
       img.src = heroMedia.src;
-      img.alt = heroMedia.alt || "Hero background";
-      img.setAttribute("aria-hidden", "true");
-
-      // 图片失败 → 恢复 cinematic scene（同样加 naturalWidth 双重校验）
-      img.addEventListener("error", () => {
-        if (img.complete && img.naturalWidth > 0) return;
-        restoreHeroPlaceholder(heroMediaEl, placeholderNodes);
-      });
-
       heroMediaEl.classList.add("is-filled");
-      heroMediaEl.appendChild(img);
     }
-  }
-
-  /**
-   * 恢复 cinematic placeholder scene（video/poster 均失败时的兜底）
-   */
-  function restoreHeroPlaceholder(heroMediaEl, placeholderNodes) {
-    heroMediaEl.classList.remove("is-filled");
-    heroMediaEl.innerHTML = "";
-    placeholderNodes.forEach((node) => heroMediaEl.appendChild(node));
   }
 
 
@@ -322,8 +278,9 @@
     const LERP_POS        = 0.32; // 光标跟随（0.28–0.38）
     const LERP_PROP       = 0.16; // 半径+透明度 ≈220ms enter / leave @60fps
 
-    const sunset = createHeroVideo({ src: media.revealSrc, preload: "auto" });
+    const sunset = createHeroVideo({ preload: "none" });
     sunset.className = "hero__reveal";
+    sunset.autoplay = false;
     heroMediaEl.appendChild(sunset);
 
     const REVEAL_R = REVEAL_DIAMETER / 2;
@@ -333,6 +290,22 @@
     let r = 0, op = 0;         // 当前半径 / 透明度
     let trTarget = 0, topTarget = 0;
     let hasPosition = false;
+    let revealLoadStarted = false;
+    let revealReady = false;
+
+    function loadReveal() {
+      if (revealLoadStarted) return;
+      revealLoadStarted = true;
+      sunset.addEventListener("canplay", () => {
+        revealReady = true;
+        const playPromise = sunset.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(() => {});
+        }
+      }, { once: true });
+      sunset.src = media.revealSrc;
+      sunset.load();
+    }
 
     function measure() {
       const rect = heroMediaEl.getBoundingClientRect();
@@ -347,12 +320,14 @@
     }
 
     hero.addEventListener("pointermove", (e) => {
+      loadReveal();
       setTarget(e);
       trTarget = REVEAL_R;
       topTarget = 1;
     }, { passive: true });
 
     hero.addEventListener("pointerenter", (e) => {
+      loadReveal();
       setTarget(e);
       cx = tx; cy = ty;   // 落点即绽放位置
       trTarget = REVEAL_R;
@@ -379,7 +354,7 @@
         r += (trTarget - r) * LERP_PROP;
         op += (topTarget - op) * LERP_PROP;
 
-        if (hasPosition && (r > 0.5 || op > 0.001)) {
+        if (revealReady && hasPosition && (r > 0.5 || op > 0.001)) {
           const core = r * CORE_FRACTION;
           const mask =
             "radial-gradient(circle at " + cx.toFixed(1) + "px " + cy.toFixed(1) + "px" +
@@ -639,145 +614,6 @@
     }
   }
 
-
-  /* ========================================
-   * 4b. HERO REAL-IMAGE WATER RIPPLE — REAL_IMAGE_PLUS_FILTERED_SVG_OVERLAY
-   * ========================================
-   * 架构：真实图片 (img) 在 .hero__media (z 0) 渲染；同时一份 duplicate <image> 在
-   *       .hero__liquid 内的 <svg> 中渲染，挂 feTurbulence + feDisplacementMap，
-   *       并通过 water-mask 限制位移仅作用于湖水区域：
-   *         - 左侧树干 / 上方树叶：弱 / 无 displacement
-   *         - 中央与右上湖面：最强
-   *         - 右下白布 / 番茄 / 岩石：逐渐衰减到 0
-   *       底层真实图片始终可见（.hero__liquid opacity 0.26，0.18–0.32 区间内偏低起步）；
-   *       SVG / filter / JS 任何环节失败 → 用户看到的仍是完整真实 Hero 图片。
-   *
-   * 规格约束：
-   *   - feTurbulence 静态（baseFrequency 0.008/0.012、numOctaves=1、seed=7 固定）；
-   *     流动感只来自低频 JS 改变 feDisplacementMap.scale
-   *   - 不用 SMIL（不受 CSS reduced-motion 控制）
-   *   - 驱动 ~12.5Hz（80ms 间隔，12-20Hz 区间）；双正弦波叠加，视觉周期 14s / 19s
-   *   - 幅度：desktop 5–10px（中位 7.5，振幅 2.5）；mobile（≤860px）弱约 30%（3–6px）
-   *
-   * 生命周期（不在必要时运行）：
-   *   - IntersectionObserver：.hero__container 离开视口（±15% margin）→ 停止
-   *   - visibilitychange：document.hidden → 停止；回来 → 恢复
-   *   - prefers-reduced-motion：命中时不启动；运行中切换即时响应（停驱动 + scale 归 0）
-   *
-   * Failure Safety：所有 DOM 查询失败 → 函数 early-return，底层真实图片不受影响
-   */
-  function setupHeroRealImageLiquid() {
-    const liquidEl = document.querySelector(".hero__liquid");
-    if (!liquidEl) return;
-    const svg = liquidEl.querySelector("svg");
-    const disp = svg ? svg.querySelector("#hero-water feDisplacementMap") : null;
-    if (!svg || !disp) return;
-
-    // 幅度参数：desktop 5–10px（mid 7.5 / amp 2.5）；mobile 3–6px（mid 4.5 / amp 1.5）
-    const AMP_DESKTOP = { mid: 7.5, amp: 2.5 };
-    const AMP_MOBILE  = { mid: 4.5, amp: 1.5 };
-    const UPDATE_MS = 80; // ~12.5Hz（12–20Hz 区间）
-    const W1 = (2 * Math.PI) / 14;  // 主波 ~14s
-    const W2 = (2 * Math.PI) / 19;  // 副波 ~19s（视觉周期落在 12–22s 区间内）
-
-    const mobileMQ = window.matchMedia("(max-width: 860px)");
-    const reducedMotionMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    let rafId = 0;
-    let timerId = 0;
-    let running = false;
-    let lastUpdate = 0;
-    let heroVisible = true;
-    let pageVisible = !document.hidden;
-
-    const isActive = () =>
-      !reducedMotionMQ.matches && heroVisible && pageVisible;
-
-    // 连续时间相位：停止 / 恢复后从当前时刻继续，无跳变
-    function scaleAt(tSec) {
-      const p = mobileMQ.matches ? AMP_MOBILE : AMP_DESKTOP;
-      const wave =
-        0.62 * Math.sin(tSec * W1) + 0.38 * Math.sin(tSec * W2 + 2.1);
-      return Math.max(0, p.mid + p.amp * wave);
-    }
-
-    function tick(now) {
-      rafId = 0;
-      if (!running) return;
-      if (now - lastUpdate >= UPDATE_MS) {
-        lastUpdate = now;
-        disp.setAttribute("scale", scaleAt(now / 1000).toFixed(2));
-      }
-      timerId = window.setTimeout(() => {
-        rafId = requestAnimationFrame(tick);
-      }, UPDATE_MS);
-    }
-
-    function start() {
-      if (running || !isActive()) return;
-      running = true;
-      lastUpdate = 0; // 立即补一次更新
-      rafId = requestAnimationFrame(tick);
-    }
-
-    function stop(settleZero) {
-      running = false;
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = 0;
-      }
-      if (timerId) {
-        clearTimeout(timerId);
-        timerId = 0;
-      }
-      if (settleZero) disp.setAttribute("scale", "0");
-    }
-
-    function onMotionChange() {
-      if (reducedMotionMQ.matches) {
-        stop(true); // reduced-motion：停驱动 + scale 归 0
-      } else {
-        start();
-      }
-    }
-
-    // Hero 进入 / 离开视口（含 15% 提前量）
-    if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            heroVisible = entry.isIntersecting;
-            if (heroVisible) start();
-            else stop(false); // 离开视口：只停更新，保留静态末值
-          });
-        },
-        { rootMargin: "15% 0px 15% 0px" }
-      );
-      const heroContainer = document.querySelector(".hero__container");
-      if (heroContainer) io.observe(heroContainer);
-    } else {
-      heroVisible = true; // 无 IO 支持时降级为常开（页面可见时）
-    }
-
-    // 页面隐藏 / 恢复
-    document.addEventListener("visibilitychange", () => {
-      pageVisible = !document.hidden;
-      if (pageVisible) start();
-      else stop(false);
-    });
-
-    // reduced-motion 运行中切换 → 即时响应
-    if (typeof reducedMotionMQ.addEventListener === "function") {
-      reducedMotionMQ.addEventListener("change", onMotionChange);
-    } else if (typeof reducedMotionMQ.addListener === "function") {
-      reducedMotionMQ.addListener(onMotionChange);
-    }
-
-    // 初始化（reduce 命中时不启动，scale 保持 0）
-    onMotionChange();
-  }
-
-
   /* ========================================
    * 5. FILM MODAL — 单实例 Lightbox 播放器
    * ========================================
@@ -903,13 +739,6 @@
     initReveal();
     initFilmModal();
     setupHeroScrollDepth();
-    // Liquid（静态图水面折射）仅适用于图片 Hero；视频 Hero 下不启动
-    const D = typeof SITE_DATA !== "undefined" ? SITE_DATA : null;
-    const heroIsVideo = !!(
-      D && D.media && D.media["hero-background"] &&
-      D.media["hero-background"].type === "video"
-    );
-    if (!heroIsVideo) setupHeroRealImageLiquid();
   }
 
   if (document.readyState === "loading") {
