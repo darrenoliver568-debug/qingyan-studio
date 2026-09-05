@@ -556,6 +556,29 @@ button:focus-visible {
   will-change: transform;
 }
 
+/* --- HERO DUAL-VIDEO CURSOR REVEAL — 夕阳 reveal 层（已验收模块） ---
+   由 v2-main.js 在 desktop（fine pointer / ≥1024px / 非 reduced-motion）注入；
+   与主层白天视频同处 .hero__media → object-fit / object-position / Ken Burns
+   完全一致，对齐天然保持。soft radial mask 由 JS 每帧写入。
+   Mobile / touch / reduced-motion：JS 不注入 + CSS 兜底 display:none。 */
+.hero__media .hero__reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--hero-media-pos);
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity, -webkit-mask-image, mask-image;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0px, transparent 0px);
+          mask-image: radial-gradient(circle at 50% 50%, #000 0px, transparent 0px);
+}
+@media (pointer: coarse), (max-width: 1023px), (prefers-reduced-motion: reduce) {
+  .hero__media .hero__reveal { display: none; }
+}
+
 /* Cinematic scene: abstract grey mountain ridges + haze + glow */
 .hero__scene {
   position: absolute;

@@ -291,13 +291,17 @@ const SITE_DATA = {
    *   - objectPosition / objectPositionMobile 按 CSS var 注入，不绑定具体素材
    * ================================================================ */
   media: {
-    /* --- Hero --- */
+    /* --- Hero ---
+       双视频 Cursor Reveal 模块（已验收）：
+       - src       = 白天主视频（全时循环）
+       - revealSrc = 夕阳 reveal 层（desktop fine-pointer 注入，soft radial mask）
+       两条视频已做像素级对齐（同几何同裁切），见 HERO_ALIGNMENT_QUALITY_REPORT。 */
     "hero-background": {
-      type: "image",
-      src: "assets/img/hero-lake.jpg",
-      alt: "湖边自然场景",
+      type: "video",
+      src: "assets/video/hero-day.mp4",
+      revealSrc: "assets/video/hero-sunset.mp4",
       objectPosition: "center 50%",
-      objectPositionMobile: "55% 50%"
+      objectPositionMobile: "center 50%"
     },
 
     /* --- Experience / 九州 --- */

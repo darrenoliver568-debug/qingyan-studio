@@ -258,6 +258,15 @@
       heroMediaEl.classList.add("is-filled");
       heroMediaEl.appendChild(video);
       bindReducedMotion(video);
+
+      // 双视频模式：静态图水面折射 overlay 不适用于视频 Hero，隐藏之
+      const liquidEl = document.querySelector(".hero__liquid");
+      if (liquidEl) liquidEl.style.display = "none";
+
+      // 夕阳 reveal 层（desktop fine-pointer only；内部自带能力门控）
+      if (heroMedia.revealSrc) {
+        setupHeroCursorReveal(heroMediaEl, heroMedia);
+      }
     } else if (heroMedia.type === "image") {
       const img = document.createElement("img");
       img.src = heroMedia.src;
@@ -282,6 +291,122 @@
     heroMediaEl.classList.remove("is-filled");
     heroMediaEl.innerHTML = "";
     placeholderNodes.forEach((node) => heroMediaEl.appendChild(node));
+  }
+
+
+  /* ========================================
+   * 2a. HERO CURSOR REVEAL — 双视频模块（已验收参数）
+   * ========================================
+   * 架构：主层白天 video（renderHeroMedia 注入）+ 夕阳 reveal video（本函数注入），
+   *       两者同为 .hero__media 子元素 → object-fit / object-position / Ken Burns
+   *       完全一致，像素对齐天然保持。
+   * 交互：soft radial CSS mask（无硬边）+ rAF lerp 跟随。
+   *       mousemove 只更新 target；rect 缓存，resize/scroll 才重测（无逐帧测量）。
+   * 门控：desktop（fine pointer / 非 touch / ≥1024px）且非 reduced-motion；
+   *       其余环境不注入 reveal 层（Mobile reveal disabled）。
+   * 调参（HERO_REVEAL_TUNING_REPORT 已验收）：
+   *       直径 340px（core 60% 清晰 + 40% 羽化）、跟随 lerp 0.32、
+   *       半径+透明度 lerp 0.16（≈220ms 进入 / ≈220ms 离开）。
+   */
+  function setupHeroCursorReveal(heroMediaEl, media) {
+    const pointerFine = window.matchMedia("(pointer: fine)").matches;
+    const notTouch = !window.matchMedia("(pointer: coarse)").matches;
+    const wide = window.innerWidth >= 1024;
+    if (!(pointerFine && notTouch && wide) || reducedMotionMQ.matches) return;
+
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+
+    const REVEAL_DIAMETER = 340;  // px（允许微调区间 320–380）
+    const CORE_FRACTION   = 0.60; // 内圈清晰 60%，外圈羽化 40%
+    const LERP_POS        = 0.32; // 光标跟随（0.28–0.38）
+    const LERP_PROP       = 0.16; // 半径+透明度 ≈220ms enter / leave @60fps
+
+    const sunset = createHeroVideo({ src: media.revealSrc, preload: "auto" });
+    sunset.className = "hero__reveal";
+    heroMediaEl.appendChild(sunset);
+
+    const REVEAL_R = REVEAL_DIAMETER / 2;
+    let rectLeft = 0, rectTop = 0;
+    let cx = 0, cy = 0;        // 当前 mask 中心（rAF 写）
+    let tx = 0, ty = 0;        // 目标中心（pointermove 只写这两个）
+    let r = 0, op = 0;         // 当前半径 / 透明度
+    let trTarget = 0, topTarget = 0;
+    let hasPosition = false;
+
+    function measure() {
+      const rect = heroMediaEl.getBoundingClientRect();
+      rectLeft = rect.left;
+      rectTop = rect.top;
+    }
+
+    function setTarget(e) {
+      tx = e.clientX - rectLeft;
+      ty = e.clientY - rectTop;
+      hasPosition = true;
+    }
+
+    hero.addEventListener("pointermove", (e) => {
+      setTarget(e);
+      trTarget = REVEAL_R;
+      topTarget = 1;
+    }, { passive: true });
+
+    hero.addEventListener("pointerenter", (e) => {
+      setTarget(e);
+      cx = tx; cy = ty;   // 落点即绽放位置
+      trTarget = REVEAL_R;
+      topTarget = 1;
+    }, { passive: true });
+
+    hero.addEventListener("pointerleave", () => {
+      trTarget = 0;
+      topTarget = 0;
+    }, { passive: true });
+
+    window.addEventListener("resize", measure, { passive: true });
+    window.addEventListener("scroll", measure, { passive: true });
+    measure();
+
+    function frame() {
+      // hero media 已被回退链替换（poster / scene）→ 停止循环
+      if (!sunset.isConnected) return;
+
+      const active = hasPosition || trTarget > 0 || r > 0.5 || op > 0.001;
+      if (active) {
+        cx += (tx - cx) * LERP_POS;
+        cy += (ty - cy) * LERP_POS;
+        r += (trTarget - r) * LERP_PROP;
+        op += (topTarget - op) * LERP_PROP;
+
+        if (hasPosition && (r > 0.5 || op > 0.001)) {
+          const core = r * CORE_FRACTION;
+          const mask =
+            "radial-gradient(circle at " + cx.toFixed(1) + "px " + cy.toFixed(1) + "px" +
+            ", #000 " + core.toFixed(1) + "px, rgba(0,0,0,0) " + r.toFixed(1) + "px)";
+          sunset.style.webkitMaskImage = mask;
+          sunset.style.maskImage = mask;
+          sunset.style.opacity = op.toFixed(3);
+        } else {
+          sunset.style.opacity = "0";
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    // 会话中途开启 reduced-motion → 移除 reveal 层（Mobile/reduced 场景不残留）
+    const onReduced = () => {
+      if (reducedMotionMQ.matches) {
+        sunset.remove();
+        if (typeof reducedMotionMQ.removeEventListener === "function") {
+          reducedMotionMQ.removeEventListener("change", onReduced);
+        }
+      }
+    };
+    if (typeof reducedMotionMQ.addEventListener === "function") {
+      reducedMotionMQ.addEventListener("change", onReduced);
+    }
   }
 
 
@@ -778,7 +903,13 @@
     initReveal();
     initFilmModal();
     setupHeroScrollDepth();
-    setupHeroRealImageLiquid();
+    // Liquid（静态图水面折射）仅适用于图片 Hero；视频 Hero 下不启动
+    const D = typeof SITE_DATA !== "undefined" ? SITE_DATA : null;
+    const heroIsVideo = !!(
+      D && D.media && D.media["hero-background"] &&
+      D.media["hero-background"].type === "video"
+    );
+    if (!heroIsVideo) setupHeroRealImageLiquid();
   }
 
   if (document.readyState === "loading") {
